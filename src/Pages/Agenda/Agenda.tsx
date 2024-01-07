@@ -2,6 +2,7 @@ import { DesktopOnly, MobileOnly } from "../../Utils/IsMobile"
 import Agenda_mobile from "./Agenda_mobile"
 import { Liste_agenda } from "./Classes/Liste_Agenda";
 import { Creneaux } from "../../Utils/Creneaux";
+import Agenda_Desktop from "./Agenda_desktop";
 
 
 
@@ -61,7 +62,7 @@ export default function Agenda() {
             <Agenda_mobile agenda={agenda} />
         </MobileOnly>
         <DesktopOnly>
-            <h2>Desktop</h2>
+            <Agenda_Desktop agenda={agenda} />
         </DesktopOnly>
     </>
 }
