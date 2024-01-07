@@ -58,6 +58,26 @@ export class TwoDMap<A, B, T> {
         }
         return result;
     }
+
+    public selectRow(row: A): Map<B, T> {
+        const result = new Map<B, T>();
+        for (const [a, b, value] of this.raw_data) {
+            if (a === row || (a instanceof SmallDate && a.equals(row as SmallDate))) {
+                result.set(b, value);
+            }
+        }
+        return result;
+    }
+
+    public selectCol(col: B): Map<A, T> {
+        const result = new Map<A, T>();
+        for (const [a, b, value] of this.raw_data) {
+            if (b === col || (b instanceof SmallDate && b.equals(col as SmallDate))) {
+                result.set(a, value);
+            }
+        }
+        return result;
+    }
 }
 
 export type ThreeDMapEntry<A, B, C, T> = [A, B, C, T];

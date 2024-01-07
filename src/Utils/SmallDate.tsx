@@ -62,5 +62,9 @@ export default class SmallDate{
     public equals(other: SmallDate): boolean {
         return this._day_of_month === other._day_of_month && this._month === other._month && this._year === other._year;
     }
+
+    get frFormat(): string {
+        return this._day_of_month + "/" + this._month + "/" + this._year;
+    }
   
 }

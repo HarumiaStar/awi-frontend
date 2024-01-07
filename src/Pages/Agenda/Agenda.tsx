@@ -3,6 +3,9 @@ import Agenda_mobile from "./Agenda_mobile"
 import { Liste_agenda } from "./Classes/Liste_Agenda";
 import { Creneaux } from "../../Utils/Creneaux";
 import Agenda_Desktop from "./Agenda_desktop";
+import { Activite_Agenda } from "./Classes/Activite_Agenda";
+import { act } from "react-dom/test-utils";
+import SmallDate from "../../Utils/SmallDate";
 
 
 
@@ -57,6 +60,16 @@ export default function Agenda() {
         [Creneaux.SOIREE, 0.8],
         [Creneaux.DEPART, 0.2]
     ]));
+
+    const activite = new Activite_Agenda("Animation jeux", new Map<Creneaux, number>([
+        [Creneaux.MATIN, 0.5],
+        [Creneaux.MIDI, 0.7],
+        [Creneaux.APRES_MIDI, 0.3],
+        [Creneaux.SOIREE, 0.8],
+        [Creneaux.DEPART, 0.2]
+    ]), new SmallDate(11,10,2010));
+
+    agenda.addActivite(activite);
 
     return <>
         <MobileOnly>

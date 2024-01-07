@@ -60,13 +60,24 @@ export class Liste_agenda {
 
     private getByDate(date_targeted: SmallDate): TwoDMap<string, Creneaux, number> | undefined {
         const listesByDates = this._liste.get2DByB();
-        let liste = new TwoDMap<string, Creneaux, number>();
         listesByDates.forEach((value, current_date) => {
             if (current_date.equals(date_targeted)) {
-                liste = value;
+                return value;
             }
         });
+        return undefined;
+    }
+
+    public get allDates(): SmallDate[] {
+        const liste: SmallDate[] = [];
+        this._liste.get2DByB().forEach((_, key) => {
+            liste.push(key);
+        });
         return liste;
+    }
+
+    public get liste(): ThreeDMap<string, SmallDate, Creneaux, number> {
+        return this._liste;
     }
 
     

@@ -5,7 +5,8 @@
     justify-content: center;
     color: rgba(255, 255, 255, 0.87);
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    width: 100%;
+    min-width: 100%;
+    overflow-x: auto;
 }
 
 .table_agenda {
@@ -16,7 +17,7 @@
 .table_agenda td {
     border: 1px solid rgba(255, 255, 255, 0.87);
     padding: 0.5rem;
-    width: 10rem;
+    min-width: 10rem;
     text-align: center;
 }
 
@@ -28,4 +29,13 @@
 .table_agenda th {
     border: 1px solid rgba(255, 255, 255, 0.87);
     padding: 0.5rem;
+}
+
+.agenda_date_selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem;
 }

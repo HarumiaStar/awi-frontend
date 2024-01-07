@@ -1,0 +1,56 @@
+/* 
+
+    return <div className="boxed_radio_button">
+        {buttonsOptions.map((buttonOption: ButtonOptions) => {
+            return <div key={buttonOption.value} className="boxed_radio_button_element">
+                <input type="radio" id={buttonOption.value} name={buttonOption.name} value={buttonOption.value} checked={buttonOption.value === selectedValue} onChange={() => {
+                    buttonOption.onChange(selectedValue, buttonOption.value);
+                    setSelectedValue(buttonOption.value);
+                }} />
+                <label htmlFor={buttonOption.value}>{buttonOption.value}</label>
+            </div>
+        })}
+    </div>
+} */
+
+.boxed_radio_button_area {
+    display: inline-block;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.87);
+    border-radius: 0.5rem;
+}
+
+.boxed_radio_button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.boxed_radio_button_element {
+    border-left: 1px solid rgba(255, 255, 255, 0.87);
+    border-top: 1px solid rgba(255, 255, 255, 0.87);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.87);
+    vertical-align: middle;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    transition: background-color 0.6s ease;
+}
+
+.boxed_radio_button_element:first-child {
+    border-left: 1px solid rgba(255, 255, 255, 0.87);
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.boxed_radio_button_element:last-child {
+    border-right: 1px solid rgba(255, 255, 255, 0.87);
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.boxed_radio_button_element.checked {
+    background-color: rgba(40, 49, 179, 0.87);
+}
