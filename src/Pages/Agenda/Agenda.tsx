@@ -1,4 +1,3 @@
-import React from "react"
 import { DesktopOnly, MobileOnly } from "../../Utils/IsMobile"
 import Agenda_mobile from "./Agenda_mobile"
 import { Liste_agenda } from "./Classes/Liste_Agenda";
