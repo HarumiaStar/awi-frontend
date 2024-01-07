@@ -5,3 +5,11 @@ export enum Creneaux {
     SOIREE = "SOIREE",
     DEPART = "DEPART"
 }
+
+export const CreneauxList = [
+    Creneaux.MATIN,
+    Creneaux.MIDI,
+    Creneaux.APRES_MIDI,
+    Creneaux.SOIREE,
+    Creneaux.DEPART
+]

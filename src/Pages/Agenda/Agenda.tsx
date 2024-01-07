@@ -7,6 +7,7 @@ import Agenda_Desktop from "./Agenda_desktop";
 
 
 export default function Agenda() {
+
     const agenda: Liste_agenda = new Liste_agenda();
 
     agenda.addActiviteMap("Animation jeux", new Map<Creneaux, number>([

@@ -1,0 +1,31 @@
+
+.agenda_table_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.87);
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    width: 100%;
+}
+
+.table_agenda {
+    margin: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.87);
+}
+
+.table_agenda td {
+    border: 1px solid rgba(255, 255, 255, 0.87);
+    padding: 0.5rem;
+    width: 10rem;
+    text-align: center;
+}
+
+.table_agenda td.titre {
+    font-weight: bold;
+    text-align: left;
+}
+
+.table_agenda th {
+    border: 1px solid rgba(255, 255, 255, 0.87);
+    padding: 0.5rem;
+}
