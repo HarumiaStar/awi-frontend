@@ -42,7 +42,7 @@ export default function Agenda_Desktop({ agenda }: { agenda: Liste_agenda }) {
         toutes_activites.push(<tr key={v4()}>{cellules}</tr>)
     })
 
-    const buttonsOptions = dates.map((value: SmallDate, index: number) => {
+    const buttonsOptions = dates.map((value: SmallDate) => {
         return {
             name: value.frFormat,
             value: value.frFormat,

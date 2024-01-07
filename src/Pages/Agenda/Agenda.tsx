@@ -4,7 +4,6 @@ import { Liste_agenda } from "./Classes/Liste_Agenda";
 import { Creneaux } from "../../Utils/Creneaux";
 import Agenda_Desktop from "./Agenda_desktop";
 import { Activite_Agenda } from "./Classes/Activite_Agenda";
-import { act } from "react-dom/test-utils";
 import SmallDate from "../../Utils/SmallDate";
 
 

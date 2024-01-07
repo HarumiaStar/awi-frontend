@@ -2,7 +2,7 @@ import { Liste_agenda } from "./Classes/Liste_Agenda"
 import { Liste_deroulante, Liste_deroulante_element, Liste_deroulante_element_data } from "../../Utils/Liste_deroulante"
 import { Creneaux } from "../../Utils/Creneaux";
 import SmallDate from "../../Utils/SmallDate";
-import { ThreeDMap, TwoDMap } from "../../Utils/ThreeDMap";
+import { TwoDMap } from "../../Utils/ThreeDMap";
 import { v4 } from "uuid";
 
 
@@ -24,7 +24,7 @@ export default function Agenda_mobile({ agenda }: { agenda: Liste_agenda }) {
         sections.push({nom: nom_section, liste: liste_deroulante})
     })
 
-    const section_affichage = sections.map((section, index) => {
+    const section_affichage = sections.map((section) => {
         const liste_deroulante = <Liste_deroulante liste_objet={section.liste} />
         return <section key={v4()} className="section_liste_deroulante">
             <h3>{section.nom}</h3>

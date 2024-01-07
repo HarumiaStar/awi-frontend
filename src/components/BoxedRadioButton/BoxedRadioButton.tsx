@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./BoxedRadioButton.css";
 import findParentWithClass from "../../Utils/firstParentWithClass";
 
@@ -31,12 +30,7 @@ export default function BoxedRadioButton({ buttonsOptions }: { buttonsOptions: b
         const element_class = "boxed_radio_button_element" + (checked ? " checked" : "");
         console.log(element_class)
         return <div key={value} className={element_class} onClick={(event) => handleClick(event, onChange, value)}>
-            {/* <input type="radio" id={value} name={name} value={value} checked={checked} onChange={() => {
-                onChange(value);
-                setSelectedValue(value);
-            }} />
-            <label htmlFor={value}>{value}</label> */}
-            {value}
+            {name}
         </div>
     }
 
