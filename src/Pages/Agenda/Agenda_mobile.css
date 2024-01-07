@@ -1,0 +1,93 @@
+.agenda {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 2rem;
+
+}
+
+
+.activite_agenda {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #242424;
+    color: rgba(255, 255, 255, 0.87);
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.nom_activite {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.87);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.nom_activite::before {
+    content: '\25B6';
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.nom_activite.open::before {
+    transform: rotate(90deg);
+}
+
+.creneaux {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right: 3rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.87);
+    transition: max-height 0.15s ease-out, opacity 0.15s ease-out;
+    max-height: 1000px; /*Adjust this value as needed*/
+    opacity: 1;
+}
+
+.creneaux.closed {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+
+.creneau {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0.25rem 0;
+    gap: 1rem;
+}
+
+.creneau_nom::before {
+    content: "-";
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: rgba(255, 255, 255, 0.87);
+    line-height: 1.5;
+}
+
+.creneau_nom {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.creneau_valeur {
+    font-size: 1rem;
+    font-weight: 400;
+}
