@@ -1,0 +1,101 @@
+
+.login_container {
+    width: 100%;
+    height: 100%;
+    /* center vertialy */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_mobile {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.login_mobile_header_title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.login_mobile_content {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.login_mobile_content_form {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem;
+}
+
+.login_mobile_content_form_input_icon {
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.login_mobile_content_form_input input{
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: transparent;  
+    border-radius: 0;
+}
+
+.login_mobile_content_form_input input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+.login_mobile_content_form_input {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: text;
+    transition: all 0.2s ease-in-out;
+}
+
+.login_mobile_content_form_input:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.login_mobile_content_form_input:focus-within {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.login_mobile_content_form_button {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Button */
+.login_mobile_connect {
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+}
+
