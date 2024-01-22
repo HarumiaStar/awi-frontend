@@ -1,0 +1,13 @@
+.formInput input{
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: transparent;  
+    border-radius: 0;
+}
+
+.formInput input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
