@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { Layout, Agenda, Login, NotFound } from './Pages'
+import { Layout, Agenda, Login, NotFound, Register } from './Pages'
 
 function App() {
 
@@ -12,6 +12,7 @@ function App() {
           {/* <Route index element={<Home />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="agenda" element={<Agenda />} />
+          <Route path="Register" element={<Register />} />
 
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit

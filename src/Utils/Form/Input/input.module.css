@@ -1,3 +1,15 @@
+.formInput {
+    cursor: text;
+    padding: 0.25rem 1rem;
+    transition: all 0.4s ease-in-out;
+    border-radius: 0.5rem;
+}
+
+.formInput:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
 .formInput input{
     padding: 1rem;
     border-radius: 0.5rem;
