@@ -1,0 +1,58 @@
+.mainArea{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.loginArea {
+    border: 2px solid #2c2c2c;
+    border-radius: 10px;
+    padding: 30px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentLinks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.contentLinks a {
+    text-decoration: none;
+    color: #696969;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+.sideActionLinks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.sideActionButton {
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #515151;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    gap: 10px;
+}
