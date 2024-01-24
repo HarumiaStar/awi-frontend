@@ -12,18 +12,18 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "localforage": "^1.10.0",
-    "match-sorter": "^6.3.3",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.21.3",
-    "sort-by": "^1.2.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/jest": "^29.5.11",
-    "@types/react": "^18.2.43",
+    "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.17",
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.14.0",

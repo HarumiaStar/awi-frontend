@@ -8,11 +8,11 @@ type RadioOptions = {
     checked: boolean;
 }
 
-export default function Radio({ radioOptions, name, icon, error = false, id = v4()}: { radioOptions: RadioOptions[], name: string, icon: JSX.Element, error?: boolean, id?: string }): JSX.Element {
+export default function Radio({ radioOptions, name, icon, id = v4()}: { radioOptions: RadioOptions[], name: string, icon: JSX.Element, error?: boolean, id?: string }): JSX.Element {
 
 
     function onChangeHandler(value: string) {
-        const element = document.getElementById(name) as HTMLSelectElement;
+        const element = document.getElementById(id) as HTMLSelectElement;
         element.value = value;
     }
 

@@ -1,8 +1,8 @@
 import { Liste_agenda } from "./Classes/Liste_Agenda"
 import { Liste_deroulante, Liste_deroulante_element, Liste_deroulante_element_data } from "../../Utils/Liste_deroulante"
-import { Creneaux } from "../../Utils/Creneaux";
-import SmallDate from "../../Utils/SmallDate";
-import { TwoDMap } from "../../Utils/ThreeDMap";
+import { Creneaux } from "../../Utils/Types/Creneaux";
+import SmallDate from "../../Utils/Types/SmallDate";
+import { TwoDMap } from "../../Utils/Types/ThreeDMap";
 import { v4 } from "uuid";
 
 

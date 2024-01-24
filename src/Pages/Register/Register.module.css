@@ -45,3 +45,28 @@
 .inputField {
     width: 100%;
 }
+
+.registerMessage {
+    font-size: 14px;
+    color: #8b8b8b;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerMessage a {
+    color: #5e5e5e;
+    text-decoration: none;
+}
+
+.registerMessageError {
+    font-size: 14px;
+    color: #ff0000;
+    margin-top: 10px;
+}
+
+.disabled {
+    display: none;
+}

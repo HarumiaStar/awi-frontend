@@ -1,4 +1,4 @@
-import { ThreeDMap, TwoDMap } from "../Utils/ThreeDMap";
+import { ThreeDMap, TwoDMap } from "../Utils/Types/ThreeDMap";
 
 
 describe('TwoDMap', () => {
