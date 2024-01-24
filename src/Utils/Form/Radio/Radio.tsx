@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import style from './radio.module.css';
+import { v4 } from 'uuid';
 
 type RadioOptions = {
     name: string;
@@ -7,7 +8,7 @@ type RadioOptions = {
     checked: boolean;
 }
 
-export default function Radio({ radioOptions, name, icon }: { radioOptions: RadioOptions[], name: string, icon: JSX.Element }): JSX.Element {
+export default function Radio({ radioOptions, name, icon, error = false, id = v4()}: { radioOptions: RadioOptions[], name: string, icon: JSX.Element, error?: boolean, id?: string }): JSX.Element {
 
 
     function onChangeHandler(value: string) {
@@ -55,7 +56,7 @@ export default function Radio({ radioOptions, name, icon }: { radioOptions: Radi
                     return createButton(option.name, option.value, option.checked, onChangeHandler);
                 })}
             </div>
-            <select name={name} style={{ display: 'none' }} id={name} value={initialChecked?.value}>
+            <select name={name} style={{ display: 'none' }} id={id} value={initialChecked?.value}>
                 {radioOptions.map((option: RadioOptions) => {
                     return <option key={option.value} value={option.value}>{option.name}</option>
                 })}

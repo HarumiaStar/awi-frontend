@@ -6,10 +6,11 @@ interface InputProps {
     icon : JSX.Element,
     id : string,
     containerClass? : string,
-    inputClass? : string
+    inputClass? : string,
+    error?: boolean
 }
 
-export default function Input({type, placeholder, icon, id, containerClass, inputClass} : InputProps) : JSX.Element {
+export default function Input({type, placeholder, icon, id, containerClass, inputClass, error = false} : InputProps) : JSX.Element {
     const containerClickHandler = (event : React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -20,7 +21,7 @@ export default function Input({type, placeholder, icon, id, containerClass, inpu
 
 
     return (
-        <div className={style.formInput + " " + containerClass} onClick={containerClickHandler}>
+        <div className={style.formInput + " " + containerClass + " " + (error ? style.error : "")} onClick={containerClickHandler}>
             {icon}
             <input type={type} placeholder={placeholder} id={id} className={inputClass} />
         </div>
