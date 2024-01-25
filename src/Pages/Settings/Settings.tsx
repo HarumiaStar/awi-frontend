@@ -103,24 +103,24 @@ export default function Settings() {
 			"address": "azertyuisqdfg",
 			"phone": null,
 			"username": null,
-			"avatarUrl": "azetryui",
-			"nbEditionPerformed": "1",
-			"tshirtSize": "M",
+			"avatar_url": "azetryui",
+			"nb_edition_performed": "1",
+			"tshirt_size": "M",
 			"lodging": "recherche",
-			"foodRegime": "vegetarien",
+			"food_regime": "vegetarien",
 			"isAdmin": false
 		}
 		 */
 
 		const nouvellesTaillesTshirt = tailles_tshirt.map((taille) => {
-			if (taille.value === selfVolunteer.tshirtSize)
+			if (taille.value === selfVolunteer.tshirt_size)
 				return { ...taille, checked: true };
 			else
 				return { ...taille, checked: false };
 		});
 
 		const nouveauxRegimesAlimentaires = regimes_alimentaires.map((regime) => {
-			if (regime.value === selfVolunteer.foodRegime)
+			if (regime.value === selfVolunteer.food_regime)
 				return { ...regime, checked: true };
 			else
 				return { ...regime, checked: false };
@@ -140,10 +140,10 @@ export default function Settings() {
 				<Input type="text" placeholder="Nom d'utilisateur" icon={<MdDriveFileRenameOutline />} id="username" onChange={onInputChange} value={selfVolunteer.username} />
 				<Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" onChange={onInputChange} value={selfVolunteer.email} />
 				<Radio radioOptions={nouvellesTaillesTshirt} name="Taille du t-shirt" icon={<FaTshirt />} id="tshirt_size" onChange={onSelectChange} />
-				<Input type="number" placeholder="Nombre d'éditions participé" icon={<AiOutlineFieldNumber />} id="nb_edition_performed" onChange={onInputChange} value={selfVolunteer.nbEditionPerformed} />
+				<Input type="number" placeholder="Nombre d'éditions participé" icon={<AiOutlineFieldNumber />} id="nb_edition_performed" onChange={onInputChange} value={selfVolunteer.nb_edition_performed} />
 				<Input type="text" placeholder='Adresse' icon={<FaHome />} id="address" onChange={onInputChange} value={selfVolunteer.address} />
 				<Input type="text" placeholder='06 12 34 56 78 90' icon={<FaPhone />} id="phone" onChange={onInputChange} value={selfVolunteer.phone} />
-				<Input type="text" placeholder="URL de l'avatar" icon={<IoMdContact />} id="avatar_url" onChange={onInputChange} value={selfVolunteer.avatarUrl} />
+				<Input type="text" placeholder="URL de l'avatar" icon={<IoMdContact />} id="avatar_url" onChange={onInputChange} value={selfVolunteer.avatar_url} />
 				<Radio radioOptions={nouveauxRegimesAlimentaires} name="Régime alimentaire" icon={<PiForkKnifeBold />} id="diet" onChange={onSelectChange} />
 				<Radio radioOptions={nouveauLodging} name="Logement" icon={<FaHome />} id="lodging" onChange={onSelectChange} />
 			</>
