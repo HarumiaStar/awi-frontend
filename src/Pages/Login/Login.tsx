@@ -5,15 +5,15 @@ import LoginDesktop from "./LoginDesktop";
 import LoginMobile from "./LoginMobile";
 
 export default function Login() {
-    const loginHandler = async (email : string, password : string) => {
-        const navigate = useNavigate();
+    const navigate = useNavigate();
+    const loginHandler = async (email: string, password: string) => {
 
         const res = await login(email, password)
-        if (res){
+        if (res) {
             console.log("Login success")
             navigate("/");
         }
-        
+
     }
     return <>
         <DesktopOnly>

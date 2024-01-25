@@ -6,10 +6,33 @@ import { IoMdContact } from 'react-icons/io';
 import { AiOutlineFieldNumber } from 'react-icons/ai';
 import { HiEnvelope } from 'react-icons/hi2';
 import { MdDriveFileRenameOutline } from 'react-icons/md';
-import { lodging, regimes_alimentaires, tailles_tshirt } from '../../Utils/Types';
-import { useState } from 'react';
+import { Api, lodging, regimes_alimentaires, setupHashSeed, tailles_tshirt } from '../../Utils/Types';
+import { useEffect, useState } from 'react';
 
 export default function Settings() {
+
+	useEffect(() => {
+		initialize();
+	}, []);
+
+
+	const initialize = async () => {
+		const instance = Api.getInstance();
+
+		const response = await instance.getApi("/volunteers/me", true);
+
+		if (response.status !== 200) {
+			console.log("Error while fetching volunteer : " + response.status);
+			return;
+		}
+
+
+		const selfVolunteer = await response.json();
+
+		console.log(selfVolunteer);
+
+	}
+
 
 	const [changedInfos, setChangedInfos] = useState([] as string[])
 
@@ -36,10 +59,10 @@ export default function Settings() {
 
 
 	return (
-		<div className={styles.Settings}>
+		<div className={styles.mainContent}>
 			<h1>Settings</h1>
 
-			<div className={styles.Settings__form}>
+			<div className={styles.formContainer}>
 				<Form>
 					<Input type="text" placeholder='Prénom' icon={<MdDriveFileRenameOutline />} id="firstname" onChange={onInputChange} />
 					<Input type="text" placeholder='Nom' icon={<MdDriveFileRenameOutline />} id="lastname" onChange={onInputChange} />
