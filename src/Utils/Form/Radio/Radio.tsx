@@ -8,7 +8,16 @@ type RadioOptions = {
     checked: boolean;
 }
 
-export default function Radio({ radioOptions, name, icon, id = v4()}: { radioOptions: RadioOptions[], name: string, icon: JSX.Element, error?: boolean, id?: string }): JSX.Element {
+type RadioProps = {
+    radioOptions: RadioOptions[];
+    name: string;
+    icon: JSX.Element;
+    error?: boolean;
+    id?: string;
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+export default function Radio({ radioOptions, name, icon, id = v4(), onChange }: RadioProps): JSX.Element {
 
 
     function onChangeHandler(value: string) {
@@ -56,7 +65,7 @@ export default function Radio({ radioOptions, name, icon, id = v4()}: { radioOpt
                     return createButton(option.name, option.value, option.checked, onChangeHandler);
                 })}
             </div>
-            <select name={name} style={{ display: 'none' }} id={id} value={initialChecked?.value}>
+            <select name={name} style={{ display: 'none' }} id={id} value={initialChecked?.value} onChange={(event) => onChange ? onChange(event) : null}>
                 {radioOptions.map((option: RadioOptions) => {
                     return <option key={option.value} value={option.value}>{option.name}</option>
                 })}

@@ -24,3 +24,14 @@ export type {
     TwoDMapEntry,
     ThreeDMapEntry
 };
+
+
+import { regimes_alimentaires } from "./RegimesAlimentaires";
+import { tailles_tshirt } from "./TaillesThirt";
+import { lodging } from "./Lodging";
+
+export {
+    regimes_alimentaires,
+    tailles_tshirt,
+    lodging
+};

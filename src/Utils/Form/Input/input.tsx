@@ -8,9 +8,10 @@ interface InputProps {
     containerClass? : string,
     inputClass? : string,
     error?: boolean
+    onChange? : (event : React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export default function Input({type, placeholder, icon, id, containerClass, inputClass, error = false} : InputProps) : JSX.Element {
+export default function Input({type, placeholder, icon, id, containerClass, inputClass, error = false, onChange} : InputProps) : JSX.Element {
     const containerClickHandler = (event : React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -23,7 +24,7 @@ export default function Input({type, placeholder, icon, id, containerClass, inpu
     return (
         <div className={style.formInput + " " + containerClass + " " + (error ? style.error : "")} onClick={containerClickHandler}>
             {icon}
-            <input type={type} placeholder={placeholder} id={id} className={inputClass} />
+            <input type={type} placeholder={placeholder} id={id} className={inputClass} onChange={onChange}/>
         </div>
     );
 }

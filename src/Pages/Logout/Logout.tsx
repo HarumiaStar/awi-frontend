@@ -1,9 +1,10 @@
-import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { logout } from "../../Utils/Types"
 
 export default function Logout() {
+    const navigate = useNavigate();
     logout().then(() => {
-        redirect("/")
+        navigate("/");
     }).catch((err) => {
         console.log(err)
     })

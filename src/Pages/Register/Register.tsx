@@ -9,7 +9,7 @@ import { MdDriveFileRenameOutline } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { v4 } from 'uuid';
-import { Tuple, register } from '../../Utils/Types';
+import { Tuple, lodging, regimes_alimentaires, register, tailles_tshirt } from '../../Utils/Types';
 import { useEffect } from 'react';
 
 export default function Register() {
@@ -37,34 +37,12 @@ export default function Register() {
                 registerMessageError.classList.remove(style.disabled);
                 registerMessageError.children[0].innerHTML = "Une erreur est survenue";
             }
-        }, (err) => {
+        }, () => {
             const registerMessageError = document.getElementById("registerMessageError") as HTMLDivElement;
             registerMessageError.classList.remove(style.disabled);
             registerMessageError.children[0].innerHTML = "Une erreur est survenue";
         });
     }
-
-    const tailles_tshirt = [
-        { name: "XS", value: "XS", checked: false },
-        { name: "S", value: "S", checked: false },
-        { name: "M", value: "M", checked: false },
-        { name: "L", value: "L", checked: false },
-        { name: "XL", value: "XL", checked: false },
-        { name: "XXL", value: "XXL", checked: false },
-        { name: "XXXL", value: "XXXL", checked: false }
-    ];
-
-    const regimes_alimentaires = [
-        { name: "Végétarien", value: "vegetarien", checked: false },
-        { name: "Carnivore", value: "carnivore", checked: false },
-        { name: "Autre", value: "autre", checked: false }
-    ];
-
-    const lodging = [
-        { name: "Propose un logement", value: "proposition", checked: false },
-        { name: "Cherche un logement", value: "recherche", checked: false },
-        { name: "Pas de logement", value: "aucun", checked: false }
-    ];
 
 
     async function registerToAPI(): Promise<boolean> {
@@ -205,7 +183,7 @@ export default function Register() {
             <div className={style.loginAreaContentTitle}>
                 <h1>Connexion</h1>
             </div>
-            <Form className="mynewclass">
+            <Form>
                 <Input type="text" placeholder='Prénom' icon={<MdDriveFileRenameOutline />} id="firstname" />
                 <Input type="text" placeholder='Nom' icon={<MdDriveFileRenameOutline />} id="lastname" />
                 <Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" />
