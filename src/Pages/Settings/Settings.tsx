@@ -7,11 +7,11 @@ import { AiOutlineFieldNumber } from 'react-icons/ai';
 import { HiEnvelope } from 'react-icons/hi2';
 import { MdDriveFileRenameOutline } from 'react-icons/md';
 import { Api, lodging, regimes_alimentaires, tailles_tshirt } from '../../Utils/Types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 
 export default function Settings() {
-	
+
 	const [changedInfos, setChangedInfos] = useState([] as string[])
 
 	const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +54,7 @@ export default function Settings() {
 	useEffect(() => {
 		initialize();
 	}, []);
-	
+
 
 
 	const initialize = async () => {
@@ -122,7 +122,7 @@ export default function Settings() {
 				<Radio radioOptions={nouveauLodging} name="Logement" icon={<FaHome />} id="lodging" onChange={onSelectChange} />
 			</>
 		);
-		
+
 		setDefaultInputs(formInputs);
 	}
 
@@ -132,8 +132,10 @@ export default function Settings() {
 			<h1>Settings</h1>
 
 			<div className={styles.formContainer}>
-				{defaultInputs}
-				{boutonSauvegarder}
+				<Form>
+					{defaultInputs}
+					{boutonSauvegarder}
+				</Form>
 			</div>
 		</div>
 	);
