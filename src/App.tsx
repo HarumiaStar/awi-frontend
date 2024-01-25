@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { Layout, Agenda, Login, NotFound, Register } from './Pages'
+import { Layout, Agenda, Login, NotFound, Register, Logout } from './Pages'
 
 function App() {
 

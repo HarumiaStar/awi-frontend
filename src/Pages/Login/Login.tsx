@@ -1,4 +1,4 @@
-import { redirect, redirectDocument } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { DesktopOnly, MobileOnly } from "../../Utils/IsMobile";
 import { login } from "../../Utils/Types";
 import LoginDesktop from "./LoginDesktop";
@@ -12,7 +12,6 @@ export default function Login() {
         if (res){
             console.log("Login success")
             redirect("/")
-
         }
         
     }
