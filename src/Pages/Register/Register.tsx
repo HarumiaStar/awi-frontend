@@ -64,8 +64,8 @@ export default function Register() {
         const addressElmt = document.getElementById("address") as HTMLInputElement
         const address = addressElmt.value;
 
-        const phone_numberElmt = document.getElementById("phone_number") as HTMLInputElement
-        const phone_number = phone_numberElmt.value;
+        const phone_numberElmt = document.getElementById("phone") as HTMLInputElement
+        const phone = phone_numberElmt.value;
 
         const avatar_urlElmt = document.getElementById("avatar_url") as HTMLInputElement
         const avatar_url = avatar_urlElmt.value;
@@ -87,7 +87,7 @@ export default function Register() {
             "tshirt_size": tshirt_size,
             "nb_edition_performed": nb_edition_performed,
             "address": address,
-            "phone_number": phone_number,
+            "phone": phone,
             "avatar_url": avatar_url,
             "food_regime": diet,
             "lodging": lodging,
@@ -138,7 +138,7 @@ export default function Register() {
             return new Tuple(false, "L'adresse est vide");
         }
 
-        const phone_number = document.getElementById("phone_number") as HTMLInputElement;
+        const phone_number = document.getElementById("phone") as HTMLInputElement;
         const phone_numberData = phone_number.value;
         if (phone_numberData === undefined || phone_numberData === null || phone_numberData === "" || phone_numberData === " ") {
             return new Tuple(false, "Le numéro de téléphone est vide");
@@ -189,7 +189,7 @@ export default function Register() {
                 <Radio radioOptions={tailles_tshirt} name="Taille du t-shirt" icon={<FaTshirt />} id="tshirt_size" />
                 <Input type="number" placeholder="Nombre d'éditions participé" icon={<AiOutlineFieldNumber />} id="nb_edition_performed" />
                 <Input type="text" placeholder='Adresse' icon={<FaHome />} id="address" />
-                <Input type="text" placeholder='06 12 34 56 78 90' icon={<FaPhone />} id="phone_number" />
+                <Input type="text" placeholder='06 12 34 56 78 90' icon={<FaPhone />} id="phone" />
                 <Input type="text" placeholder="URL de l'avatar" icon={<IoMdContact />} id="avatar_url" />
                 <Radio radioOptions={regimes_alimentaires} name="Régime alimentaire" icon={<PiForkKnifeBold />} id="diet" />
                 <Radio radioOptions={lodging} name="Logement" icon={<FaHome />} id="lodging" />

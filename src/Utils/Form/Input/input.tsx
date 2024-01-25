@@ -25,7 +25,7 @@ export default function Input({type, placeholder, icon, id, containerClass, inpu
     return (
         <div className={style.formInput + " " + containerClass + " " + (error ? style.error : "")} onClick={containerClickHandler}>
             {icon}
-            <input type={type} placeholder={placeholder} id={id} className={inputClass} onChange={onChange} value={value}/>
+            <input type={type} placeholder={placeholder} id={id} className={inputClass} onChange={onChange} defaultValue={value}/>
         </div>
     );
 }

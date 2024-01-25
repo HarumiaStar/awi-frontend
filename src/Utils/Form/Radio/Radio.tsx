@@ -20,8 +20,11 @@ export default function Radio({ radioOptions, name, icon, id = v4(), onChange }:
 
 
     function onChangeHandler(value: string) {
-        const element = document.getElementById(id) as HTMLSelectElement;
-        element.value = value;
+        // Edit the select value with trigger the onChange event
+        const select = document.getElementById(id) as HTMLSelectElement;
+        select.value = value;
+        const event = new Event('change', { bubbles: true });
+        select.dispatchEvent(event);
     }
 
 
@@ -64,7 +67,7 @@ export default function Radio({ radioOptions, name, icon, id = v4(), onChange }:
                     return createButton(option.name, option.value, option.checked, onChangeHandler);
                 })}
             </div>
-            <select name={name} style={{ display: 'none' }} id={id} value={initialChecked?.value} onChange={(event) => onChange ? onChange(event) : null}>
+            <select name={name} style={{ display: 'none' }} id={id} defaultValue={initialChecked?.value} onChange={(event) => onChange ? onChange(event) : null}>
                 {radioOptions.map((option: RadioOptions) => {
                     return <option key={option.value} value={option.value}>{option.name}</option>
                 })}
