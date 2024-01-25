@@ -24,7 +24,7 @@ export async function login(email: string, password: string): Promise<boolean> {
 export async function logout(): Promise<boolean> {
     const instance = Api.getInstance();
 
-    const res: Response = await instance.getApi("/auth/logout");
+    const res: Response = await instance.postApi("/auth/logout", JSON.stringify({}), true);
     if (res.status !== 200) {
         return false;
     }
