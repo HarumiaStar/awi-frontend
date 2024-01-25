@@ -2,8 +2,14 @@ import { Api } from ".";
 export async function login(email: string, password: string): Promise<boolean> {
     const instance = Api.getInstance();
 
+
+    await setupHashSeed();
+
+    password = instance.encryptWithHashSeed(password);
+
     const res: Response = await instance.postApi("/auth/login", JSON.stringify({ email, password }));
     if (res.status !== 200) {
+        console.log("Connexion failed : " + res.status);
         return false;
     }
 
