@@ -32,6 +32,7 @@ export default function Settings() {
 	const onSave = () => {
 		console.log(changedInfos);
 	}
+	
 	const baseDefaultInputs = (
 		<>
 			<Input type="text" placeholder='Prénom' icon={<MdDriveFileRenameOutline />} id="firstname" onChange={onInputChange} />
