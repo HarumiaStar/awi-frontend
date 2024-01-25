@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import style from './radio.module.css';
 import { v4 } from 'uuid';
 

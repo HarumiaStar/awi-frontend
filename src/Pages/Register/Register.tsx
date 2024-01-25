@@ -10,7 +10,6 @@ import { FaHome } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { v4 } from 'uuid';
 import { Tuple, lodging, regimes_alimentaires, register, tailles_tshirt } from '../../Utils/Types';
-import { useEffect } from 'react';
 
 export default function Register() {
 
