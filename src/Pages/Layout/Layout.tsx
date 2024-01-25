@@ -2,25 +2,30 @@ import { Link, Outlet } from "react-router-dom";
 import style from "./Layout.module.css";
 
 export default function Layout() {
+  const routeLinkClicked = (e: any) => {
+    const subLink = e.target.querySelector(`a`);
+    if (subLink) {
+      subLink.click();
+    }
+  }
+
   return (
     <div className={style.mainContent}>
       {/* A "layout route" is a good place to put markup you want to
             share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
+      <nav className={style.navbar}>
+        <div className={style.routeLinks} onClick={routeLinkClicked}>
+          <Link to="/">Home</Link>
+        </div>
+        <div className={style.routeLinks} onClick={routeLinkClicked}>
+          <Link to="/login">Se connecter</Link>
+        </div>
+        <div className={style.routeLinks} onClick={routeLinkClicked}>
+          <Link to="/logout">Se déconnecter</Link>
+        </div>
+        <div className={style.routeLinks} onClick={routeLinkClicked}>
+          <Link to="/agenda">Agenda</Link>
+        </div>
       </nav>
 
 
