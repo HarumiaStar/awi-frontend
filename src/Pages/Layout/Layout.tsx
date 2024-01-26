@@ -32,6 +32,10 @@ export default function Layout() {
         <div className={style.routeLinks} onClick={routeLinkClicked}>
           <Link to="/settings">Paramètres</Link>
         </div>
+
+        <div className={style.routeLinks} onClick={routeLinkClicked}>
+          <Link to="/CreerFestival">Créer un festival</Link>
+        </div>
       </nav>
 
 

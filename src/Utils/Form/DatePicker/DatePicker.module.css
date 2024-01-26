@@ -1,0 +1,33 @@
+.form_control {
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+
+.form_control:focus-within {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Any child of inputContainer have cursor pointer */
+.form_control * {
+    cursor: pointer;
+}
+
+.input {
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: none;
+    border: none;
+    text-decoration: none;
+    background-color: transparent;
+}
+.input:focus {
+    outline: none;
+}

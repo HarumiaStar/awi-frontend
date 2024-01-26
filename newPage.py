@@ -54,5 +54,5 @@ fichierIndex = open(cheminDesPages + "index.tsx", "a")
 # ...
 # export { page1, page2, ... };
 
-fichierIndex.write("import " + pageName + " from './" + pageName + "';\n")
+fichierIndex.write("\n\nimport " + pageName + " from './" + pageName + "';\n")
 fichierIndex.write("export { " + pageName + " };")
