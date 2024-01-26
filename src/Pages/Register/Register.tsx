@@ -193,19 +193,19 @@ export default function Register() {
                 <h1>Connexion</h1>
             </div>
             <Form>
-                <Input type="text" placeholder='Prénom' icon={<MdDriveFileRenameOutline />} id="firstname" />
-                <Input type="text" placeholder='Nom' icon={<MdDriveFileRenameOutline />} id="lastname" />
-                <Input type="text" placeholder="Nom d'utilisateur" icon={<MdDriveFileRenameOutline />} id="username" />
-                <Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" />
+                <Input type="text" placeholder='Prénom' icon={<MdDriveFileRenameOutline />} id="firstname" autocomplete='given-name' />
+                <Input type="text" placeholder='Nom' icon={<MdDriveFileRenameOutline />} id="lastname" autocomplete='family-name' />
+                <Input type="text" placeholder="Nom d'utilisateur" icon={<MdDriveFileRenameOutline />} id="username" autocomplete='username' />
+                <Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" autocomplete='email' />
                 <Radio radioOptions={tailles_tshirt} name="Taille du t-shirt" icon={<FaTshirt />} id="tshirt_size" />
                 <Input type="number" placeholder="Nombre d'éditions participé" icon={<AiOutlineFieldNumber />} id="nb_edition_performed" />
-                <Input type="text" placeholder='Adresse' icon={<FaHome />} id="address" />
-                <Input type="text" placeholder='06 12 34 56 78 90' icon={<FaPhone />} id="phone" />
+                <Input type="text" placeholder='Adresse' icon={<FaHome />} id="address" autocomplete='street-address' />
+                <Input type="text" placeholder='06 12 34 56 78 90' icon={<FaPhone />} id="phone" autocomplete='tel' />
                 <Input type="text" placeholder="URL de l'avatar" icon={<IoMdContact />} id="avatar_url" />
                 <Radio radioOptions={regimes_alimentaires} name="Régime alimentaire" icon={<PiForkKnifeBold />} id="diet" />
                 <Radio radioOptions={lodging} name="Logement" icon={<FaHome />} id="lodging" />
-                <Input type="password" placeholder='Mot de passe' icon={<HiLockClosed />} id="password" />
-                <Input type="password" placeholder='Confirmer le mot de passe' icon={<HiLockClosed />} id="password_confirm" />
+                <Input type="password" placeholder='Mot de passe' icon={<HiLockClosed />} id="password" autocomplete='new-password' />
+                <Input type="password" placeholder='Confirmer le mot de passe' icon={<HiLockClosed />} id="password_confirm" autocomplete='new-password' />
                 <Button type="submit" text="S'enregister" id={v4()} onClick={RegisterHandler} />
 
                 <div className={style.registerMessage}>

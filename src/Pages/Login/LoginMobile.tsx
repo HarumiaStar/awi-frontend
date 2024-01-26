@@ -50,13 +50,13 @@ export default function LoginMobile({loginHandler} : {loginHandler : (email : st
                             <div className="login_mobile_content_form_input_icon">
                                 <HiEnvelope />
                             </div>
-                            <input type="text" name="login" id="login" placeholder="Email" />
+                            <input type="text" name="login" id="login" placeholder="Email" autoComplete="email" />
                         </div>
                         <div className="login_mobile_content_form_input">
                             <div className="login_mobile_content_form_input_icon">
                                 <HiLockClosed />
                             </div>
-                            <input type="password" name="password" id="password" placeholder="Mot de passe" />
+                            <input type="password" name="password" id="password" placeholder="Mot de passe" autoComplete="current-password" />
                         </div>
                         <div className="login_mobile_content_form_button">
                             {boutonConnexion}

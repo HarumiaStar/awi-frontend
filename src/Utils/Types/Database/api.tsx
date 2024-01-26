@@ -61,6 +61,9 @@ export default class Api {
     private readonly api_url: string;
     private token: string | null = null;
     private hash_seed: string | null = null;
+    private _isAdmin : boolean| null = null
+
+
     private constructor() {
         const url = import.meta.env.VITE_API_URL;
         if (url === undefined || url === null || url === "") {
@@ -73,6 +76,22 @@ export default class Api {
     public setToken(token: string): void {
         this.token = token;
         localStorage.setItem("token", token);
+    }
+
+    set isAdmin(isAdmin: boolean) {
+        this._isAdmin = isAdmin;
+        localStorage.setItem("isAdmin", isAdmin.toString());
+    }
+
+    get isAdmin(): boolean {
+        if (this._isAdmin === null) {
+            const isAdmin = localStorage.getItem("isAdmin");
+            if (isAdmin === null) {
+                return false;
+            }
+            this.isAdmin = (isAdmin === "true");
+        }
+        return this._isAdmin!;
     }
 
     public getToken(): string | null {
