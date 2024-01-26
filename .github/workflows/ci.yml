@@ -22,7 +22,7 @@ jobs:
       run: npm install
 
     - name: .env setup
-      run: cp .env.test .env
+      run: cp .env.example .env
 
     - name: Database migration
       run: npm run migrate
