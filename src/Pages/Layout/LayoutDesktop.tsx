@@ -36,6 +36,10 @@ export default function LayoutDesktop() {
         <div className={style.routeLinks} onClick={routeLinkClicked}>
           <Link to="/CreerFestival">Créer un festival</Link>
         </div>
+
+        <div className={style.routeLinks} onClick={routeLinkClicked}>
+          <Link to="/ListeFestivals">Liste des festivals</Link>
+        </div>
       </nav>
 
 

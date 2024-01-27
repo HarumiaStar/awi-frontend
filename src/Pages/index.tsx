@@ -11,3 +11,6 @@ import Settings from './Settings';
 export { Settings };
 import CreerFestival from './CreerFestival';
 export { CreerFestival };
+
+import ListeFestivals from './ListeFestivals';
+export { ListeFestivals };

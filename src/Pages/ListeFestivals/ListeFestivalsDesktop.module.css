@@ -1,0 +1,67 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	gap: 2rem;
+}
+
+.festival {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	justify-content: left;
+	padding: 2rem;
+	border-radius: 1rem;
+	transition: all 0.2s ease-in-out;
+}
+
+.festival:hover {
+	background-color: #ffffff11;
+	transform: scale(1.01);
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.festivalName {
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin: 0.5rem 0;
+}
+
+.festivalDate {
+	font-size: 1rem;
+	margin: 0.5rem 0;
+}
+
+.festivalDescriptionContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.festivalDescription {
+	font-size: 1rem;
+	margin: 0.5rem 0;
+}
+
+.festivalAdresseContainer {
+	height: 4rem;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	width: 100%;
+	gap: 1rem;
+}
+
+.festivalAdresse {
+	object-fit: cover;
+	vertical-align: text-top;
+	
+}

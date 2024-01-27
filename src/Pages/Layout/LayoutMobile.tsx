@@ -84,6 +84,10 @@ export default function LayoutMobile() {
                                 <div className={styles.routeLinks} onClick={routeLinkClicked}>
                                     <Link to="/CreerFestival">Créer un festival</Link>
                                 </div>
+
+                                <div className={styles.routeLinks} onClick={routeLinkClicked}>
+                                    <Link to="/ListeFestivals">Liste des festivals</Link>
+                                </div>
                             </div>
                         </div>
                     </nav>
