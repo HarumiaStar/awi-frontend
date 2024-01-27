@@ -1,10 +1,10 @@
 import { DesktopOnly, MobileOnly } from "../../Utils/IsMobile"
 import Agenda_mobile from "./Agenda_mobile"
 import { Liste_agenda } from "./Classes/Liste_Agenda";
-import { Creneaux } from "../../Utils/Creneaux";
+import { Creneaux } from "../../Utils/Types/Creneaux";
 import Agenda_Desktop from "./Agenda_desktop";
 import { Activite_Agenda } from "./Classes/Activite_Agenda";
-import SmallDate from "../../Utils/SmallDate";
+import SmallDate from "../../Utils/Types/SmallDate";
 
 
 

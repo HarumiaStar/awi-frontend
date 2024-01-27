@@ -1,18 +1,18 @@
-.boxed_radio_button_area {
+.radio_button_area {
     display: inline-block;
     gap: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.87);
     border-radius: 0.5rem;
 }
 
-.boxed_radio_button {
+.radio_button {
     display: flex;
     flex-direction: row;
     align-items: center;
     vertical-align: middle;
 }
 
-.boxed_radio_button_element {
+.radio_button_element {
     border-left: 1px solid rgba(255, 255, 255, 0.87);
     border-top: 1px solid rgba(255, 255, 255, 0.87);
     border-bottom: 1px solid rgba(255, 255, 255, 0.87);
@@ -24,18 +24,49 @@
     transition: background-color 0.6s ease;
 }
 
-.boxed_radio_button_element:first-child {
+.radio_button_element:first-child {
     border-left: 1px solid rgba(255, 255, 255, 0.87);
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
 }
 
-.boxed_radio_button_element:last-child {
+.radio_button_element:last-child {
     border-right: 1px solid rgba(255, 255, 255, 0.87);
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
 }
 
-.boxed_radio_button_element.checked {
+.checked {
     background-color: rgba(40, 49, 179, 0.87);
+}
+
+/* Hover but not checked */
+.radio_button_element:hover:not(.checked) {
+    background-color: rgba(40, 49, 179, 0.45);
+}
+
+.radio_button_icon {
+    margin-right: 0.5rem;
+}
+
+.radio_button_name {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+/* Container contains also button area */
+.radio_button_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Label contains icon and name */
+.radio_button_label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
 }

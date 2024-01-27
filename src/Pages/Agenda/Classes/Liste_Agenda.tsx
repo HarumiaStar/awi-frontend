@@ -1,6 +1,6 @@
-import { Creneaux } from "../../../Utils/Creneaux";
-import SmallDate from "../../../Utils/SmallDate";
-import { ThreeDMap, TwoDMap } from "../../../Utils/ThreeDMap";
+import { Creneaux } from "../../../Utils/Types/Creneaux";
+import SmallDate from "../../../Utils/Types/SmallDate";
+import { ThreeDMap, TwoDMap } from "../../../Utils/Types/ThreeDMap";
 import { Activite_Agenda } from "./Activite_Agenda";
 
 

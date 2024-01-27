@@ -1,8 +1,8 @@
-import { Creneaux, CreneauxList } from "../../Utils/Creneaux";
+import { Creneaux, CreneauxList } from "../../Utils/Types/Creneaux";
 import { Liste_agenda } from "./Classes/Liste_Agenda"
 import "./Agenda_desktop.css"
-import SmallDate from "../../Utils/SmallDate";
-import { TwoDMap } from "../../Utils/ThreeDMap";
+import SmallDate from "../../Utils/Types/SmallDate";
+import { TwoDMap } from "../../Utils/Types/ThreeDMap";
 import { v4 } from "uuid";
 import { JSX } from "react/jsx-runtime";
 import { useState } from "react";

@@ -1,5 +1,5 @@
-import { Creneaux } from "../../../Utils/Creneaux";
-import SmallDate from "../../../Utils/SmallDate";
+import { Creneaux } from "../../../Utils/Types/Creneaux";
+import SmallDate from "../../../Utils/Types/SmallDate";
 
 export class Activite_Agenda {
     private _nom: string;

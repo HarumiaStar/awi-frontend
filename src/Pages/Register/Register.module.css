@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 50px;
 }
 
 
@@ -14,13 +15,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 
 .sideActionLinks {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
 }
@@ -38,4 +40,33 @@
     justify-content: center;
     display: flex;
     gap: 10px;
+}
+
+.inputField {
+    width: 100%;
+}
+
+.registerMessage {
+    font-size: 14px;
+    color: #8b8b8b;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerMessage a {
+    color: #5e5e5e;
+    text-decoration: none;
+}
+
+.registerMessageError {
+    font-size: 14px;
+    color: #ff0000;
+    margin-top: 10px;
+}
+
+.disabled {
+    display: none;
 }
