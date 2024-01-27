@@ -69,6 +69,9 @@ export default function Settings() {
 			<Input type="text" placeholder="URL de l'avatar" icon={<IoMdContact />} id="avatar_url" onChange={onInputChange} />
 			<Radio radioOptions={regimes_alimentaires} name="Régime alimentaire" icon={<PiForkKnifeBold />} id="diet" onChange={onSelectChange} />
 			<Radio radioOptions={lodging} name="Logement" icon={<FaHome />} id="lodging" onChange={onSelectChange} />
+			<div className={styles.isAdmin}>
+				Vous n'êtes pas administrateur
+			</div>
 		</>
 	)
 	const boutonSauvegarder = <Button type="submit" text="Enregistrer" onClick={onSave} />
@@ -135,17 +138,20 @@ export default function Settings() {
 
 		const formInputs = (
 			<>
-				<Input type="text" placeholder='Prénom' icon={<MdDriveFileRenameOutline />} id="firstname" onChange={onInputChange} value={selfVolunteer.firstname} />
-				<Input type="text" placeholder='Nom' icon={<MdDriveFileRenameOutline />} id="lastname" onChange={onInputChange} value={selfVolunteer.lastname} />
-				<Input type="text" placeholder="Nom d'utilisateur" icon={<MdDriveFileRenameOutline />} id="username" onChange={onInputChange} value={selfVolunteer.username} />
-				<Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" onChange={onInputChange} value={selfVolunteer.email} />
+				<Input type="text" placeholder='Prénom' icon={<MdDriveFileRenameOutline />} id="firstname" onChange={onInputChange} value={selfVolunteer.firstname} autocomplete='given-name' />
+				<Input type="text" placeholder='Nom' icon={<MdDriveFileRenameOutline />} id="lastname" onChange={onInputChange} value={selfVolunteer.lastname} autocomplete='family-name' />
+				<Input type="text" placeholder="Nom d'utilisateur" icon={<MdDriveFileRenameOutline />} id="username" onChange={onInputChange} value={selfVolunteer.username} autocomplete='username' />
+				<Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" onChange={onInputChange} value={selfVolunteer.email} autocomplete='email' />
 				<Radio radioOptions={nouvellesTaillesTshirt} name="Taille du t-shirt" icon={<FaTshirt />} id="tshirt_size" onChange={onSelectChange} />
 				<Input type="number" placeholder="Nombre d'éditions participé" icon={<AiOutlineFieldNumber />} id="nb_edition_performed" onChange={onInputChange} value={selfVolunteer.nb_edition_performed} />
-				<Input type="text" placeholder='Adresse' icon={<FaHome />} id="address" onChange={onInputChange} value={selfVolunteer.address} />
-				<Input type="text" placeholder='06 12 34 56 78 90' icon={<FaPhone />} id="phone" onChange={onInputChange} value={selfVolunteer.phone} />
+				<Input type="text" placeholder='Adresse' icon={<FaHome />} id="address" onChange={onInputChange} value={selfVolunteer.address} autocomplete='street-address' />
+				<Input type="text" placeholder='06 12 34 56 78 90' icon={<FaPhone />} id="phone" onChange={onInputChange} value={selfVolunteer.phone} autocomplete='tel' />
 				<Input type="text" placeholder="URL de l'avatar" icon={<IoMdContact />} id="avatar_url" onChange={onInputChange} value={selfVolunteer.avatar_url} />
 				<Radio radioOptions={nouveauxRegimesAlimentaires} name="Régime alimentaire" icon={<PiForkKnifeBold />} id="diet" onChange={onSelectChange} />
 				<Radio radioOptions={nouveauLodging} name="Logement" icon={<FaHome />} id="lodging" onChange={onSelectChange} />
+				<div className={styles.isAdmin}>
+					Vous {selfVolunteer.isAdmin ? "êtes" : "n'êtes pas"} administrateur.
+				</div>
 			</>
 		);
 

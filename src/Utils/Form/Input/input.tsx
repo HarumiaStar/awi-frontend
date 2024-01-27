@@ -9,10 +9,11 @@ interface InputProps {
     inputClass? : string,
     error?: boolean
     onChange? : (event : React.ChangeEvent<HTMLInputElement>) => void,
-    value? : string
+    value? : string,
+    autocomplete? : string
 }
 
-export default function Input({type, placeholder, icon, id, containerClass, inputClass, error = false, onChange, value = ""} : InputProps) : JSX.Element {
+export default function Input({type, placeholder, icon, id, containerClass, inputClass, error = false, onChange, value = "", autocomplete} : InputProps) : JSX.Element {
     const containerClickHandler = (event : React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
@@ -25,7 +26,7 @@ export default function Input({type, placeholder, icon, id, containerClass, inpu
     return (
         <div className={style.formInput + " " + containerClass + " " + (error ? style.error : "")} onClick={containerClickHandler}>
             {icon}
-            <input type={type} placeholder={placeholder} id={id} className={inputClass} onChange={onChange} defaultValue={value}/>
+            <input type={type} placeholder={placeholder} id={id} className={inputClass} onChange={onChange} defaultValue={value} autoComplete={autocomplete ? autocomplete : undefined}/>
         </div>
     );
 }

@@ -26,8 +26,8 @@ export default function LoginDesktop({loginHandler} : {loginHandler : (email : s
                 <h1>Connexion</h1>
             </div>
             <Form className="mynewclass">
-                <Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" />
-                <Input type="password" placeholder='Mot de passe' icon={<HiLockClosed />} id="password" />
+                <Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" autocomplete='email' />
+                <Input type="password" placeholder='Mot de passe' icon={<HiLockClosed />} id="password" autocomplete='current-password' />
                 <Button type="submit" text="Se connecter" id={v4()} onClick={onLogin} />
             </Form>
 

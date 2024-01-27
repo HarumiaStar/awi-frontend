@@ -18,6 +18,19 @@ export async function login(email: string, password: string): Promise<boolean> {
 
     instance.setToken(token);
 
+    // Récupération des informations du volontaire
+
+    const response = await instance.getApi("/volunteers/me", true);
+
+    if (response.status !== 200) {
+        console.log("Error while fetching volunteer : " + response.status);
+        return false;
+    }
+
+    const Volunteer = await response.json();
+
+    instance.isAdmin = Volunteer.isAdmin;
+
     return true;
 }
 
@@ -29,7 +42,7 @@ export async function logout(): Promise<boolean> {
         return false;
     }
 
-    instance.setToken("");
+    instance.resetToken();
 
     return true;
 }
