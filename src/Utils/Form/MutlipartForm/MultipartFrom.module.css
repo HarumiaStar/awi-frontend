@@ -1,0 +1,58 @@
+.multipartFormContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    gap: 0.4rem;
+}
+/* display button as little lines  */
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 0.4rem;
+    border-radius: 0.5rem;
+    background-color: #707070;
+    cursor: pointer;
+    outline: none;
+    border: none; 
+    transition: all 0.3s ease-in-out;
+    font-size: 0;
+}
+
+
+.button.active{
+    background-color: #1e90ff;
+    color: white;
+}
+
+.groupsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.groupContainer{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.groupContainer.active{
+    display: flex;
+}

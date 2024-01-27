@@ -2,25 +2,19 @@
     padding: 1rem;
     cursor: pointer;
     border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
 }
 
-.label {
-    display: inline-block;
-    margin-bottom: 0.5rem;
-}
-
-
-.form_control:focus-within, .form_control:hover {
+.form_control:focus-within,
+.form_control:hover {
     outline: none;
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Any child of inputContainer have cursor pointer */
-.form_control * {
-    cursor: pointer;
-}
-
-.input {
+.form_control textarea {
     width: 100%;
     font-size: 1rem;
     line-height: 1.5;
@@ -29,6 +23,14 @@
     text-decoration: none;
     background-color: transparent;
 }
-.input:focus {
+
+.form_control textarea:focus {
     outline: none;
+}
+
+.labelContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
 }
