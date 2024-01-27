@@ -52,6 +52,9 @@ export default function Register() {
         const lastnameElmt = document.getElementById("lastname") as HTMLInputElement
         const lastname = lastnameElmt.value;
 
+        const usernameElmt = document.getElementById("username") as HTMLInputElement
+        const username = usernameElmt.value;
+
         const emailElmt = document.getElementById("email") as HTMLInputElement
         const email = emailElmt.value;
 
@@ -83,6 +86,7 @@ export default function Register() {
         const data = {
             "firstname": firstname,
             "lastname": lastname,
+            "username": username,
             "email": email,
             "tshirt_size": tshirt_size,
             "nb_edition_performed": nb_edition_performed,
@@ -112,6 +116,12 @@ export default function Register() {
         const lastnameData = lastname.value;
         if (lastnameData === undefined || lastnameData === null || lastnameData === "" || lastnameData === " ") {
             return new Tuple(false, "Le nom est vide");
+        }
+
+        const username = document.getElementById("username") as HTMLInputElement;
+        const usernameData = username.value;
+        if (usernameData === undefined || usernameData === null || usernameData === "" || usernameData === " ") {
+            return new Tuple(false, "Le nom d'utilisateur est vide");
         }
 
         const email = document.getElementById("email") as HTMLInputElement;
@@ -185,6 +195,7 @@ export default function Register() {
             <Form>
                 <Input type="text" placeholder='Prénom' icon={<MdDriveFileRenameOutline />} id="firstname" />
                 <Input type="text" placeholder='Nom' icon={<MdDriveFileRenameOutline />} id="lastname" />
+                <Input type="text" placeholder="Nom d'utilisateur" icon={<MdDriveFileRenameOutline />} id="username" />
                 <Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" />
                 <Radio radioOptions={tailles_tshirt} name="Taille du t-shirt" icon={<FaTshirt />} id="tshirt_size" />
                 <Input type="number" placeholder="Nombre d'éditions participé" icon={<AiOutlineFieldNumber />} id="nb_edition_performed" />

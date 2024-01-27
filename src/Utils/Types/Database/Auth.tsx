@@ -38,6 +38,7 @@ export async function logout(): Promise<boolean> {
 export type RegisterData = {
     firstname: string;
     lastname: string;
+    username: string;
     email: string;
     tshirt_size: string;
     nb_edition_performed: number;
@@ -61,6 +62,7 @@ export async function register(data: RegisterData): Promise<boolean> {
     const newData = {
         "firstname": data.firstname,
         "lastname": data.lastname,
+        "username": data.username,
         "email": data.email,
         "tshirt_size": data.tshirt_size,
         "nb_edition_performed": data.nb_edition_performed,
