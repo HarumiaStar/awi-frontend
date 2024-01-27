@@ -67,13 +67,22 @@ export default class Api {
             throw new Error("API URL is not defined");
         }
         this.api_url = url;
+        this.getToken();
     }
 
     public setToken(token: string): void {
         this.token = token;
+        localStorage.setItem("token", token);
     }
 
     public getToken(): string | null {
+        if (this.token === null) {
+            const token = localStorage.getItem("token");
+            if (token === null) {
+                return null;
+            }
+            this.token = token;
+        }
         return this.token;
     }
 
@@ -91,6 +100,7 @@ export default class Api {
 
     public resetToken(): void {
         this.token = null;
+        localStorage.removeItem("token");
     }
 
     public encryptWithHashSeed(data: string): string {

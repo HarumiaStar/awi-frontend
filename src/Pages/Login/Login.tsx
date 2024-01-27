@@ -1,19 +1,19 @@
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DesktopOnly, MobileOnly } from "../../Utils/IsMobile";
 import { login } from "../../Utils/Types";
 import LoginDesktop from "./LoginDesktop";
 import LoginMobile from "./LoginMobile";
 
 export default function Login() {
-    
-    const loginHandler = async (email : string, password : string) => {
+    const navigate = useNavigate();
+    const loginHandler = async (email: string, password: string) => {
 
         const res = await login(email, password)
-        if (res){
+        if (res) {
             console.log("Login success")
-            redirect("/")
+            navigate("/");
         }
-        
+
     }
     return <>
         <DesktopOnly>

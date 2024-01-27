@@ -24,7 +24,7 @@ export async function login(email: string, password: string): Promise<boolean> {
 export async function logout(): Promise<boolean> {
     const instance = Api.getInstance();
 
-    const res: Response = await instance.getApi("/auth/logout");
+    const res: Response = await instance.postApi("/auth/logout", JSON.stringify({}), true);
     if (res.status !== 200) {
         return false;
     }
@@ -43,7 +43,7 @@ export type RegisterData = {
     nb_edition_performed: number;
     lodging: string;
     address: string;
-    phone_number: string;
+    phone: string;
     avatar_url: string;
     food_regime: string;
     password: string;
@@ -66,7 +66,7 @@ export async function register(data: RegisterData): Promise<boolean> {
         "nb_edition_performed": data.nb_edition_performed,
         "lodging": data.lodging,
         "address": data.address,
-        "phone_number": data.phone_number,
+        "phone": data.phone,
         "avatar_url": data.avatar_url,
         "food_regime": data.food_regime,
         "password": data.password,

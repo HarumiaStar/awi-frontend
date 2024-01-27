@@ -26,6 +26,12 @@ export default function Layout() {
         <div className={style.routeLinks} onClick={routeLinkClicked}>
           <Link to="/agenda">Agenda</Link>
         </div>
+        <div className={style.routeLinks} onClick={routeLinkClicked}>
+          <Link to="/register">S'inscrire</Link>
+        </div>
+        <div className={style.routeLinks} onClick={routeLinkClicked}>
+          <Link to="/settings">Paramètres</Link>
+        </div>
       </nav>
 
 
