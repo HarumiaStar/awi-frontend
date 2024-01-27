@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { Layout, Agenda, Login, NotFound, Register } from './Pages'
+import { Layout, Agenda, Login, NotFound, Register, Logout } from './Pages'
 
 function App() {
 
@@ -11,6 +11,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           {/* <Route index element={<Home />} /> */}
           <Route path="login" element={<Login />} />
+          <Route path="logout" element={<Logout />} />
           <Route path="agenda" element={<Agenda />} />
           <Route path="Register" element={<Register />} />
 

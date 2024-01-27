@@ -1,13 +1,11 @@
-import Authentification from "../../Utils/Authentification";
 import { HiEnvelope, HiLockClosed } from "react-icons/hi2";
 import "./LoginMobile.css"
 import { useEffect } from "react";
 import findParentWithClass from "../../Utils/firstParentWithClass";
 
 
-export default function LoginMobile() {
+export default function LoginMobile({loginHandler} : {loginHandler : (email : string, password : string) => void})  {
 
-    console.log(Authentification.getInstance().isConnected)
     useEffect(() => {
         // listener on form input, onclick focus on input
         const input = document.querySelectorAll(".login_mobile_content_form_input")
@@ -32,9 +30,7 @@ export default function LoginMobile() {
 
         const login = loginInput.value
         const password = passwordInput.value
-
-        Authentification.getInstance().connect(login, password)
-        console.log(Authentification.getInstance().isConnected)
+        loginHandler(login, password)
     }
 
 

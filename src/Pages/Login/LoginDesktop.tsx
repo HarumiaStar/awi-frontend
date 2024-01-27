@@ -3,12 +3,17 @@ import { Button, Form, Input } from '../../Utils/Form';
 import style from './LoginDesktop.module.css';
 import { HiEnvelope, HiLockClosed } from "react-icons/hi2";
 
-export default function LoginDesktop() {
+export default function LoginDesktop({loginHandler} : {loginHandler : (email : string, password : string) => void})  {
 
-    const loginHandler = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const onLogin = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
-        console.log("login");
+        const emailInput = document.querySelector("#email") as HTMLInputElement;
+        const passwordInput = document.querySelector("#password") as HTMLInputElement;
+
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        loginHandler(email, password);
     }
 
 
@@ -21,9 +26,9 @@ export default function LoginDesktop() {
                 <h1>Connexion</h1>
             </div>
             <Form className="mynewclass">
-                <Input type="email" placeholder='Email' icon={<HiEnvelope />} id={v4()} />
-                <Input type="password" placeholder='Mot de passe' icon={<HiLockClosed />} id={v4()} />
-                <Button type="submit" text="Se connecter" id={v4()} onClick={loginHandler} />
+                <Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" />
+                <Input type="password" placeholder='Mot de passe' icon={<HiLockClosed />} id="password" />
+                <Button type="submit" text="Se connecter" id={v4()} onClick={onLogin} />
             </Form>
 
             <div className={style.sideActionLinks}>
