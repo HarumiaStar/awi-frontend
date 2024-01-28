@@ -24,40 +24,47 @@ export default function CreerFestival() {
 
 	return (
 		<div>
-			<h1 >CreerFestival</h1>
+			<h1 className='text-4xl font-bold text-center'>
+				CreerFestival
+			</h1>
 
 
-			<div className={styles.formContainer}>
+			<div className='flex flex-col items-center justify-center w-full h-full border-2 border-gray-400 rounded-lg px-6 my-5'>
 				<Form>
 					<MultipartForm nextButtonOptions={nextButtonOptions} submitButtonOptions={submitButtonOptions}>
 						<FormGroup>
-							<h2>Informations générales</h2>
+							<h2 className='text-2xl font-bold'>
+								Informations générales
+							</h2>
 							<Input type="text" placeholder='Nom du festival' icon={<BiRename />} id="nomFestival" />
 							<DatePicker label="Date de début" id="dateDebut" />
 							<DatePicker label="Date de fin" id="dateFin" />
 							<Input type="text" placeholder='Lieu du festival' icon={<FaMapMarkerAlt />} id="lieuFestival" />
 							<TextArea label="Description" id="description" icon={<FaCommentAlt />} />
 							{/* <Input type="text" placeholder='Lien vers le site' icon={<FaCommentAlt />} id="lienSite" />*/}
-							{/* TODO A voir s'il faut mettre le lien */}
-
 						</FormGroup>
 						<FormGroup>
 							<ChoixCreneaux />
-							{/* TODO Ajouter la gestion des créneaux */}
 						</FormGroup>
 
 						<FormGroup>
-							<h2>Informations sur les jeux</h2>
+							<h2 className='text-2xl font-bold'>
+								Informations sur les jeux
+							</h2>
 							{/* TODO Ajouter la gestion des jeux */}
 						</FormGroup>
 
 						<FormGroup>
-							<h2>Informations sur les activités</h2>
+							<h2 className='text-2xl font-bold'>
+								Informations sur les activités
+							</h2>
 							{/* TODO Ajouter la gestion des activités */}
 						</FormGroup>
 
 						<FormGroup>
-							<h2>Récapitulatif</h2>
+							<h2 className='text-2xl font-bold'>
+								Récapitulatif
+							</h2>
 							{/* TODO Ajouter le récapitulatif */}
 						</FormGroup>
 					</MultipartForm>

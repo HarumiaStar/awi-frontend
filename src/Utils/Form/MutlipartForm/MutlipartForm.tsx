@@ -29,17 +29,17 @@ export default function MultipartForm({ children, nextButtonOptions, submitButto
 
     const groupLength = groups.length;
     return (
-        <div className={styles.multipartFormContainer}>
-            <div className={styles.buttonContainer}>
+        <div className='flex flex-col items-center justify-center w-full h-full' >
+            <div className='flex gap-5 justify-center items-center flex-row py-1 pb-3'>
                 {groups.map((group, index) => (
                     <button key={index} onClick={(e) =>{e.preventDefault();  handleButtonClick(index)}} className={styles.button + " " + (activeGroup === index ? styles.active : "")}>
                     </button>
                 ))}
             </div>
 
-            <div className={styles.groupsContainer}>
+            <div className='flex flex-col items-center justify-center w-full h-full'>
                 {groups.map((group, index) => (
-                    <div key={index} className={styles.groupContainer + " " + (activeGroup === index ? styles.active : "")}>
+                    <div key={index} className='flex flex-col items-center justify-center w-full h-full' style={{ display: activeGroup === index ? "flex" : "none" }}>
                         {group}
                         {index !== groupLength - 1 ? (
                             <Button

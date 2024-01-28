@@ -9,44 +9,36 @@ export default function LayoutDesktop() {
     }
   }
 
+  const navBarItem = (link: string, text: string) => {
+    return (
+      <div
+        className='flex flex-row items-center justify-center h-full cursor-pointer hover:bg-gray-700 p-4 rounded-md'
+        onClick={routeLinkClicked}
+      >
+        <Link to={link}>{text}</Link>
+      </div>
+    );
+  }
+
   return (
-    <div className={style.mainContent}>
+    <div className='flex flex-col items-center w-full h-full'>
       {/* A "layout route" is a good place to put markup you want to
             share across all the pages on your site, like navigation. */}
-      <nav className={style.navbar}>
-        <div className={style.routeLinks} onClick={routeLinkClicked}>
-          <Link to="/">Home</Link>
-        </div>
-        <div className={style.routeLinks} onClick={routeLinkClicked}>
-          <Link to="/login">Se connecter</Link>
-        </div>
-        <div className={style.routeLinks} onClick={routeLinkClicked}>
-          <Link to="/logout">Se déconnecter</Link>
-        </div>
-        <div className={style.routeLinks} onClick={routeLinkClicked}>
-          <Link to="/agenda">Agenda</Link>
-        </div>
-        <div className={style.routeLinks} onClick={routeLinkClicked}>
-          <Link to="/register">S'inscrire</Link>
-        </div>
-        <div className={style.routeLinks} onClick={routeLinkClicked}>
-          <Link to="/settings">Paramètres</Link>
-        </div>
-
-        <div className={style.routeLinks} onClick={routeLinkClicked}>
-          <Link to="/CreerFestival">Créer un festival</Link>
-        </div>
-
-        <div className={style.routeLinks} onClick={routeLinkClicked}>
-          <Link to="/ListeFestivals">Liste des festivals</Link>
-        </div>
+      <nav className='flex flex-row justify-between w-full h-16 p-2'>
+        {navBarItem('/', 'Home')}
+        {navBarItem('/login', 'Se connecter')}
+        {navBarItem('/logout', 'Se déconnecter')}
+        {navBarItem('/agenda', 'Agenda')}
+        {navBarItem('/register', "S'inscrire")}
+        {navBarItem('/settings', 'Paramètres')}
+        {navBarItem('/CreerFestival', 'Créer un festival')}
+        {navBarItem('/ListeFestivals', 'Liste des festivals')}
       </nav>
 
 
       {/* An <Outlet> renders whatever child route is currently active,
-            so you can think about this <Outlet> as a placeholder for
             the child routes we defined above. */}
-      <div className={style.content}>
+      <div className='flex flex-col items-center w-full h-full p-10 snap-y overflow-y-auto'>
         <Outlet />
       </div>
     </div>
