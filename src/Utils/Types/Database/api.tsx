@@ -102,6 +102,7 @@ export default class Api {
             }
             this.token = token;
         }
+        console.log("token", this.token);
         return this.token;
     }
 
@@ -120,6 +121,7 @@ export default class Api {
     public resetToken(): void {
         this.token = null;
         localStorage.removeItem("token");
+        console.log("Token reset");
     }
 
     public encryptWithHashSeed(data: string): string {

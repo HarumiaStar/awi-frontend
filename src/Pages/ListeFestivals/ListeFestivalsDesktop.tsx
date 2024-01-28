@@ -6,21 +6,26 @@ export default function ListeFestivalsDesktop({ festivals }: ListeFestivalsProps
 
 	return (
 		<div>
-			<h1 className={styles.h1}>Liste des festivals a venir</h1>
+			<h1 className='text-4xl font-bold text-center mb-5'>
+				Liste des festivals a venir
+			</h1>
 
-			<div className={styles.container}>
+			<div className='flex flex-col items-center justify-center w-full h-full rounded-lg px-6 my-5'>
 				{festivals.map((festival) => (
-					<div className={styles.festival} key={festival.id}>
-						<div className={styles.header}>
+					<div 
+					className='flex flex-col items-center justify-center w-full h-full rounded-lg px-6 my-5 hover:scale-105 hover:bg-lighter-300 transition-all duration-400'
+					key={festival.id}
+					>
+						<div className='flex flex-row justify-between rounded-lg w-full '>
 							<div className={styles.festivalName}>{festival.name}</div>
 							<div className={styles.festivalDate}>{festival.date_debut} - {festival.date_fin}</div>
 						</div>
-						<div className={styles.festivalDescriptionContainer}>
+						<div className='flex flex-col items-center justify-center w-fullrounded-lg'>
 							<div className={styles.festivalDescription}><strong>Description : </strong>{festival.description}</div>
 						</div>
 						<div className={styles.festivalAdresseContainer}>
 							<div className={styles.festivalAdresse}>{festival.adresse}</div>
-							<FaMapPin size={20}/>
+							<FaMapPin size={20} />
 						</div>
 					</div>
 				))}

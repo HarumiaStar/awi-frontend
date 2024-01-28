@@ -24,7 +24,7 @@ export default function Input({ type, placeholder, icon, id, containerClass, inp
     if (value === null || value === undefined)
         value = "";
     return (
-        <div className="flex flex-row items-center justify-center h-full my-5  focus-within:bg-gray-700 focus-within:shadow-sm hover:bg-lighter-200 p-3 rounded-md"
+        <div className="flex flex-row items-center justify-center h-full focus-within:bg-gray-700 focus-within:shadow-sm hover:bg-lighter-200 p-3 rounded-md"
             onClick={containerClickHandler}>
             {icon}
             <input
