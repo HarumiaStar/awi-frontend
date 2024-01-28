@@ -102,7 +102,6 @@ export default class Api {
             }
             this.token = token;
         }
-        console.log("token", this.token);
         return this.token;
     }
 

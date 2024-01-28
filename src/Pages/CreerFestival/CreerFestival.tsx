@@ -4,11 +4,19 @@ import styles from './CreerFestival.module.css';
 import { FaCommentAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { FormGroup } from '../../Utils/Form/MutlipartForm';
 import ChoixCreneaux from './ChoixCreneaux';
+import { useRef } from 'react';
+
+type CreaneauRefType = {
+	getData: () => any;
+};
 
 export default function CreerFestival() {
 
+	const creneauxRef = useRef<CreaneauRefType>(null);
+
 	const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
+		console.log(creneauxRef.current?.getData());
 		console.log("Submit");
 	}
 
@@ -44,7 +52,7 @@ export default function CreerFestival() {
 							{/* <Input type="text" placeholder='Lien vers le site' icon={<FaCommentAlt />} id="lienSite" />*/}
 						</FormGroup>
 						<FormGroup>
-							<ChoixCreneaux />
+							<ChoixCreneaux ref={creneauxRef} />
 						</FormGroup>
 
 						<FormGroup>

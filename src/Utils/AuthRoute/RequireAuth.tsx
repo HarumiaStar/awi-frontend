@@ -3,7 +3,6 @@ import { Api } from "../Types";
 
 export function RequireAuth({ children }: { children: JSX.Element }) {
     const isLogged : boolean = Api.getInstance().getToken() !== null;
-    console.log("isLogged", isLogged);
     let location = useLocation();
     if (!isLogged) {
       // Redirect them to the /login page, but save the current location they were
