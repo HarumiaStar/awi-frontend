@@ -3,6 +3,7 @@ import { DatePicker, Form, Input, MultipartForm, TextArea } from '../../Utils/Fo
 import styles from './CreerFestival.module.css';
 import { FaCommentAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { FormGroup } from '../../Utils/Form/MutlipartForm';
+import ChoixCreneaux from './ChoixCreneaux';
 
 export default function CreerFestival() {
 
@@ -41,7 +42,7 @@ export default function CreerFestival() {
 
 						</FormGroup>
 						<FormGroup>
-							<h2>Gestion des créneaux</h2>
+							<ChoixCreneaux />
 							{/* TODO Ajouter la gestion des créneaux */}
 						</FormGroup>
 

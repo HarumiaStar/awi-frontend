@@ -1,0 +1,58 @@
+.container{
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+.creneauxContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.choixJours{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.affichageCreneaux{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.creneau{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 15rem;
+}
+
+.creneauHeure{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.supprimerCreneau{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1rem;
+    width: 30%;
+}
+
+.creationCreneaux{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
