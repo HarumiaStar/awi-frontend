@@ -1,5 +1,6 @@
 import { jeuxParser, separator } from "../Utils/Types/JeuxParser";
 import { header, jeuComplet, jeuSansZoneBenevole } from "./data/Jeux";
+import { expect, test, describe } from 'vitest'
 
 describe('JeuxParser', () => {
     test('Empty data show error', () => {
