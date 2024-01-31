@@ -6,7 +6,7 @@ import { TwoDMapEntry } from "./ThreeDMap";
 import { ThreeDMapEntry } from "./ThreeDMap";
 import Tuple from "./Tuple";
 import { Api, login, logout, register, setupHashSeed } from "./Database";
-import { jeuxParser, jeuxParserFichier } from "./JeuxParser";
+import { jeuxParser, jeuxParserFichier, Jeu,Lien,TypeJeu,compareHeader,endOfLine,headerAttendu,parseTypeJeu,separator, parseNbJoueur } from "./JeuxParser";
 
 
 export {
@@ -21,11 +21,20 @@ export {
     register,
     setupHashSeed,
     jeuxParser,
-    jeuxParserFichier
+    jeuxParserFichier,
+    compareHeader,
+    endOfLine,
+    headerAttendu,
+    parseTypeJeu,
+    separator,
+    parseNbJoueur,
 };
 export type {
     TwoDMapEntry,
     ThreeDMapEntry,
+    Jeu,
+    Lien,
+    TypeJeu,
 };
 
 

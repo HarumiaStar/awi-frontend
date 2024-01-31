@@ -4,6 +4,8 @@ idJeu	Nom du jeu	Auteur	Éditeur	nb joueurs	âge min	Durée	Type	Notice	Zone pla
 
  */
 
+import Tuple from "./Tuple";
+
 
 export const separator = ";";
 export const endOfLine = "\n";
@@ -37,8 +39,8 @@ export type Jeu = {
     nom: string,
     auteur?: string | undefined,
     editeur: string,
-    nbJoueurs: string,
-    ageMin: number,
+    nbJoueurs?: string,
+    ageMin?: number,
     duree?: number | undefined,
     type: TypeJeu,
     notice?: Lien | undefined,
@@ -47,13 +49,13 @@ export type Jeu = {
     idZone: number,
     aAnimer: boolean,
     recu: boolean,
-    mecanismes: string,
-    themes: string,
-    tags: string,
-    description: string,
-    image: Lien,
-    logo: Lien,
-    video: Lien,
+    mecanismes?: string,
+    themes?: string,
+    tags?: string,
+    description?: string,
+    image?: Lien,
+    logo?: Lien,
+    video?: Lien,
 };
 
 export enum TypeJeu {
@@ -64,6 +66,34 @@ export enum TypeJeu {
     Initiés = "Initiés",
     JDR = "Jeu de rôle",
     Classiques = "Classiques",
+}
+
+/**
+ * 
+ * @param nbJoueurString "1 joueur", "X joueurs", "X à Y joueurs", undefined
+ */
+export function parseNbJoueur(nbJoueurString?: string): Tuple<number, number> | undefined {
+    if (nbJoueurString === undefined) {
+        return undefined;
+    }
+
+    if (nbJoueurString === "1 joueur")
+        return new Tuple(1, 1);
+
+    // Retirer " joueurs"
+    nbJoueurString = nbJoueurString.replace(" joueurs", "");
+
+    // Si contient " à ", alors c'est un intervalle, sinon c'est un nombre
+    if (nbJoueurString.includes(" à ")) {
+        let nbJoueursString = nbJoueurString.split(" à ");
+        let nbJoueursMin = parseInt(nbJoueursString[0]);
+        let nbJoueursMax = parseInt(nbJoueursString[1]);
+
+        return new Tuple(nbJoueursMin, nbJoueursMax);
+    } else {
+        let nbJoueurs = parseInt(nbJoueurString);
+        return new Tuple(nbJoueurs, nbJoueurs);
+    }
 }
 
 export function parseTypeJeu(type: string) {
@@ -141,7 +171,7 @@ export function jeuxParser(data: string[]) {
     if (data === undefined) {
         throw new Error("Erreur : la donnée est undefined");
     }
-    
+
     if (data.length === 0) {
         throw new Error("Erreur : il n'y a pas de données");
     }
@@ -164,7 +194,7 @@ export function jeuxParser(data: string[]) {
 
         // Split la ligne en tableau de string en fonction du séparateur et prendre en compte les guilllemets permettant de mettre des séparateurs dans les données
         let jeu = separerLigne(data[i], separator, '"');
-        
+
 
         jeux.push(validationJeu(jeu));
     }
@@ -175,7 +205,7 @@ export function jeuxParser(data: string[]) {
 export function validationHeader(headerRecu: string): string[] {
     // Retirer le \r à la fin de la ligne
     headerRecu = headerRecu.replace("\r", "");
-    if(headerRecu === undefined) {
+    if (headerRecu === undefined) {
         throw new Error("Erreur : le header est undefined");
     }
 
@@ -204,37 +234,34 @@ export function validationJeu(jeu: string[]): Jeu {
     // Nombre de clé de headerAttendu
     const nbKey = Object.keys(headerAttendu).length;
 
-    console.log(jeu);
-
-
     if (jeu.length !== nbKey) {
         throw new Error("Erreur : le jeu n'a pas le bon format");
     }
 
-    let idJeu = parseOrFailNumber(jeu[0]);
-    let nom = parseOrFailString(jeu[1]);
-    let auteur = parseOrUndefinedString(jeu[2]);
-    let editeur = parseOrFailString(jeu[3]);
-    let nbJoueurs = parseOrFailString(jeu[4]);
-    let ageMin = parseOrFailNumber(jeu[5]);
-    let duree = parseOrUndefinedNumber(jeu[6]);
-    let type = parseTypeJeu(jeu[7]);
-    let notice = parseOrUndefinedLien(jeu[8]);
-    let zonePlan = parseOrFailString(jeu[9]);
-    let zoneBenevole = parseOrUndefinedString(jeu[10]);
-    let idZone = parseOrFailNumber(jeu[11]);
-    let aAnimer = parseOrFailBoolean(jeu[12]);
-    let recu = parseOrFailBoolean(jeu[13]);
-    let mecanismes = parseOrFailString(jeu[14]);
-    let themes = parseOrFailString(jeu[15]);
-    let tags = parseOrFailString(jeu[16]);
-    let description = parseOrFailString(jeu[17]);
-    let image = parseOrFailLien(jeu[18]);
-    let logo = parseOrFailLien(jeu[19]);
-    let video = parseOrFailLien(jeu[20]);
+    const idJeu = parseOrFailNumber(jeu[0]);
+    const nom = parseOrFailString(jeu[1]);
+    const auteur = parseOrUndefinedString(jeu[2]);
+    const editeur = parseOrFailString(jeu[3]);
+    const nbJoueurs = parseOrUndefinedString(jeu[4]);
+    const ageMin = parseOrUndefinedNumber(jeu[5]);
+    const duree = parseOrUndefinedNumber(jeu[6]);
+    const type = parseTypeJeu(jeu[7]);
+    const notice = parseOrUndefinedLien(jeu[8]);
+    const zonePlan = parseOrFailString(jeu[9]);
+    const zoneBenevole = parseOrUndefinedString(jeu[10]);
+    const idZone = parseOrFailNumber(jeu[11]);
+    const aAnimer = parseOrFailBoolean(jeu[12]);
+    const recu = parseOrFailBoolean(jeu[13]);
+    const mecanismes = parseOrUndefinedString(jeu[14]);
+    const themes = parseOrUndefinedString(jeu[15]);
+    const tags = parseOrUndefinedString(jeu[16]);
+    const description = parseOrUndefinedString(jeu[17]);
+    const image = parseOrUndefinedLien(jeu[18]);
+    const logo = parseOrUndefinedLien(jeu[19]);
+    const video = parseOrUndefinedLien(jeu[20]);
 
 
-    const resJeu : Jeu = {
+    const resJeu: Jeu = {
         idJeu,
         nom,
         auteur,
@@ -290,12 +317,12 @@ function parseOrFailString(str: string): string {
     return str;
 }
 
-function parseOrFailLien(str: string): Lien {
-    if (str === "") {
-        throw new Error("Erreur : la donnée fournie n'a pas le bon format : " + str);
-    }
-    return str;
-}
+// function parseOrFailLien(str: string): Lien {
+//     if (str === "") {
+//         throw new Error("Erreur : la donnée fournie n'a pas le bon format : " + str);
+//     }
+//     return str;
+// }
 
 function parseOrFailNumber(str: string): number {
     if (str === "") {
@@ -335,7 +362,7 @@ export function separerLigne(ligne: string, separateur: string, ignore: string):
                 i = prochainGuillemet;
             } else {
                 // Gestion d'une paire de guillemets non fermée (c'est à vous de définir le comportement souhaité)
-                console.error("Erreur : Paire de guillemets non fermée");
+                throw new Error("Erreur : guidelet non fermé");
             }
         } else if (caractere === separateur) {
             // Si nous rencontrons le séparateur en dehors des guillemets, ajouter le champ au tableau résultant

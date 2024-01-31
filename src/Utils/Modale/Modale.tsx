@@ -32,14 +32,19 @@ const Modale = React.forwardRef((props: ModaleProps, ref: React.Ref<ModaleRefTyp
         close: () => setOpen(false)
     }));
 
+    let contentClasses = "rounded-lg overflow-auto shadow-xl transform transition-all sm:max-w-lg sm:w-full";
+    if( props.bg ) {
+        contentClasses += " " + props.bg;
+    }
+
     return <div
-        className="z-50 absolute inset-0 bg-black bg-opacity-50 h-screen w-screen top-0 left-0 flex items-center justify-center flex-col"
+        className="z-50 absolute bg-black bg-opacity-50 h-screen w-screen top-0 left-0 flex items-center justify-center flex-col"
         aria-labelledby="modal-title"
         role="dialog"
         aria-modal="true"
         style={{ display: open ? "flex" : "none" }}
     >
-        <div className="flex flex-column items-center justify-center p- rounded-lg w-1/2 h-1/2" style={{ backgroundColor: props.bg ?? "white" }}>
+        <div className={contentClasses}>
             {props.children}
         </div>
     </div>

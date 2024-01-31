@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 type fileDNDProps = {
     onChanges?: (files: FileList) => void;
@@ -10,12 +10,14 @@ type fileDNDRefType = {
     getFile: (index: number) => File;
     getFileCount: () => number;
     humanFileSize: (size: number) => string;
+    removeAll: () => void;
 };
 
 const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRefType>) => {
     const [files, setFiles] = useState<FileList>(new DataTransfer().files);
     const [fileDragging, setFileDragging] = useState<number | null>(null);
     const [fileDropping, setFileDropping] = useState<number | null>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
 
     function createFileList(files: any[], newFiles: any[] = []): FileList {
@@ -68,8 +70,16 @@ const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRef
         }
     }
 
+    function removeAll() {
+        setFiles(createFileList([]));
+        console.log(inputRef.current?.value);
+        if (inputRef.current) {
+            inputRef.current.value = "";
+        }
+    }
+
     function addFiles(e: any) {
-        console.log(e.target.files);
+        console.log(inputRef.current?.value);
         const currentFiles = createFileList([...files], [...e.target.files]);
         setFiles(currentFiles);
         if (props.onChanges) {
@@ -101,6 +111,7 @@ const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRef
         getFile,
         getFileCount,
         humanFileSize,
+        removeAll
     }));
 
     function handleOnDragOver(e: React.DragEvent<HTMLDivElement>) {
@@ -132,7 +143,9 @@ const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRef
                         onDragOver={handleOnDragOver}
                         onDragLeave={handleOnDragLeave}
                         onDrop={handleOnDrop}
-                        title="" />
+                        title="" 
+                        ref={inputRef}
+                    />
 
                     <div className="flex flex-col items-center justify-center py-5 text-center">
                         <svg className="w-6 h-6 mr-1 text-current-50" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
