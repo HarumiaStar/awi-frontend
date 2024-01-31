@@ -8,6 +8,11 @@ import { AffichageJeu } from "./AffichageJeu/AffichageJeu";
 import { RxCross2 } from "react-icons/rx";
 
 export type ImportJeuxProps = {
+    setJeux: (jeux: Jeu[]) => void;
+}
+
+export type ImportJeuxRefType = {
+    getJeux: () => Jeu[] | undefined;
 }
 
 const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
@@ -17,7 +22,16 @@ const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
     const filesRef = useRef<HTMLDivElement>(null);
     const fileDNDRef = useRef<fileDNDRefType>(null);
 
-    const [data, setData] = React.useState<Tuple<File, Jeu[]> | null>(null);
+    const [data, setDataRaw] = React.useState<Tuple<File, Jeu[]> | null>(null);
+
+    const setData = (data: Tuple<File, Jeu[]> | null) => {
+        setDataRaw(data);
+        if (data) {
+            props.setJeux(data.item2);
+        } else {
+            props.setJeux([]);
+        }
+    }
 
     const fileRemplace = async (file: File, index: number) => {
         fileDNDRef.current?.removeFile(index);
@@ -88,6 +102,12 @@ const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
             </div>
         );
     }
+
+    React.useImperativeHandle(ref, () => ({
+        getJeux() {
+            return data?.item2;
+        }
+    }));
 
     return (
         <>

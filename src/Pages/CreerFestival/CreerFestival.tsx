@@ -1,11 +1,12 @@
 import { Form, MultipartForm } from '../../Utils/Form';
 import { FormGroup } from '../../Utils/Form/MutlipartForm';
 import ChoixCreneaux from './ChoixCreneaux';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Alerte, { AlerteRefType } from '../../Utils/Alerte';
 import InformationsGenerales from './InformationsGenerales/InformationsGenerales';
-import ImportJeux from './ImportJeux/ImportJeux';
+import ImportJeux, { ImportJeuxRefType } from './ImportJeux/ImportJeux';
 import ChoixActivité from './ChoixActivités';
+import ChoixZones from './ChoixZones';
 
 type CreaneauRefType = {
 	getData: () => any;
@@ -15,6 +16,8 @@ export default function CreerFestival() {
 
 	const creneauxRef = useRef<CreaneauRefType>(null);
 	const AlerteRef = useRef<AlerteRefType>(null);
+	const importJeuxRef = useRef<ImportJeuxRefType>(null);
+	const [jeux, setJeux] = useState<any[]>([]);
 
 	const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
@@ -30,7 +33,6 @@ export default function CreerFestival() {
 		text: "Créer le festival",
 		onSubmit: handleSubmit,
 	};
-
 
 	return (
 		<div>
@@ -50,11 +52,15 @@ export default function CreerFestival() {
 						</FormGroup>
 
 						<FormGroup>
-							<ImportJeux />
+							<ImportJeux ref={importJeuxRef} setJeux={setJeux} />
 						</FormGroup>
 
 						<FormGroup>
 							<ChoixActivité />
+						</FormGroup>
+
+						<FormGroup>
+							<ChoixZones jeux={jeux} />
 						</FormGroup>
 
 						<FormGroup>

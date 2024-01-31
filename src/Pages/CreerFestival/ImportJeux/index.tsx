@@ -1,4 +1,4 @@
-import ImportJeux, {ImportJeuxProps} from "./ImportJeux";
+import ImportJeux, {ImportJeuxProps,ImportJeuxRefType} from "./ImportJeux";
 
 export default ImportJeux
-export type {ImportJeuxProps}
+export type {ImportJeuxProps, ImportJeuxRefType}

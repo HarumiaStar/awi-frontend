@@ -4,7 +4,7 @@ idJeu	Nom du jeu	Auteur	Éditeur	nb joueurs	âge min	Durée	Type	Notice	Zone pla
 
  */
 
-import Tuple from "./Tuple";
+import {Tuple} from ".";
 
 
 export const separator = ";";
