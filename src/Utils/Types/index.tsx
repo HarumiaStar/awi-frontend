@@ -18,11 +18,11 @@ export {
     login,
     logout,
     register,
-    setupHashSeed
+    setupHashSeed,
 };
 export type {
     TwoDMapEntry,
-    ThreeDMapEntry
+    ThreeDMapEntry,
 };
 
 
