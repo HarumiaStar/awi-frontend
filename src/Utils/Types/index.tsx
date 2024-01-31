@@ -6,6 +6,7 @@ import { TwoDMapEntry } from "./ThreeDMap";
 import { ThreeDMapEntry } from "./ThreeDMap";
 import Tuple from "./Tuple";
 import { Api, login, logout, register, setupHashSeed } from "./Database";
+import { jeuxParser, jeuxParserFichier } from "./JeuxParser";
 
 
 export {
@@ -19,6 +20,8 @@ export {
     logout,
     register,
     setupHashSeed,
+    jeuxParser,
+    jeuxParserFichier
 };
 export type {
     TwoDMapEntry,

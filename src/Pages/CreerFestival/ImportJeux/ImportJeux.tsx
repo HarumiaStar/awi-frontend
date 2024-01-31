@@ -4,6 +4,7 @@ import Modale, { ModaleRefType } from "../../../Utils/Modale";
 import Alerte, { AlerteRefType } from "../../../Utils/Alerte";
 import ReactDOM from "react-dom";
 import { BiTrash } from "react-icons/bi";
+import { jeuxParser, jeuxParserFichier } from "../../../Utils/Types";
 
 export type ImportJeuxProps = {
 }
@@ -21,7 +22,7 @@ const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
         setFile(file);
     }
 
-    const onFileChange = (files: FileList) => {
+    const onFileChange = async (files: FileList) => {
         if (files.length === 0) return;
 
         // Vérification que le fichier est bien un csv
@@ -56,6 +57,7 @@ const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
 
 
         const file = files[0];
+        console.log(await jeuxParserFichier(file));
         setFile(file);
     }
 
@@ -107,8 +109,6 @@ const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
                                 {file?.size} octets
                             </div>
                         </div>
-                        
-
                     </div>
                 </Modale>
             </div>

@@ -102,21 +102,32 @@ export const compareHeader = (headerAttendu: string[], headerRecu: string[]) => 
  * Fonction qui parse un fichier csv de jeux
  * @param fichier : fichier csv à parser
  */
-export function jeuxParserFichier(fichier: File) {
+export async function jeuxParserFichier(fichier: File) {
     let reader = new FileReader();
     reader.readAsText(fichier);
     let data: string[] = [];
-    reader.onload = function () {
-        let lines = reader.result?.toString().split(endOfLine);
-        if (lines) {
-            lines.forEach((line) => {
-                data.push(line);
-            });
-        }
-    };
 
-    return jeuxParser(data);
+    // return le résultat de la fonction après l'exécution de la fonction onload
+    return new Promise<Jeu[]>((resolve, reject) => {
+        reader.onload = function () {
+            if (reader.result === null) {
+                reject("Erreur : le fichier csv n'a pas le bon format");
+            }
 
+            let lines = reader.result?.toString().split(endOfLine);
+            if (lines) {
+                lines.forEach((line) => {
+                    data.push(line);
+                });
+            }
+
+            resolve(jeuxParser(data));
+        };
+
+        reader.onerror = function () {
+            reject("Erreur : le fichier csv n'a pas le bon format");
+        };
+    });
 }
 
 /**
@@ -127,6 +138,13 @@ export function jeuxParserFichier(fichier: File) {
  */
 export function jeuxParser(data: string[]) {
 
+    if (data === undefined) {
+        throw new Error("Erreur : la donnée est undefined");
+    }
+    
+    if (data.length === 0) {
+        throw new Error("Erreur : il n'y a pas de données");
+    }
 
     let headerRecu = validationHeader(data[0]);
     if (headerRecu === null) {
@@ -141,8 +159,12 @@ export function jeuxParser(data: string[]) {
         if (data[i] === "") {
             continue;
         }
+        // Retirer le \r à la fin de la ligne
+        data[i] = data[i].replace("\r", "");
 
-        let jeu = data[i].split(separator);
+        // Split la ligne en tableau de string en fonction du séparateur et prendre en compte les guilllemets permettant de mettre des séparateurs dans les données
+        let jeu = separerLigne(data[i], separator, '"');
+        
 
         jeux.push(validationJeu(jeu));
     }
@@ -150,7 +172,16 @@ export function jeuxParser(data: string[]) {
     return jeux;
 }
 
-export function validationHeader(headerRecu: string): string[] | null {
+export function validationHeader(headerRecu: string): string[] {
+    // Retirer le \r à la fin de la ligne
+    headerRecu = headerRecu.replace("\r", "");
+    if(headerRecu === undefined) {
+        throw new Error("Erreur : le header est undefined");
+    }
+
+    if (headerRecu === "") {
+        throw new Error("Erreur : le header n'a pas le bon format");
+    }
     let header = headerRecu.split(separator);
 
     header.forEach((element) => {
@@ -163,6 +194,7 @@ export function validationHeader(headerRecu: string): string[] | null {
         throw new Error("Erreur : le fichier csv n'a pas le bon format");
     }
 
+
     return header;
 }
 
@@ -172,131 +204,37 @@ export function validationJeu(jeu: string[]): Jeu {
     // Nombre de clé de headerAttendu
     const nbKey = Object.keys(headerAttendu).length;
 
+    console.log(jeu);
+
 
     if (jeu.length !== nbKey) {
         throw new Error("Erreur : le jeu n'a pas le bon format");
     }
 
-    if (jeu[0] === "") {
-        throw new Error("Erreur : l'id du jeu " + jeu[0] + " n'a pas le bon format");
-    }
-    let idJeu = parseInt(jeu[0]);
-    if (isNaN(idJeu)) {
-        throw new Error("Erreur : l'id du jeu " + jeu[0] + " n'a pas le bon format");
-    }
-
-    if (jeu[1] === "") {
-        throw new Error("Erreur : le nom du jeu " + jeu[1] + " n'a pas le bon format");
-    }
-    let nom = jeu[1];
-
-    let auteur: string | undefined = jeu[2];
-    if (auteur === "") {
-        auteur = undefined;
-    }
-
-
-    if (jeu[3] === "") {
-        throw new Error("Erreur : l'éditeur du jeu " + jeu[3] + " n'a pas le bon format");
-    }
-    let editeur = jeu[3];
-
-    if (jeu[4] === "") {
-        throw new Error("Erreur : le nombre de joueurs du jeu " + jeu[4] + " n'a pas le bon format");
-    }
-    let nbJoueurs = jeu[4];
-    let ageMin = parseInt(jeu[5]);
-
-    let duree = undefined;
-
-    if (jeu[6] !== "") {
-        duree = parseInt(jeu[6]);
-    }
-
-    if (isNaN(ageMin)) {
-        throw new Error("Erreur : l'âge min du jeu " + jeu[5] + " n'a pas le bon format");
-    }
+    let idJeu = parseOrFailNumber(jeu[0]);
+    let nom = parseOrFailString(jeu[1]);
+    let auteur = parseOrUndefinedString(jeu[2]);
+    let editeur = parseOrFailString(jeu[3]);
+    let nbJoueurs = parseOrFailString(jeu[4]);
+    let ageMin = parseOrFailNumber(jeu[5]);
+    let duree = parseOrUndefinedNumber(jeu[6]);
     let type = parseTypeJeu(jeu[7]);
+    let notice = parseOrUndefinedLien(jeu[8]);
+    let zonePlan = parseOrFailString(jeu[9]);
+    let zoneBenevole = parseOrUndefinedString(jeu[10]);
+    let idZone = parseOrFailNumber(jeu[11]);
+    let aAnimer = parseOrFailBoolean(jeu[12]);
+    let recu = parseOrFailBoolean(jeu[13]);
+    let mecanismes = parseOrFailString(jeu[14]);
+    let themes = parseOrFailString(jeu[15]);
+    let tags = parseOrFailString(jeu[16]);
+    let description = parseOrFailString(jeu[17]);
+    let image = parseOrFailLien(jeu[18]);
+    let logo = parseOrFailLien(jeu[19]);
+    let video = parseOrFailLien(jeu[20]);
 
 
-    let notice: string | undefined = jeu[8];
-    if (notice === "") {
-        notice = undefined;
-    }
-
-    if (notice !== undefined && !notice.startsWith("http")) {
-        throw new Error("Erreur : la notice du jeu " + jeu[8] + " n'est pas un lien");
-    }
-
-
-    if (jeu[9] === "") {
-        throw new Error("Erreur : la zone du plan du jeu " + jeu[9] + " n'a pas le bon format");
-    }
-    let zonePlan = jeu[9];
-
-
-    let zoneBenevole: string | undefined = jeu[10];
-    if (zoneBenevole === "") {
-        zoneBenevole = undefined;
-    }
-
-    if (jeu[11] === "") {
-        console.log(jeu);
-        throw new Error("Erreur : l'id de la zone du jeu " + jeu[11] + " n'a pas le bon format");
-    }
-    let idZone = parseInt(jeu[11]);
-    if (isNaN(idZone)) {
-        throw new Error("Erreur : l'id de la zone du jeu " + jeu[11] + " n'a pas le bon format");
-    }
-
-
-    if (jeu[12] === "" || (jeu[12] !== "oui" && jeu[12] !== "non")) {
-        throw new Error("Erreur : le champ à animer du jeu " + jeu[12] + " n'a pas le bon format");
-    }
-    let aAnimer = jeu[12] === "oui";
-
-    if (jeu[13] === "" || (jeu[13] !== "oui" && jeu[13] !== "non")) {
-        throw new Error("Erreur : le champ reçu du jeu " + jeu[13] + " n'a pas le bon format");
-    }
-    let recu = jeu[13] === "oui";
-
-    if (jeu[14] === "") {
-        throw new Error("Erreur : le champ mécanismes du jeu " + jeu[14] + " n'a pas le bon format");
-    }
-    let mecanismes = jeu[14];
-
-    if (jeu[15] === "") {
-        throw new Error("Erreur : le champ thèmes du jeu " + jeu[15] + " n'a pas le bon format");
-    }
-    let themes = jeu[15];
-
-    if (jeu[16] === "") {
-        throw new Error("Erreur : le champ tags du jeu " + jeu[16] + " n'a pas le bon format");
-    }
-    let tags = jeu[16];
-
-    if (jeu[17] === "") {
-        throw new Error("Erreur : le champ description du jeu " + jeu[17] + " n'a pas le bon format");
-    }
-    let description = jeu[17];
-
-    if (jeu[18] === "") {
-        throw new Error("Erreur : le champ image du jeu " + jeu[18] + " n'a pas le bon format");
-    }
-    let image = jeu[18];
-
-    if (jeu[19] === "") {
-        throw new Error("Erreur : le champ logo du jeu " + jeu[19] + " n'a pas le bon format");
-    }
-    let logo = jeu[19];
-
-    if (jeu[20] === "") {
-        throw new Error("Erreur : le champ vidéo du jeu " + jeu[20] + " n'a pas le bon format");
-    }
-    let video = jeu[20];
-
-
-    return {
+    const resJeu : Jeu = {
         idJeu,
         nom,
         auteur,
@@ -319,4 +257,98 @@ export function validationJeu(jeu: string[]): Jeu {
         logo,
         video,
     };
+
+
+    return resJeu;
+}
+
+function parseOrUndefinedString(str: string): string | undefined {
+    if (str === "") {
+        return undefined;
+    }
+    return str;
+}
+
+function parseOrUndefinedLien(str: string): Lien | undefined {
+    if (str === "") {
+        return undefined;
+    }
+    return str;
+}
+
+function parseOrUndefinedNumber(str: string): number | undefined {
+    if (str === "") {
+        return undefined;
+    }
+    return parseInt(str);
+}
+
+function parseOrFailString(str: string): string {
+    if (str === "") {
+        throw new Error("Erreur : la donnée fournie n'a pas le bon format : " + str);
+    }
+    return str;
+}
+
+function parseOrFailLien(str: string): Lien {
+    if (str === "") {
+        throw new Error("Erreur : la donnée fournie n'a pas le bon format : " + str);
+    }
+    return str;
+}
+
+function parseOrFailNumber(str: string): number {
+    if (str === "") {
+        throw new Error("Erreur : la donnée fournie n'a pas le bon format : " + str);
+    }
+    return parseInt(str);
+}
+
+function parseOrFailBoolean(str: string): boolean {
+    if (str === "") {
+        throw new Error("Erreur : la donnée fournie n'a pas le bon format : " + str);
+    }
+    return str === "oui";
+}
+
+
+
+
+/**
+ * Fonction pour séparer une ligne en fonction du séparateur tout en ignorant les séparateurs entre guillemets.
+ * @param ligne : ligne à séparer
+ * @param separateur : séparateur utilisé (par exemple, ";")
+ * @returns Un tableau de chaînes résultant de la séparation
+ */
+export function separerLigne(ligne: string, separateur: string, ignore: string): string[] {
+    const result: string[] = [];
+    let champActuel = '';
+
+    for (let i = 0; i < ligne.length; i++) {
+        const caractere = ligne[i];
+
+        if (caractere === ignore) {
+            // Si nous rencontrons un guillemet, ignorer les séparateurs jusqu'au prochain guillemet
+            const prochainGuillemet = ligne.indexOf(ignore, i + 1);
+            if (prochainGuillemet !== -1) {
+                champActuel += ligne.substring(i + 1, prochainGuillemet);
+                i = prochainGuillemet;
+            } else {
+                // Gestion d'une paire de guillemets non fermée (c'est à vous de définir le comportement souhaité)
+                console.error("Erreur : Paire de guillemets non fermée");
+            }
+        } else if (caractere === separateur) {
+            // Si nous rencontrons le séparateur en dehors des guillemets, ajouter le champ au tableau résultant
+            result.push(champActuel);
+            champActuel = '';
+        } else {
+            // Ajouter le caractère au champ actuel
+            champActuel += caractere;
+        }
+    }
+
+    // Ajouter le dernier champ au tableau résultant
+    result.push(champActuel);
+
+    return result;
 }
