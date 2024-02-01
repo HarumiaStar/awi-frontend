@@ -38,7 +38,16 @@ export class Jour {
         for (let i = 0; i < this.creneaux.length; i++) {
             const creneauActuel = this.creneaux[i];
             if (creneauxChevauchement(creneauActuel, creneau)) {
-                alert('Le créneau se chevauche avec un créneau existant c1 : ' + creneauActuel.heureDebut + ' - ' + creneauActuel.heureFin + ' c2 : ' + creneau.heureDebut + ' - ' + creneau.heureFin);
+                alert(
+                    'Un créneau actuel : ' +
+                    creneauActuel.heureDebut.getHours() + ':' + creneauActuel.heureDebut.getMinutes() +
+                    ' - ' +
+                    creneauActuel.heureFin.getHours() + ':' + creneauActuel.heureFin.getMinutes() +
+                    ' se chevauche avec le créneau souhaité : ' +
+                    creneau.heureDebut.getHours() + ':' + creneau.heureDebut.getMinutes() +
+                    ' - ' +
+                    creneau.heureFin.getHours() + ':' + creneau.heureFin.getMinutes()
+                );
                 return;
             }
         }

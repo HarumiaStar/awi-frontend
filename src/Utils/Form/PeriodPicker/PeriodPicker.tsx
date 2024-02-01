@@ -23,7 +23,6 @@ export default function PeriodPicker({ onDateDebutChange, onDateFinChange, onDat
         }
         dateDebutInputRef.current.value = dateToStringFr(date);
         if (onDateDebutChange) onDateDebutChange(date);
-        if (onDatesChange) onDatesChange({dateDebut: date, dateFin: null});
     }
 
     const onDateFinChangeHandle = (date: Date | null) => {
@@ -34,7 +33,6 @@ export default function PeriodPicker({ onDateDebutChange, onDateFinChange, onDat
         }
         dateFinInputRef.current.value = dateToStringFr(date);
         if (onDateFinChange) onDateFinChange(date);
-        if (onDatesChange) onDatesChange({dateDebut: null, dateFin: date});
     }
 
     const onTypingHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -96,7 +94,11 @@ export default function PeriodPicker({ onDateDebutChange, onDateFinChange, onDat
         <div className="relative">
             <div className="flex flex-row-reverse gap-2">
                 <div className="flex flex-col align-middle justify-center">
-                    <FaCalendarAlt onClick={() => periodPickerModalRef.current?.toggle()} />
+                    <FaCalendarAlt
+                        className="cursor-pointer hover:bg-slate-400 px-2 py-1 rounded-lg"
+                        size={30}
+                        onClick={() => periodPickerModalRef.current?.toggle()}
+                    />
                 </div>
                 <div className="flex flex-row justify-between">
                     <div>
@@ -126,7 +128,7 @@ export default function PeriodPicker({ onDateDebutChange, onDateFinChange, onDat
 
             </div>
 
-            <PeriodPickerModal onDateDebutChange={onDateDebutChangeHandle} onDateFinChange={onDateFinChangeHandle} ref={periodPickerModalRef} />
+            <PeriodPickerModal onDateDebutChange={onDateDebutChangeHandle} onDateFinChange={onDateFinChangeHandle} ref={periodPickerModalRef} onDatesChange={onDatesChange} />
         </div>
     )
 }

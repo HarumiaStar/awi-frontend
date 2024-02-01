@@ -4,13 +4,13 @@ import { DisplayJour, DisplayJourRef } from "./DisplayJours";
 export type PeriodPickerModalProps = {
     onDateDebutChange: (date: Date | null) => void;
     onDateFinChange: (date: Date | null) => void;
+    onDatesChange?: (dates: { dateDebut: Date | null, dateFin: Date | null }) => void;
 }
 
 export type PeriodPickerModalRef = {
     open: () => void;
     close: () => void;
     toggle: () => void;
-    getDates: () => { dateDebut: Date | null, dateFin: Date | null };
 }
 
 export const PeriodPickerModal = React.forwardRef((props: PeriodPickerModalProps, ref: React.Ref<PeriodPickerModalRef>) => {
@@ -41,13 +41,12 @@ export const PeriodPickerModal = React.forwardRef((props: PeriodPickerModalProps
         open: () => { setOpen(true)},
         close: () => { setOpen(false)},
         toggle: () => { setOpen(!open)},
-        getDates: () => { return { dateDebut: new Date(annee, mois, 1), dateFin: new Date(annee, mois + 1, 0) } }
     }));
 
     const handleDateFinChangeMiddleware = (date: Date | null) => {
         props.onDateFinChange(date);
         if(joursRef.current === null) return;
-        if(joursRef.current.getDates().dateFin === null) return;
+        if(date === null) return;
         setOpen(false);
     }
 
@@ -152,7 +151,7 @@ export const PeriodPickerModal = React.forwardRef((props: PeriodPickerModalProps
                 </div>
             </div>
             <div className="flex flex-row justify-between w-full">
-                <DisplayJour mois={mois} annee={annee} onDateDebutChange={props.onDateDebutChange} onDateFinChange={handleDateFinChangeMiddleware} ref={joursRef} />
+                <DisplayJour mois={mois} annee={annee} onDateDebutChange={props.onDateDebutChange} onDateFinChange={handleDateFinChangeMiddleware} ref={joursRef} onDatesChange={props.onDatesChange} />
             </div>
             <div className="flex flex-row-reverse justify-between w-full">
                 <div

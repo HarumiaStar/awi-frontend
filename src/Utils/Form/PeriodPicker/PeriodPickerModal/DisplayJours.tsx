@@ -7,13 +7,14 @@ export type DisplayJourProps = {
     annee: number;
     onDateDebutChange: (date: Date | null) => void;
     onDateFinChange: (date: Date | null) => void;
+    onDatesChange?: (dates: { dateDebut: Date | null, dateFin: Date | null }) => void;
 }
 
 export type DisplayJourRef = {
     getDates: () => { dateDebut: Date | null, dateFin: Date | null };
 }
 
-export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, onDateFinChange }: DisplayJourProps, ref: React.Ref<DisplayJourRef>) => {
+export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, onDateFinChange, onDatesChange }: DisplayJourProps, ref: React.Ref<DisplayJourRef>) => {
     /* --------------------------------- States --------------------------------- */
     const [dateDebut, setDateDebutRaw] = useState<Date | null>(null);
     const [dateFin, setDateFinRaw] = useState<Date | null>(null);
@@ -31,7 +32,7 @@ export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, o
     }
     const nbJoursMoisPrecedent = new Date((mois === 0 ? annee - 1 : annee), mois, 0).getDate();
     // Ajoute des jours vides avant le premier jour du mois
-    for (let i = 1; i < premierJourDuMoisNumero; i++) {
+    for (let i = 0; i < premierJourDuMoisNumero - 1; i++) {
         listeJours.unshift(new Date(joursPrecedents.getFullYear(), joursPrecedents.getMonth(), nbJoursMoisPrecedent - i));
     }
 
@@ -48,22 +49,43 @@ export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, o
     const setDateDebut = (date: Date) => {
         setDateDebutRaw(date);
         onDateDebutChange(date);
+        if (onDatesChange) onDatesChange({ dateDebut: date, dateFin: null });
     }
 
     const setDateFin = (date: Date | null) => {
         setDateFinRaw(date);
         onDateFinChange(date);
+        if (onDatesChange) onDatesChange({ dateDebut, dateFin: date });
     }
+
+    const setDates = (dates: { dateDebut: Date | null, dateFin: Date | null }) => {
+        setDateDebutRaw(dates.dateDebut);
+        setDateFinRaw(dates.dateFin);
+        onDateDebutChange(dates.dateDebut);
+        onDateFinChange(dates.dateFin);
+        if (onDatesChange) onDatesChange(dates);
+    }
+
+
 
     const handleClick = (date: Date) => {
         if (dateDebut === null) {
             setDateDebut(date);
-        } else if (dateFin === null) {
-            setDateFin(date);
-        } else {
-            setDateDebut(date);
-            setDateFin(null);
+            return;
         }
+
+        if (dateFin !== null) {
+            setDates({ dateDebut: date, dateFin: null });
+            return;
+        }
+
+        if (isBefore(date, dateDebut)) {
+            setDates({ dateDebut: date, dateFin: dateDebut });
+        }
+        else {
+            setDateFin(date);
+        }
+
     }
 
     React.useImperativeHandle(ref, () => ({

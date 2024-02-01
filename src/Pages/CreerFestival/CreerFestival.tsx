@@ -11,7 +11,8 @@ import ChoixCreneaux from './ChoixCreneaux';
 import ImportJeux from './ImportJeux/ImportJeux';
 import ChoixActivite from './ChoixActivites';
 import ChoixZones from './ChoixZones';
-// import Recapitulatif from './Recapitulatif';
+import Recapitulatif from './Recapitulatif';
+import { ChoixCreneauxRef } from './ChoixCreneaux/ChoixCreneaux';
 
 
 
@@ -20,6 +21,9 @@ export default function CreerFestival() {
 
 	// Refs de l'alerte
 	const AlerteRef = useRef<AlerteRefType>(null);
+
+	const choixCrenRef = useRef<ChoixCreneauxRef>(null);
+
 	// Données du festival
 	const [donneesFestival] = useState<DonneesFestival>(new DonneesFestival());
 
@@ -49,10 +53,10 @@ export default function CreerFestival() {
 				<Form>
 					<MultipartForm nextButtonOptions={nextButtonOptions} submitButtonOptions={submitButtonOptions}>
 						<FormGroup>
-							<InformationsGenerales donneesFestival={donneesFestival} />
+							<InformationsGenerales donneesFestival={donneesFestival} choixCreneauxRef={choixCrenRef} />
 						</FormGroup>
 						<FormGroup>
-							<ChoixCreneaux donneesFestival={donneesFestival} />
+							<ChoixCreneaux donneesFestival={donneesFestival} ref={choixCrenRef} />
 						</FormGroup>
 
 						<FormGroup>
@@ -68,10 +72,10 @@ export default function CreerFestival() {
 						</FormGroup>
 
 						<FormGroup>
-							{/* <Recapitulatif donneesFestival={donneesFestival} /> */}
-							<div className='flex flex-row justify-center'>
+							<Recapitulatif donneesFestival={donneesFestival} />
+							{/* <div className='flex flex-row justify-center'>
 								Affichage du récapitulatif
-							</div>
+							</div> */}
 						</FormGroup>
 					</MultipartForm>
 				</Form>

@@ -1,26 +1,59 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import { TiPlus } from "react-icons/ti";
-import { DetailZone, zoneFromJeuxTriees } from "../../../Utils/Types";
+import { zoneFromJeuxTriees } from "../../../Utils/Types";
 import { DisplayZone } from "./DisplayZone";
 import { v4 } from "uuid";
-import { DonneesFestival } from "../DonneesFestival";
+import { DonneesFestival, RegisterDonneesFestivalRef } from "../DonneesFestival";
 
 
 export type ChoixZonesProps = {
     donneesFestival: DonneesFestival;
 };
 
+export type ChoixZonesRef = RegisterDonneesFestivalRef & {
+    update(): void;
+}
+
 export default function ChoixZones({ donneesFestival }: ChoixZonesProps) {
-    const [zones, setZones] = useState<DetailZone[]>([]);
+    console.log('render ChoixZones')
+
+    if (donneesFestival.zones.length === 0) {
+        donneesFestival.zones = zoneFromJeuxTriees(donneesFestival.jeux, "alphabétique")
+    }
+
+    const zones = donneesFestival.zones;
+
+    console.log(zones)
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
     const inputRef = useRef<HTMLInputElement | null>(null)
 
+    /* -------------------------------------------------------------------------- */
+    /*                                    HOOKS                                   */
+    /* -------------------------------------------------------------------------- */
+    
+
+    useEffect(() => {
+        donneesFestival.registerComponent(selfRef, 'jeux');
+    }, [donneesFestival]);
+
+    const selfRef = useRef<ChoixZonesRef>(null);
+
+    React.useImperativeHandle(selfRef, () => ({
+        update: () => {forceUpdate();}
+    }));
+
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                                  HANDLERS                                  */
+    /* -------------------------------------------------------------------------- */
     const ajouterZone = (nom: string) => {
         const zone = {
             nom: nom,
             zonesBenevoles: [],
         }
         donneesFestival.ajouterZone(zone);
-        setZones([...zones, zone]);
+        forceUpdate();
     }
 
     const handleAjouterZone = () => {
@@ -29,15 +62,11 @@ export default function ChoixZones({ donneesFestival }: ChoixZonesProps) {
         inputRef.current!.value = '';
     }
 
-    useEffect(() => {
-        setZones(zoneFromJeuxTriees(donneesFestival.jeux, "alphabétique"));
-    }, [donneesFestival.jeux]);
-
-
     const onChangeZone = (index: number, newName: string) => {
         const zonesCopie = [...zones];
         zonesCopie[index].nom = newName;
-        setZones(zonesCopie);
+        donneesFestival.zones = zonesCopie;
+        forceUpdate();
     }
 
     const onChangeZoneBenevole = (indexZone: number, oldName: string, newName: string) => {
@@ -47,26 +76,36 @@ export default function ChoixZones({ donneesFestival }: ChoixZonesProps) {
                 zonesCopie[indexZone].zonesBenevoles[index] = newName;
             }
         });
-        setZones(zonesCopie);
+        donneesFestival.zones = zonesCopie;
+        forceUpdate();
     }
 
     const onDeleteZone = (index: number) => {
         const zonesCopie = [...zones];
         zonesCopie.splice(index, 1);
-        setZones(zonesCopie);
+        donneesFestival.zones = zonesCopie;
+        forceUpdate();
     }
 
     const onDeleteZoneBenevole = (indexZone: number, name: string) => {
         const zonesCopie = [...zones];
         zonesCopie[indexZone].zonesBenevoles = zonesCopie[indexZone].zonesBenevoles.filter(zoneBenevole => zoneBenevole !== name);
-        setZones(zonesCopie);
+        donneesFestival.zones = zonesCopie;
+        forceUpdate();
+
     }
 
     const onAddZoneBenevole = (indexZone: number, name: string) => {
         const zonesCopie = [...zones];
         zonesCopie[indexZone].zonesBenevoles.push(name);
-        setZones(zonesCopie);
+        donneesFestival.zones = zonesCopie;
+        forceUpdate();
     }
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                                   RENDER                                   */
+    /* -------------------------------------------------------------------------- */
 
     return (
         <div className='flex flex-col items-center justify-center'>

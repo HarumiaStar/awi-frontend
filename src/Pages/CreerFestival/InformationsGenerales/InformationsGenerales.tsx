@@ -2,13 +2,15 @@ import { FaCommentAlt, FaMapMarkerAlt } from "react-icons/fa"
 import { Input, PeriodPicker, TextArea } from "../../../Utils/Form"
 import { BiRename } from "react-icons/bi"
 import { DonneesFestival } from "../DonneesFestival"
+import { ChoixCreneauxRef } from "../ChoixCreneaux/ChoixCreneaux"
 
 export type InformationsGeneralesProps = {
     donneesFestival: DonneesFestival;
+    choixCreneauxRef: React.RefObject<ChoixCreneauxRef>;
 }
 
-export default function InformationsGenerales({ donneesFestival }: InformationsGeneralesProps) {
-    
+export default function InformationsGenerales({ donneesFestival, choixCreneauxRef }: InformationsGeneralesProps) {
+
 
 
     return (
@@ -25,11 +27,12 @@ export default function InformationsGenerales({ donneesFestival }: InformationsG
                 id="nomFestival"
                 onChange={(event) => donneesFestival.nomFestival = event.target.value}
             />
-            <PeriodPicker 
+            <PeriodPicker
                 onDatesChange={(dates) => {
-                    if (dates.dateDebut !== null && dates.dateFin !== null)
-                    donneesFestival.dateDebut = dates.dateDebut,
-                    donneesFestival.dateFin = dates.dateFin
+                    if (dates.dateDebut !== null && dates.dateFin !== null) {
+                        donneesFestival.setdates(dates.dateDebut, dates.dateFin);
+                        choixCreneauxRef.current?.update();
+                    }
                 }}
             />
             <Input

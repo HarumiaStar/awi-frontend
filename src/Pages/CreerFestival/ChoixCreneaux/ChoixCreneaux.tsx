@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, {  useReducer } from 'react';
 import { useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { v4 } from 'uuid';
@@ -10,9 +10,11 @@ export type ChoixCreneauxProps = {
     donneesFestival: DonneesFestival;
 }
 
-export default function ChoixCreneaux({ donneesFestival }: ChoixCreneauxProps) {
-    // donneesFestival.createDefaultCreneaux(); // TODO : faire que ça ne se fasse qu'une fois
-    console.log(donneesFestival.joursCreneaux);
+export type ChoixCreneauxRef = {
+    update(): void;
+}
+
+const ChoixCreneaux = React.forwardRef(({ donneesFestival }: ChoixCreneauxProps, ref: React.Ref<ChoixCreneauxRef>) => {
     const [indexJourActif, setIndexJourActif] = useState(0);
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const creneauxActifs = donneesFestival.joursCreneaux[indexJourActif].getCreneaux();
@@ -42,7 +44,7 @@ export default function ChoixCreneaux({ donneesFestival }: ChoixCreneauxProps) {
         }
 
         if (heureDebut > heureFin) {
-            alert('L\'heure de début doit être avant l\'heure de fin');
+            alert('L\'heure de début doit être avant l\'heure de fin : ' + heureDebut + ' - ' + heureFin);
             return;
         }
 
@@ -54,14 +56,20 @@ export default function ChoixCreneaux({ donneesFestival }: ChoixCreneauxProps) {
         const heureFinInt = parseInt(heureFinSplit[0]);
         const minuteFinInt = parseInt(heureFinSplit[1]);
 
-        donneesFestival.ajouterCreneau(indexJourActif, heureDebutInt, minuteDebutInt, heureFinInt, minuteFinInt); // FIXME : tester si ça fonctionne
-        forceUpdate(); // FIXME : tester si ça fonctionne
+        donneesFestival.ajouterCreneau(indexJourActif, heureDebutInt, minuteDebutInt, heureFinInt, minuteFinInt); 
+        forceUpdate(); 
     }
 
     const handleSuppressionCreneau = (creneau: Creneau) => {
-        donneesFestival.supprimerCreneau(indexJourActif, creneau); // FIXME : tester si ça fonctionne
-        forceUpdate(); // FIXME : tester si ça fonctionne
+        donneesFestival.supprimerCreneau(indexJourActif, creneau);
+        forceUpdate(); 
     }
+
+    React.useImperativeHandle(ref, () => ({
+        update() {
+            forceUpdate();
+        }
+    }));
 
     /* -------------------------------------------------------------------------- */
     /*                                FIN HANDLERS                                */
@@ -75,7 +83,7 @@ export default function ChoixCreneaux({ donneesFestival }: ChoixCreneauxProps) {
     const createButtonJour = (label: string, onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void, index: number) => {
         return (
             <button
-                className='px-3 py-1.5 text-sm text-indigo-600 duration-150 bg-indigo-50 rounded-lg hover:bg-indigo-100 active:bg-indigo-200'
+                className={'px-3 py-1.5 text-sm  duration-150 rounded-lg hover:bg-indigo-100 active:bg-indigo-200' + (index === indexJourActif ? ' bg-indigo-400 text-black' : ' bg-indigo-50 text-indigo-600')}
                 onClick={onClick}
                 key={v4()}
                 data-index={index}
@@ -112,7 +120,7 @@ export default function ChoixCreneaux({ donneesFestival }: ChoixCreneauxProps) {
         <>
             <h2 className='font-extrabold text-2xl'>Gestion des créneaux</h2>
             <div className='flex flex-col gap-5 justify-center items-center mt-10'>
-                <div className='flex gap-5 justify-center items-center'>
+                <div className='flex gap-5 items-center max-w-96 overflow-y-auto p-3'>
                     {donneesFestival.joursCreneaux.map((jour, index) => (createButtonJour(jour.getDateString(), choixJourHandler, index)))}
                 </div>
                 <h3 className='font-bold text-xl'>
@@ -134,5 +142,6 @@ export default function ChoixCreneaux({ donneesFestival }: ChoixCreneauxProps) {
             </div>
         </>
     )
-}
+});
 
+export default ChoixCreneaux;

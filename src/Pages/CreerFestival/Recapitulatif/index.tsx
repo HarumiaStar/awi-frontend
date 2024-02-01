@@ -1,3 +1,3 @@
-// import Recapitulatif from "./Recapitulatif";
+import Recapitulatif from "./Recapitulatif";
 
-// export default Recapitulatif;
+export default Recapitulatif;
