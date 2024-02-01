@@ -104,3 +104,7 @@ export function creneauxChevauchement(slot1: Creneau, slot2: Creneau): boolean {
 
     return false;
 }
+
+export function creneauToString(creneau: Creneau): string {
+    return creneau.heureDebut.getHours() + ':' + creneau.heureDebut.getMinutes() + ' - ' + creneau.heureFin.getHours() + ':' + creneau.heureFin.getMinutes();
+}

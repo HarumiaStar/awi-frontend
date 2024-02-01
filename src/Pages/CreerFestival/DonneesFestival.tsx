@@ -25,12 +25,16 @@ export class DonneesFestival {
         this._lieuFestival = "";
         this._description = "";
         this._joursCreneaux = [];
-        this._activites = [];
+        this._activites = [
+            "Accueil Bénévoles",
+            "Accueil Public",
+            "Accueil VIP",
+            "Bar",
+        ];
         this._jeux = [];
         this._zones = [];
         this.createDefaultCreneaux();
     }
-
 
 
     private creneauxParDefaut: ReadonlyArray<{ heureDebut: string; heureFin: string; }> = [
@@ -142,6 +146,7 @@ export class DonneesFestival {
     }
 
     get zones() {
+        this._zones.sort((a, b) => a.nom.localeCompare(b.nom));
         return this._zones;
     }
 
@@ -213,6 +218,7 @@ export class DonneesFestival {
 
     public ajouterZone(zone: DetailZone): void {
         this.zones.push(zone);
+        this.zones.sort((a, b) => a.nom.localeCompare(b.nom));
     }
 
     public supprimerZone(zone: DetailZone): void {

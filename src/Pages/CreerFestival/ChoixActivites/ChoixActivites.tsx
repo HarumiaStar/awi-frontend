@@ -10,15 +10,7 @@ export type ChoixActiviteProps = {
 
 export default function ChoixActivite({ donneesFestival }: ChoixActiviteProps) {
     /* ---------------------------------- DATA ---------------------------------- */
-
-    const activitesParDefaut = [
-        "Accueil Bénévoles",
-        "Accueil Public",
-        "Accueil VIP",
-        "Bar",
-    ];
-
-    const [activites, setActivites] = useState(activitesParDefaut);
+    const [activites, setActivites] = useState(donneesFestival.activites);
     const inputRef = useRef<HTMLInputElement | null>(null)
 
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DonneesFestival } from "../DonneesFestival";
-import { dateToStringFr } from "../../../Utils/Types";
+import { creneauToString, dateToStringFr } from "../../../Utils/Types";
 
 export type RecapitulatifProps = {
     donneesFestival: DonneesFestival;
@@ -11,6 +11,9 @@ export default function Recapitulatif({ donneesFestival }: RecapitulatifProps) {
 
     // State
     const [activiteOpen, setActiviteOpen] = useState(false);
+    const [creneauOpen, setCreneauOpen] = useState(false);
+    const [jeuOpen, setJeuOpen] = useState(false);
+    const [zoneOpen, setZoneOpen] = useState(false);
 
     // Variables
     const nomFestival = donneesFestival.nomFestival;
@@ -64,8 +67,8 @@ export default function Recapitulatif({ donneesFestival }: RecapitulatifProps) {
                         {description}
                     </p>
                 </div>
-                <div className='flex flex-col' onClick={() => setActiviteOpen(!activiteOpen)}>
-                    <h2 className='text-xl font-bold'>
+                <div className='flex flex-col' >
+                    <h2 className='text-xl font-bold cursor-pointer' onClick={() => setActiviteOpen(!activiteOpen)}>
                         Activités :
                     </h2>
                     <div className={`${activiteOpen ? 'block' : 'hidden'}`} >
@@ -76,7 +79,81 @@ export default function Recapitulatif({ donneesFestival }: RecapitulatifProps) {
                         ))}
                     </div>
                 </div>
+                <div className='flex flex-col'>
+                    <h2 className='text-xl font-bold cursor-pointer' onClick={() => setCreneauOpen(!creneauOpen)}>
+                        Créneaux :
+                    </h2>
+                    <div
+                        className={`${creneauOpen ? 'flex flex-col' : 'hidden'}`}
+
+                    >
+                        {creneaux.map((creneau, index) => (
+                            <div key={index} className='flex flex-row'>
+                                <p className='text-xl ml-2'>
+                                    {creneau.getDateString()}
+                                </p>
+                                <div className="flex flex-col">
+                                    {creneau.getCreneaux().map((creneau, index) => (
+                                        <div key={index} className='flex flex-row'>
+                                            <p className='text-xl ml-2'>
+                                                {creneauToString(creneau)}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className='flex flex-col'>
+                    <h2 className='text-xl font-bold cursor-pointer' onClick={() => setJeuOpen(!jeuOpen)}>
+                        Jeux :
+                    </h2>
+                    <div className={jeuOpen ? 'flex flex-col' : "hidden"} >
+                        <div className='flex flex-row justify-between hover:bg-lighter-200 p-1 rounded-md'>
+                            <p className='text-xl ml-2 underline font-bold'>
+                                Nom
+                            </p>
+                            <p className='text-xl ml-2 underline font-bold'>
+                                ID
+                            </p>
+                        </div>
+                        {jeux.map((jeu, index) => (
+                            <div key={index} className='flex flex-row justify-between hover:bg-lighter-200 p-1 rounded-md'>
+                                <p className='text-xl ml-2'>
+                                    {jeu.nom}
+                                </p>
+                                <p className='text-xl ml-2'>
+                                    {jeu.idJeu}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className='flex flex-col'>
+                    <h2 className='text-xl font-bold cursor-pointer' onClick={() => setZoneOpen(!zoneOpen)}>
+                        Zones :
+                    </h2>
+                    <div className={zoneOpen ? 'flex flex-col' : "hidden"} >
+                        {zones.map((zone, index) => (
+                            <div key={index} className='flex flex-col hover:bg-lighter-200 p-1 rounded-md'>
+                                <p className='text-xl ml-2 underline font-bold'>
+                                    {zone.nom}
+                                </p>
+
+                                {zone.zonesBenevoles.map((zoneBenevole, index) => (
+                                    <div key={index} className='flex flex-row pl-3'>
+                                        <p className='text-xl ml-2'>
+                                            -{zoneBenevole}
+                                        </p>
+                                    </div>
+                                ))}
+
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
-    )
+    );
 }

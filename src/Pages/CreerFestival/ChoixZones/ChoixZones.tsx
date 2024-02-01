@@ -15,7 +15,6 @@ export type ChoixZonesRef = RegisterDonneesFestivalRef & {
 }
 
 export default function ChoixZones({ donneesFestival }: ChoixZonesProps) {
-    console.log('render ChoixZones')
 
     if (donneesFestival.zones.length === 0) {
         donneesFestival.zones = zoneFromJeuxTriees(donneesFestival.jeux, "alphabétique")
@@ -23,7 +22,6 @@ export default function ChoixZones({ donneesFestival }: ChoixZonesProps) {
 
     const zones = donneesFestival.zones;
 
-    console.log(zones)
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const inputRef = useRef<HTMLInputElement | null>(null)
 

@@ -1,4 +1,4 @@
-import { DefaultCreneaux, Creneau, DefaultCreneauxList, creneauxChevauchement, Jour } from "./Creneaux";
+import { DefaultCreneaux, Creneau, DefaultCreneauxList, creneauxChevauchement, Jour, creneauToString } from "./Creneaux";
 import SmallDate from "./SmallDate";
 import { ThreeDMap } from "./ThreeDMap";
 import { TwoDMap } from "./ThreeDMap";
@@ -62,6 +62,7 @@ export {
     isSameDay, 
     isToday,
     dateToStringFr,
+    creneauToString,
 };
 export type {
     TwoDMapEntry,
