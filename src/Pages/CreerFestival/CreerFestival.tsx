@@ -1,21 +1,27 @@
+import { useRef, useState } from 'react';
+
 import { Form, MultipartForm } from '../../Utils/Form';
 import { FormGroup } from '../../Utils/Form/MutlipartForm';
-import ChoixCreneaux, { CreaneauRefType } from './ChoixCreneaux';
-import { useRef, useState } from 'react';
+
 import Alerte, { AlerteRefType } from '../../Utils/Alerte';
+import { DonneesFestival } from './DonneesFestival';
+
 import InformationsGenerales from './InformationsGenerales/InformationsGenerales';
-import ImportJeux, { ImportJeuxRefType } from './ImportJeux/ImportJeux';
-import ChoixActivité from './ChoixActivités';
+import ChoixCreneaux from './ChoixCreneaux';
+import ImportJeux from './ImportJeux/ImportJeux';
+import ChoixActivite from './ChoixActivites';
 import ChoixZones from './ChoixZones';
-import { Jeu } from '../../Utils/Types';
+// import Recapitulatif from './Recapitulatif';
+
+
 
 
 export default function CreerFestival() {
 
-	const creneauxRef = useRef<CreaneauRefType>(null);
+	// Refs de l'alerte
 	const AlerteRef = useRef<AlerteRefType>(null);
-	const importJeuxRef = useRef<ImportJeuxRefType>(null);
-	const [jeux, setJeux] = useState<Jeu[]>([]);
+	// Données du festival
+	const [donneesFestival] = useState<DonneesFestival>(new DonneesFestival());
 
 
 	const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -34,7 +40,7 @@ export default function CreerFestival() {
 
 	return (
 		<div>
-			<Alerte ref={AlerteRef}  />
+			<Alerte ref={AlerteRef} />
 			<h1 className='text-4xl font-bold text-center'>
 				CreerFestival
 			</h1>
@@ -43,29 +49,29 @@ export default function CreerFestival() {
 				<Form>
 					<MultipartForm nextButtonOptions={nextButtonOptions} submitButtonOptions={submitButtonOptions}>
 						<FormGroup>
-							<InformationsGenerales />
+							<InformationsGenerales donneesFestival={donneesFestival} />
 						</FormGroup>
 						<FormGroup>
-							<ChoixCreneaux ref={creneauxRef} />
-						</FormGroup>
-
-						<FormGroup>
-							<ImportJeux ref={importJeuxRef} setJeux={setJeux} />
+							<ChoixCreneaux donneesFestival={donneesFestival} />
 						</FormGroup>
 
 						<FormGroup>
-							<ChoixActivité />
+							<ImportJeux  donneesFestival={donneesFestival} />
 						</FormGroup>
 
 						<FormGroup>
-							<ChoixZones jeux={jeux} />
+							<ChoixActivite donneesFestival={donneesFestival} />
 						</FormGroup>
 
 						<FormGroup>
-							<h2 className='text-2xl font-bold'>
-								Récapitulatif
-							</h2>
-							{/* TODO Ajouter le récapitulatif */}
+							<ChoixZones donneesFestival={donneesFestival} />
+						</FormGroup>
+
+						<FormGroup>
+							{/* <Recapitulatif donneesFestival={donneesFestival} /> */}
+							<div className='flex flex-row justify-center'>
+								Affichage du récapitulatif
+							</div>
 						</FormGroup>
 					</MultipartForm>
 				</Form>

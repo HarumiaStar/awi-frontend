@@ -6,16 +6,10 @@ import { BiTrash } from "react-icons/bi";
 import { Jeu, Tuple, jeuxParserFichier } from "../../../Utils/Types";
 import { AffichageJeu } from "./AffichageJeu/AffichageJeu";
 import { RxCross2 } from "react-icons/rx";
+import { DonneesFestival } from "../DonneesFestival";
 
-export type ImportJeuxProps = {
-    setJeux: (jeux: Jeu[]) => void;
-}
 
-export type ImportJeuxRefType = {
-    getJeux: () => Jeu[] | undefined;
-}
-
-const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
+export default function ImportJeux({donneesFestival} : {donneesFestival: DonneesFestival}) {
 
     const modalRef = useRef<ModaleRefType>(null);
     const AlerteRef = useRef<AlerteRefType>(null);
@@ -25,12 +19,8 @@ const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
     const [data, setDataRaw] = React.useState<Tuple<File, Jeu[]> | null>(null);
 
     const setData = (data: Tuple<File, Jeu[]> | null) => {
+        donneesFestival.jeux = data?.item2 ?? [];
         setDataRaw(data);
-        if (data) {
-            props.setJeux(data.item2);
-        } else {
-            props.setJeux([]);
-        }
     }
 
     const fileRemplace = async (file: File, index: number) => {
@@ -103,12 +93,6 @@ const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
         );
     }
 
-    React.useImperativeHandle(ref, () => ({
-        getJeux() {
-            return data?.item2;
-        }
-    }));
-
     return (
         <>
             <Alerte ref={AlerteRef} />
@@ -157,6 +141,4 @@ const ImportJeux = React.forwardRef((props: ImportJeuxProps, ref) => {
             </div>
         </>)
 
-})
-
-export default ImportJeux
+}

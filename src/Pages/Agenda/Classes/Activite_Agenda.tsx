@@ -1,23 +1,23 @@
-import { Creneaux } from "../../../Utils/Types/Creneaux";
+import { DefaultCreneaux } from "../../../Utils/Types";
 import SmallDate from "../../../Utils/Types/SmallDate";
 
 export class Activite_Agenda {
     private _nom: string;
     private _date: SmallDate;
-    private _creneaux: Map<Creneaux, number>;
+    private _creneaux: Map<DefaultCreneaux, number>;
 
-    constructor(nom: string, creneaux: Map<Creneaux, number>, date: SmallDate) {
+    constructor(nom: string, creneaux: Map<DefaultCreneaux, number>, date: SmallDate) {
         this._nom = nom;
         this._date = date;
         if (creneaux) {
             this._creneaux = creneaux;
         } else {
-            this._creneaux = new Map<Creneaux, number>();
-            this._creneaux.set(Creneaux.MATIN, 0);
-            this._creneaux.set(Creneaux.MIDI, 0);
-            this._creneaux.set(Creneaux.APRES_MIDI, 0);
-            this._creneaux.set(Creneaux.SOIREE, 0);
-            this._creneaux.set(Creneaux.DEPART, 0);
+            this._creneaux = new Map<DefaultCreneaux, number>();
+            this._creneaux.set(DefaultCreneaux.MATIN, 0);
+            this._creneaux.set(DefaultCreneaux.MIDI, 0);
+            this._creneaux.set(DefaultCreneaux.APRES_MIDI, 0);
+            this._creneaux.set(DefaultCreneaux.SOIREE, 0);
+            this._creneaux.set(DefaultCreneaux.DEPART, 0);
         }
     }
 
@@ -25,15 +25,15 @@ export class Activite_Agenda {
         return this._nom;
     }
 
-    get creneaux(): Map<Creneaux, number> {
+    get creneaux(): Map<DefaultCreneaux, number> {
         return this._creneaux;
     }
 
-    public getCreneau(creneau: Creneaux): number {
+    public getCreneau(creneau: DefaultCreneaux): number {
         return this._creneaux.get(creneau) || 0;
     }
 
-    public setCreneau(creneau: Creneaux, value: number): void {
+    public setCreneau(creneau: DefaultCreneaux, value: number): void {
         this._creneaux.set(creneau, value);
     }
 
@@ -41,11 +41,11 @@ export class Activite_Agenda {
         this._nom = value;
     }
 
-    public set creneaux(value: Map<Creneaux, number>) {
+    public set creneaux(value: Map<DefaultCreneaux, number>) {
         this._creneaux = value;
     }
 
-    public map<U>(callbackfn: (value: [Creneaux, number], index: number, array: [Creneaux, number][]) => U, thisArg?: any): U[]{
+    public map<U>(callbackfn: (value: [DefaultCreneaux, number], index: number, array: [DefaultCreneaux, number][]) => U, thisArg?: unknown): U[]{
         return Array.from(this._creneaux).map(callbackfn, thisArg);
     }
 

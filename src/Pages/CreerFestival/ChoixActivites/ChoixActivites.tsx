@@ -1,9 +1,16 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { BiTrash } from 'react-icons/bi';
 import { TiPlus } from 'react-icons/ti';
 import { v4 } from 'uuid';
+import { DonneesFestival } from '../DonneesFestival';
 
-export const ChoixActivité = React.forwardRef((props, ref) => {
+export type ChoixActiviteProps = {
+    donneesFestival: DonneesFestival;
+}
+
+export default function ChoixActivite({ donneesFestival }: ChoixActiviteProps) {
+    /* ---------------------------------- DATA ---------------------------------- */
+
     const activitesParDefaut = [
         "Accueil Bénévoles",
         "Accueil Public",
@@ -14,9 +21,38 @@ export const ChoixActivité = React.forwardRef((props, ref) => {
     const [activites, setActivites] = useState(activitesParDefaut);
     const inputRef = useRef<HTMLInputElement | null>(null)
 
-    const ajouterActivite = (nom: string) => {
-        setActivites([...activites, nom]);
+
+    /* -------------------------------------------------------------------------- */
+    /*                                  HANDLERS                                  */
+    /* -------------------------------------------------------------------------- */
+
+    const handleAjouterActivite = () => {
+        if (inputRef.current!.value === '') return;
+        donneesFestival.ajouterActivite(inputRef.current!.value);
+        setActivites([...activites, inputRef.current!.value]);
+        inputRef.current!.value = '';
     }
+
+    const handleSupprimerActivite = (index: number) => {
+        donneesFestival.supprimerActivite(activites[index]);
+        const activitesCopie = [...activites];
+        activitesCopie.splice(index, 1);
+        setActivites(activitesCopie);
+    }
+
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                                FIN HANDLERS                                */
+    /* -------------------------------------------------------------------------- */
+
+
+
+    /* -------------------------------------------------------------------------- */
+    /*                                   RENDER                                   */
+    /* -------------------------------------------------------------------------- */
+
+
 
     const creeActivite = (activite: string, index: number) => {
         return (
@@ -32,25 +68,6 @@ export const ChoixActivité = React.forwardRef((props, ref) => {
             </div>
         );
     }
-
-    const handleAjouterActivite = () => {
-        if (inputRef.current!.value === '') return;
-        ajouterActivite(inputRef.current!.value);
-        inputRef.current!.value = '';
-    }
-
-    const handleSupprimerActivite = (index: number) => {
-        const activitesCopie = [...activites];
-        activitesCopie.splice(index, 1);
-        setActivites(activitesCopie);
-    }
-
-    React.useImperativeHandle(ref, () => ({
-        getActivites() {
-            return activites;
-        }
-    }));
-
     return (
         <div>
             <h2 className='text-2xl font-bold'>
@@ -68,4 +85,4 @@ export const ChoixActivité = React.forwardRef((props, ref) => {
             </div>
         </div>
     );
-});
+}

@@ -6,9 +6,9 @@ import DatePicker from "./DatePicker";
 import TextArea from "./TextArea";
 import MultipartForm from "./MutlipartForm";
 import FileDND, {fileDNDRefType, fileDNDProps }  from "./FileDND";
+import PeriodPicker from "./PeriodPicker";
 
 
 
-
-export {Input, Button, Form, Radio, DatePicker, TextArea, MultipartForm, FileDND};
+export {Input, Button, Form, Radio, DatePicker, TextArea, MultipartForm, FileDND, PeriodPicker};
 export type { fileDNDRefType, fileDNDProps };

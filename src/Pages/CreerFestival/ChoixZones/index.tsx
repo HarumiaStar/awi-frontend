@@ -1,3 +1,3 @@
-import { ChoixZones } from "./ChoixZones";
+import ChoixZones from "./ChoixZones";
 
 export default ChoixZones;

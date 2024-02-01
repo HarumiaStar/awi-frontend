@@ -1,22 +1,51 @@
 import { FaCommentAlt, FaMapMarkerAlt } from "react-icons/fa"
-import { DatePicker, Input, TextArea } from "../../../Utils/Form"
+import { Input, PeriodPicker, TextArea } from "../../../Utils/Form"
 import { BiRename } from "react-icons/bi"
-import React from "react"
+import { DonneesFestival } from "../DonneesFestival"
 
-const InformationsGenerales = React.forwardRef((props, ref) => {
+export type InformationsGeneralesProps = {
+    donneesFestival: DonneesFestival;
+}
+
+export default function InformationsGenerales({ donneesFestival }: InformationsGeneralesProps) {
+    
+
+
     return (
-        <>
+        <div
+            className="flex flex-col gap-3 justify-center items-center"
+        >
             <h2 className='text-2xl font-bold'>
                 Informations générales
             </h2>
-            <Input type="text" placeholder='Nom du festival' icon={<BiRename />} id="nomFestival" />
-            <DatePicker label="Date de début" id="dateDebut" />
-            <DatePicker label="Date de fin" id="dateFin" />
-            <Input type="text" placeholder='Lieu du festival' icon={<FaMapMarkerAlt />} id="lieuFestival" />
-            <TextArea label="Description" id="description" icon={<FaCommentAlt />} />
+            <Input
+                type="text"
+                placeholder='Nom du festival'
+                icon={<BiRename />}
+                id="nomFestival"
+                onChange={(event) => donneesFestival.nomFestival = event.target.value}
+            />
+            <PeriodPicker 
+                onDatesChange={(dates) => {
+                    if (dates.dateDebut !== null && dates.dateFin !== null)
+                    donneesFestival.dateDebut = dates.dateDebut,
+                    donneesFestival.dateFin = dates.dateFin
+                }}
+            />
+            <Input
+                type="text"
+                placeholder='Lieu du festival'
+                icon={<FaMapMarkerAlt />}
+                id="lieuFestival"
+                onChange={(event) => donneesFestival.lieuFestival = event.target.value}
+            />
+            <TextArea
+                label="Description"
+                id="description"
+                icon={<FaCommentAlt />}
+                onChange={(event) => donneesFestival.description = event.target.value}
+            />
             {/* <Input type="text" placeholder='Lien vers le site' icon={<FaCommentAlt />} id="lienSite" />*/}
-        </>
+        </div>
     )
-});
-
-export default InformationsGenerales
+}

@@ -1,4 +1,3 @@
-import {ChoixCreneaux, Jour, creneau, CreaneauRefType} from "./ChoixCreneaux";
+import ChoixCreneaux from "./ChoixCreneaux";
 
 export default ChoixCreneaux;
-export type {Jour, creneau, CreaneauRefType};

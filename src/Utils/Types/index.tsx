@@ -1,4 +1,4 @@
-import { Creneaux } from "./Creneaux";
+import { DefaultCreneaux, Creneau, DefaultCreneauxList, creneauxChevauchement, Jour } from "./Creneaux";
 import SmallDate from "./SmallDate";
 import { ThreeDMap } from "./ThreeDMap";
 import { TwoDMap } from "./ThreeDMap";
@@ -27,10 +27,10 @@ import { regimes_alimentaires } from "./RegimesAlimentaires";
 import { tailles_tshirt } from "./TaillesThirt";
 import { lodging } from "./Lodging";
 import { TimerReset } from "./TimerReset";
-
+import { isBefore, isDateInInterval, isSameDay, isToday, dateToStringFr } from "./DateUtils";
 
 export {
-    Creneaux,
+    DefaultCreneaux,
     SmallDate,
     ThreeDMap,
     TwoDMap, 
@@ -54,6 +54,14 @@ export {
     tailles_tshirt,
     lodging,
     TimerReset,
+    DefaultCreneauxList,
+    creneauxChevauchement,
+    Jour,
+    isBefore, 
+    isDateInInterval, 
+    isSameDay, 
+    isToday,
+    dateToStringFr,
 };
 export type {
     TwoDMapEntry,
@@ -61,6 +69,8 @@ export type {
     Jeu,
     Lien,
     TypeJeu,
+    Creneau,
     DetailZone,
 };
+
 

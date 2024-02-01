@@ -1,23 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TiPlus } from "react-icons/ti";
-import { Jeu, DetailZone, zoneFromJeuxTriees } from "../../../Utils/Types";
+import { DetailZone, zoneFromJeuxTriees } from "../../../Utils/Types";
 import { DisplayZone } from "./DisplayZone";
 import { v4 } from "uuid";
+import { DonneesFestival } from "../DonneesFestival";
 
-export type ChoixZonesRefType = {
-    getZones: () => string[];
-};
 
 export type ChoixZonesProps = {
-    jeux: Jeu[];
+    donneesFestival: DonneesFestival;
 };
 
-export const ChoixZones = React.forwardRef((props: ChoixZonesProps, ref) => {
+export default function ChoixZones({ donneesFestival }: ChoixZonesProps) {
     const [zones, setZones] = useState<DetailZone[]>([]);
     const inputRef = useRef<HTMLInputElement | null>(null)
 
     const ajouterZone = (nom: string) => {
-        setZones([...zones, { nom: nom, zonesBenevoles: [] }]);
+        const zone = {
+            nom: nom,
+            zonesBenevoles: [],
+        }
+        donneesFestival.ajouterZone(zone);
+        setZones([...zones, zone]);
     }
 
     const handleAjouterZone = () => {
@@ -26,15 +29,9 @@ export const ChoixZones = React.forwardRef((props: ChoixZonesProps, ref) => {
         inputRef.current!.value = '';
     }
 
-    React.useImperativeHandle(ref, () => ({
-        getZones() {
-            return zones;
-        }
-    }));
-
     useEffect(() => {
-        setZones(zoneFromJeuxTriees(props.jeux, "alphabétique"));
-    }, [props.jeux]);
+        setZones(zoneFromJeuxTriees(donneesFestival.jeux, "alphabétique"));
+    }, [donneesFestival.jeux]);
 
 
     const onChangeZone = (index: number, newName: string) => {
@@ -102,4 +99,4 @@ export const ChoixZones = React.forwardRef((props: ChoixZonesProps, ref) => {
             </div>
         </div>
     );
-});
+}

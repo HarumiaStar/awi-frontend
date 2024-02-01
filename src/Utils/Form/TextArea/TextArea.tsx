@@ -6,10 +6,11 @@ interface TextAreaProps {
     label: string;
     id?: string;
     icon?: JSX.Element;
+    onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export default function TextArea({ label, id = v4(), icon }: TextAreaProps) {
-    const containerClick = (_: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+export default function TextArea({ label, id = v4(), icon, onChange }: TextAreaProps) {
+    const containerClick = () => {
         const input = document.getElementById(id) as HTMLInputElement;
         input.focus();
     }
@@ -20,7 +21,7 @@ export default function TextArea({ label, id = v4(), icon }: TextAreaProps) {
                 {icon}
                 <label htmlFor={id}>{label}</label>
             </div>
-            <textarea id={id} />
+            <textarea id={id} onChange={onChange} />
         </div>
     )
 }
