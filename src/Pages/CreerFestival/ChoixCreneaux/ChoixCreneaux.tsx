@@ -4,7 +4,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { v4 } from 'uuid';
 // import styles from './ChoixCreneaux.module.css';
 
-type creneau = {
+export type creneau = {
     heureDebut: Date,
     heureFin: Date,
 }
@@ -33,7 +33,7 @@ function creneauxChevauchement(slot1: creneau, slot2: creneau): boolean {
     return false;
   }
 
-class Jour {
+export class Jour {
     date: Date;
     creneaux: creneau[];
 
@@ -43,7 +43,7 @@ class Jour {
     }
 
     ajouterCreneauHeureMinute(heureDebut: number, minuteDebut: number, heureFin: number, minuteFin: number) {
-        let creneau = {
+        const creneau = {
             heureDebut: new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), heureDebut, minuteDebut),
             heureFin: new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), heureFin, minuteFin)
         }
@@ -82,7 +82,13 @@ class Jour {
         return format.format(this.date);
     }
 }
-export const ChoixCreneaux = React.forwardRef((props: any, ref: any) => {
+
+
+export type CreaneauRefType = {
+	getData: () => Jour[];
+};
+
+export const ChoixCreneaux = React.forwardRef((_,ref : React.Ref<CreaneauRefType>) => {
 
 
     // remplir les créneaux par jour par les jours 
@@ -104,7 +110,7 @@ export const ChoixCreneaux = React.forwardRef((props: any, ref: any) => {
         },
     ];
 
-    const joursBase = [
+    const joursBase = [ // TODO : remplacer par les jours du festival
         new Jour(new Date(2021, 5, 1), []),
         new Jour(new Date(2021, 5, 2), []),
         new Jour(new Date(2021, 5, 3), []),
@@ -120,7 +126,7 @@ export const ChoixCreneaux = React.forwardRef((props: any, ref: any) => {
         });
     });
 
-    const [jours, _] = useState<Jour[]>(joursBase);
+    const [jours] = useState<Jour[]>(joursBase);
     const [indexJourActif, setIndexJourActif] = useState(0);
     const [creneauxActifs, setCreneauxActifs] = useState<creneau[]>(jours[indexJourActif].getCreneaux());
 

@@ -20,7 +20,7 @@ const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRef
     const inputRef = useRef<HTMLInputElement>(null);
 
 
-    function createFileList(files: any[], newFiles: any[] = []): FileList {
+    function createFileList(files: File[], newFiles: File[] = []): FileList {
         const dataTransfer = new DataTransfer();
         files.forEach(file => dataTransfer.items.add(file));
         newFiles.forEach(file => dataTransfer.items.add(file));
@@ -35,15 +35,14 @@ const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRef
     }
 
     function remove(index: number) {
-        let filesCurrent = [...files];
+        const filesCurrent = [...files];
         filesCurrent.splice(index, 1);
 
         const newFiles = createFileList(filesCurrent);
         setFiles(newFiles);
     }
-    function drop(e: any) {
-        let removed, add;
-        let currentFiles = [...files];
+    function drop() {
+        const currentFiles = [...files];
 
         if (fileDragging === null) {
             alert("fileDragging is null");
@@ -56,10 +55,10 @@ const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRef
 
         if (fileDragging === fileDropping) return;
 
-        removed = currentFiles.splice(fileDragging, 1);
+        const removed = currentFiles.splice(fileDragging, 1);
         currentFiles.splice(fileDropping, 0, ...removed);
 
-        add = createFileList(currentFiles);
+        const add = createFileList(currentFiles);
         setFiles(add);
 
         setFileDragging(null);
@@ -72,15 +71,13 @@ const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRef
 
     function removeAll() {
         setFiles(createFileList([]));
-        console.log(inputRef.current?.value);
         if (inputRef.current) {
             inputRef.current.value = "";
         }
     }
 
-    function addFiles(e: any) {
-        console.log(inputRef.current?.value);
-        const currentFiles = createFileList([...files], [...e.target.files]);
+    function addFiles(e: React.ChangeEvent<HTMLInputElement>) {
+        const currentFiles = createFileList([...files], [...(e.target.files ?? [])]);
         setFiles(currentFiles);
         if (props.onChanges) {
             props.onChanges(currentFiles);
@@ -130,7 +127,7 @@ const FileDND = React.forwardRef((props: fileDNDProps, ref: React.Ref<fileDNDRef
         e.currentTarget.classList.remove('border-blue-400');
         e.currentTarget.classList.remove('ring-4');
         e.currentTarget.classList.remove('ring-inset');
-        drop(e);
+        drop();
     }
 
     return (<>

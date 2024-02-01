@@ -379,3 +379,55 @@ export function separerLigne(ligne: string, separateur: string, ignore: string):
 
     return result;
 }
+
+export type DetailZone = {
+    nom: string,
+    zonesBenevoles: string[],
+}
+
+
+export const zonesFromJeux = (jeux: Jeu[]) : DetailZone[] => {
+    let zones: DetailZone[] = [];
+
+    jeux.forEach((jeu) => {
+        let index = indexDansDetails(jeu.zonePlan, zones);
+        if (index === undefined) {
+            zones.push({nom: jeu.zonePlan, zonesBenevoles: jeu.zoneBenevole ? [jeu.zoneBenevole] : []});
+            return; // On passe à l'itération suivante
+        }
+
+        if (jeu.zoneBenevole && !zoneBenevoleEstDansZone(jeu.zoneBenevole, zones[index])) {
+            zones[index].zonesBenevoles.push(jeu.zoneBenevole);
+        }
+    });
+    return zones;
+
+}
+
+const indexDansDetails = (zone: string, zones: DetailZone[]) : number | undefined => {
+    for (let i = 0; i < zones.length; i++) {
+        if (zones[i].nom === zone) {
+            return i;
+        }
+    }
+    return undefined;
+}
+
+const zoneBenevoleEstDansZone = (zoneBenevole: string, zone: DetailZone) : boolean => {
+    for (let i = 0; i < zone.zonesBenevoles.length; i++) {
+        if (zone.zonesBenevoles[i] === zoneBenevole) {
+            return true;
+        }
+    }
+    return false;
+}
+
+export function zoneFromJeuxTriees(jeux: Jeu[], ordre: "alphabétique" | "anti-alphabétique") : DetailZone[]  {
+    let zones = zonesFromJeux(jeux);
+    if (ordre === "alphabétique") {
+        zones.sort((a, b) => a.nom.localeCompare(b.nom));
+    } else {
+        zones.sort((a, b) => b.nom.localeCompare(a.nom));
+    }
+    return zones;
+}

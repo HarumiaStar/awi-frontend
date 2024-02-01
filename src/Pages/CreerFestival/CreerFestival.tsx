@@ -1,27 +1,25 @@
 import { Form, MultipartForm } from '../../Utils/Form';
 import { FormGroup } from '../../Utils/Form/MutlipartForm';
-import ChoixCreneaux from './ChoixCreneaux';
+import ChoixCreneaux, { CreaneauRefType } from './ChoixCreneaux';
 import { useRef, useState } from 'react';
 import Alerte, { AlerteRefType } from '../../Utils/Alerte';
 import InformationsGenerales from './InformationsGenerales/InformationsGenerales';
 import ImportJeux, { ImportJeuxRefType } from './ImportJeux/ImportJeux';
 import ChoixActivité from './ChoixActivités';
 import ChoixZones from './ChoixZones';
+import { Jeu } from '../../Utils/Types';
 
-type CreaneauRefType = {
-	getData: () => any;
-};
 
 export default function CreerFestival() {
 
 	const creneauxRef = useRef<CreaneauRefType>(null);
 	const AlerteRef = useRef<AlerteRefType>(null);
 	const importJeuxRef = useRef<ImportJeuxRefType>(null);
-	const [jeux, setJeux] = useState<any[]>([]);
+	const [jeux, setJeux] = useState<Jeu[]>([]);
+
 
 	const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		event.preventDefault();
-		console.log(creneauxRef.current?.getData());
 		console.log("Submit");
 	}
 
