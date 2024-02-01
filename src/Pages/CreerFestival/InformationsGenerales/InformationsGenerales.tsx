@@ -12,7 +12,6 @@ export type InformationsGeneralesProps = {
 export default function InformationsGenerales({ donneesFestival, choixCreneauxRef }: InformationsGeneralesProps) {
 
 
-
     return (
         <div
             className="flex flex-col gap-3 justify-center items-center"
@@ -34,6 +33,8 @@ export default function InformationsGenerales({ donneesFestival, choixCreneauxRe
                         choixCreneauxRef.current?.update();
                     }
                 }}
+                defaultDateDebut={donneesFestival.dateDebut}
+                defaultDateFin={donneesFestival.dateFin} 
             />
             <Input
                 type="text"

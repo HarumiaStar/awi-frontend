@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { DonneesFestival } from "../DonneesFestival";
+import React, { useEffect, useReducer, useRef, useState } from "react";
+import { DonneesFestival, RegisterDonneesFestivalRef } from "../DonneesFestival";
 import { creneauToString, dateToStringFr } from "../../../Utils/Types";
 
 export type RecapitulatifProps = {
     donneesFestival: DonneesFestival;
 }
+
+export type RecapitulatifRef = RegisterDonneesFestivalRef;
 
 
 export default function Recapitulatif({ donneesFestival }: RecapitulatifProps) {
@@ -15,6 +17,8 @@ export default function Recapitulatif({ donneesFestival }: RecapitulatifProps) {
     const [jeuOpen, setJeuOpen] = useState(false);
     const [zoneOpen, setZoneOpen] = useState(false);
 
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
+
     // Variables
     const nomFestival = donneesFestival.nomFestival;
     const dateDebut = donneesFestival.dateDebut;
@@ -23,10 +27,37 @@ export default function Recapitulatif({ donneesFestival }: RecapitulatifProps) {
     const description = donneesFestival.description;
     const activites = donneesFestival.activites;
     const creneaux = donneesFestival.joursCreneaux;
-    const jeux = donneesFestival.jeux;
     const zones = donneesFestival.zones;
 
+    
+    const jeux : {nom: string, idJeu: string}[] = [];
+    donneesFestival.jeux.forEach(jeu => {
+        // Ajouter le jeu si il n'est pas déjà dans la liste
+        if(!jeux.some(j => j.idJeu === jeu.idJeu+"")){
+            jeux.push({nom: jeu.nom, idJeu: jeu.idJeu+""});
+        }
+    })
 
+    // trier les jeux par ordre alphabétique
+    jeux.sort((a, b) => a.nom.localeCompare(b.nom));
+
+    
+    /* -------------------------------------------------------------------------- */
+    /*                                  HANDLERS                                  */
+    /* -------------------------------------------------------------------------- */
+
+    const selfRef = useRef<RecapitulatifRef>(null);
+    useEffect(() => {
+        donneesFestival.registerComponent(selfRef, "any");
+    }, [donneesFestival]);
+
+    React.useImperativeHandle(selfRef, () => ({
+        update: () => { forceUpdate();}
+    }));
+
+    /* -------------------------------------------------------------------------- */
+    /*                                   RENDER                                   */
+    /* -------------------------------------------------------------------------- */
 
 
     return (

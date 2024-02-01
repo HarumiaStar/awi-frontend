@@ -4,6 +4,7 @@ import { Creneau, DetailZone, Jeu, Jour } from "../../Utils/Types";
 export type RegisterDonneesFestivalRef = {
     update(): void;
 }
+export type registerTo = "any" | "nomFestival" | "lieuFestival" | "description" | "joursCreneaux" | "activites" | "jeux" | "dates" | "zones";
 
 export class DonneesFestival {
     private _nomFestival: string;
@@ -19,17 +20,20 @@ export class DonneesFestival {
     private registeredComponents: Record<string, React.RefObject<RegisterDonneesFestivalRef>[]> = {};
 
     constructor() {
+        const today = new Date();
         this._nomFestival = "";
-        this._dateDebut = new Date();
-        this._dateFin = new Date();
+        this._dateDebut = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2);
+        this._dateFin = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 4);
         this._lieuFestival = "";
         this._description = "";
         this._joursCreneaux = [];
         this._activites = [
-            "Accueil Bénévoles",
-            "Accueil Public",
-            "Accueil VIP",
-            "Bar",
+            "Accueil bénévoles",
+            "Accueil public",
+            "Vente restauration",
+            "Cuisine",
+            "Tombola",
+            "Forum associations",
         ];
         this._jeux = [];
         this._zones = [];
@@ -69,6 +73,7 @@ export class DonneesFestival {
 
     set nomFestival(nomFestival: string) {
         this._nomFestival = nomFestival;
+        this.updateComponents("nomFestival");
     }
 
     get nomFestival() {
@@ -100,6 +105,7 @@ export class DonneesFestival {
 
     set lieuFestival(lieuFestival: string) {
         this._lieuFestival = lieuFestival;
+        this.updateComponents("lieuFestival");
     }
 
     get lieuFestival() {
@@ -108,6 +114,7 @@ export class DonneesFestival {
 
     set description(description: string) {
         this._description = description;
+        this.updateComponents("description");
     }
 
     get description() {
@@ -116,6 +123,7 @@ export class DonneesFestival {
 
     set joursCreneaux(joursCreneaux: Jour[]) {
         this._joursCreneaux = joursCreneaux;
+        this.updateComponents("joursCreneaux");
     }
 
     get joursCreneaux() {
@@ -124,6 +132,7 @@ export class DonneesFestival {
 
     set activites(activites: string[]) {
         this._activites = activites;
+        this.updateComponents("activites");
     }
 
     get activites() {
@@ -143,6 +152,7 @@ export class DonneesFestival {
         // ordonner les zones par ordre alphabétique
         zones.sort((a, b) => a.nom.localeCompare(b.nom));
         this._zones = zones;
+        this.updateComponents("zones");
     }
 
     get zones() {
@@ -202,35 +212,44 @@ export class DonneesFestival {
 
     public supprimerCreneau(indexJour: number, creneau: Creneau): void {
         this.joursCreneaux[indexJour].supprimerCreneau(creneau);
+        this.updateComponents("joursCreneaux");
     }
 
     public ajouterCreneau(indexJour: number, heureDebut: number, minuteDebut: number, heureFin: number, minuteFin: number): void {
         this.joursCreneaux[indexJour].ajouterCreneauHeureMinute(heureDebut, minuteDebut, heureFin, minuteFin);
+        this.updateComponents("joursCreneaux");
     }
 
     public ajouterActivite(activite: string): void {
         this.activites.push(activite);
+        this.activites.sort((a, b) => a.localeCompare(b));
+        this.updateComponents("activites");
     }
 
     public supprimerActivite(activite: string): void {
         this.activites.splice(this.activites.indexOf(activite), 1);
+        this.updateComponents("activites");
     }
 
     public ajouterZone(zone: DetailZone): void {
         this.zones.push(zone);
         this.zones.sort((a, b) => a.nom.localeCompare(b.nom));
+        this.updateComponents("zones");
     }
 
     public supprimerZone(zone: DetailZone): void {
         this.zones.splice(this.zones.indexOf(zone), 1);
+        this.updateComponents("zones");
     }
 
     public ajouterZoneBenevole(zone: DetailZone, zoneBenevole: string): void {
         zone.zonesBenevoles.push(zoneBenevole);
+        this.updateComponents("zones");
     }
 
     public supprimerZoneBenevole(zone: DetailZone, zoneBenevole: string): void {
         zone.zonesBenevoles.splice(zone.zonesBenevoles.indexOf(zoneBenevole), 1);
+        this.updateComponents("zones");
     }
 
     public setdates(dateDebut: Date, dateFin: Date) {
@@ -274,12 +293,17 @@ export class DonneesFestival {
     /*                           COMPONENT REGISTRATION                           */
     /* -------------------------------------------------------------------------- */
 
-    public registerComponent(component: React.RefObject<RegisterDonneesFestivalRef>, to: "jeux" | "dates") {
+    public registerComponent(component: React.RefObject<RegisterDonneesFestivalRef>, to: registerTo) {
         if (!this.registeredComponents[to]) this.registeredComponents[to] = [];
         this.registeredComponents[to].push(component);
     }
 
-    private updateComponents(to: "jeux" | "dates") {
+    private updateComponents(to: registerTo) {
+        if (!this.registeredComponents["any"]) return;
+        this.registeredComponents["any"].forEach(component => {
+            component.current?.update();
+        });
+
         if (!this.registeredComponents[to]) return;
         this.registeredComponents[to].forEach(component => {
             component.current?.update();

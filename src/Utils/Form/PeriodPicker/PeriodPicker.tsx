@@ -4,12 +4,14 @@ import { useRef } from "react";
 import { dateToStringFr } from "../../Types";
 
 export type PeriodPickerProps = {
+    defaultDateDebut: Date;
+    defaultDateFin: Date;
     onDateDebutChange?: (date: Date | null) => void;
     onDateFinChange?: (date: Date | null) => void;
     onDatesChange?: (dates: { dateDebut: Date | null, dateFin: Date | null }) => void;
 }
 
-export default function PeriodPicker({ onDateDebutChange, onDateFinChange, onDatesChange }: PeriodPickerProps) {
+export default function PeriodPicker({ onDateDebutChange, onDateFinChange, onDatesChange, defaultDateDebut, defaultDateFin }: PeriodPickerProps) {
 
     const periodPickerModalRef = useRef<PeriodPickerModalRef>(null);
     const dateDebutInputRef = useRef<HTMLInputElement>(null);
@@ -128,7 +130,7 @@ export default function PeriodPicker({ onDateDebutChange, onDateFinChange, onDat
 
             </div>
 
-            <PeriodPickerModal onDateDebutChange={onDateDebutChangeHandle} onDateFinChange={onDateFinChangeHandle} ref={periodPickerModalRef} onDatesChange={onDatesChange} />
+            <PeriodPickerModal onDateDebutChange={onDateDebutChangeHandle} onDateFinChange={onDateFinChangeHandle} ref={periodPickerModalRef} onDatesChange={onDatesChange} defaultDateDebut={defaultDateDebut} defaultDateFin={defaultDateFin} />
         </div>
     )
 }

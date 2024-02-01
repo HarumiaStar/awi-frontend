@@ -3,6 +3,8 @@ import { v4 } from "uuid";
 import { isBefore, isDateInInterval, isSameDay, isToday } from "../../../Types";
 
 export type DisplayJourProps = {
+    defaultDateDebut: Date;
+    defaultDateFin: Date;
     mois: number;
     annee: number;
     onDateDebutChange: (date: Date | null) => void;
@@ -14,10 +16,10 @@ export type DisplayJourRef = {
     getDates: () => { dateDebut: Date | null, dateFin: Date | null };
 }
 
-export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, onDateFinChange, onDatesChange }: DisplayJourProps, ref: React.Ref<DisplayJourRef>) => {
+export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, onDateFinChange, onDatesChange, defaultDateDebut, defaultDateFin }: DisplayJourProps, ref: React.Ref<DisplayJourRef>) => {
     /* --------------------------------- States --------------------------------- */
-    const [dateDebut, setDateDebutRaw] = useState<Date | null>(null);
-    const [dateFin, setDateFinRaw] = useState<Date | null>(null);
+    const [dateDebut, setDateDebutRaw] = useState<Date | null>(defaultDateDebut);
+    const [dateFin, setDateFinRaw] = useState<Date | null>(defaultDateFin);
     const [dateHover, setDateHover] = useState<Date | null>(null);
 
     /* -------------------------------- Variables ------------------------------- */
@@ -69,6 +71,7 @@ export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, o
 
 
     const handleClick = (date: Date) => {
+        console.log(dateDebut, dateFin, date);
         if (dateDebut === null) {
             setDateDebut(date);
             return;
@@ -156,6 +159,7 @@ export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, o
             >
                 <div
                     className="rounded-full hover:bg-gray-200 hover:text-black w-6 h-6 flex flex-row items-center justify-center"
+                    onClick={() => handleClick(date)}
                 >
                     {date.getDate()}
                 </div>
