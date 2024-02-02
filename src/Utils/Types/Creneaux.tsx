@@ -19,6 +19,19 @@ export type Creneau = {
     heureFin: Date,
 }
 
+export function prepareCreneauExport(heure: Date): string {
+    // Format : dd/MM/yyyy HH:mm 
+    const format = new Intl.DateTimeFormat('fr-FR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    return format.format(heure);
+}
+
 export class Jour {
     date: Date;
     creneaux: Creneau[];

@@ -10,9 +10,10 @@ import { FaHome } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { v4 } from 'uuid';
 import { Tuple, lodging, regimes_alimentaires, register, tailles_tshirt } from '../../Utils/Types';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
-
+    const navigation = useNavigate();
 
     const RegisterHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
@@ -27,10 +28,10 @@ export default function Register() {
             registerMessageError.children[0].innerHTML = validation.item2;
             return;
         }
-
+        
         registerToAPI().then((res) => {
             if (res) {
-                console.log("Enregistré");
+                navigation("/login");
             } else {
                 const registerMessageError = document.getElementById("registerMessageError") as HTMLDivElement;
                 registerMessageError.classList.remove(style.disabled);

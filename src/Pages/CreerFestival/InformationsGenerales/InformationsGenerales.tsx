@@ -3,6 +3,7 @@ import { Input, PeriodPicker, TextArea } from "../../../Utils/Form"
 import { BiRename } from "react-icons/bi"
 import { DonneesFestival } from "../DonneesFestival"
 import { ChoixCreneauxRef } from "../ChoixCreneaux/ChoixCreneaux"
+import { CiImageOn } from "react-icons/ci"
 
 export type InformationsGeneralesProps = {
     donneesFestival: DonneesFestival;
@@ -48,6 +49,13 @@ export default function InformationsGenerales({ donneesFestival, choixCreneauxRe
                 id="description"
                 icon={<FaCommentAlt />}
                 onChange={(event) => donneesFestival.description = event.target.value}
+            />
+            <Input
+                type="text"
+                placeholder="Lien de l'affiche"
+                icon={<CiImageOn />}
+                id="lienAffiche"
+                onChange={(event) => donneesFestival.lienAffiche = event.target.value}
             />
             {/* <Input type="text" placeholder='Lien vers le site' icon={<FaCommentAlt />} id="lienSite" />*/}
         </div>

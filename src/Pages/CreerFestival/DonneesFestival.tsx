@@ -4,7 +4,7 @@ import { Creneau, DetailZone, Jeu, Jour } from "../../Utils/Types";
 export type RegisterDonneesFestivalRef = {
     update(): void;
 }
-export type registerTo = "any" | "nomFestival" | "lieuFestival" | "description" | "joursCreneaux" | "activites" | "jeux" | "dates" | "zones";
+export type registerTo = "any" | "nomFestival" | "lieuFestival" | "description" | "joursCreneaux" | "activites" | "jeux" | "dates" | "zones" | "lienAffiche";
 
 export class DonneesFestival {
     private _nomFestival: string;
@@ -12,6 +12,7 @@ export class DonneesFestival {
     private _dateFin: Date;
     private _lieuFestival: string;
     private _description: string;
+    private _lienAffiche: string;
     private _joursCreneaux: Jour[];
     private _activites: string[];
     private _jeux: Jeu[];
@@ -26,6 +27,7 @@ export class DonneesFestival {
         this._dateFin = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 4);
         this._lieuFestival = "";
         this._description = "";
+        this._lienAffiche = "";
         this._joursCreneaux = [];
         this._activites = [
             "Accueil bénévoles",
@@ -78,6 +80,15 @@ export class DonneesFestival {
 
     get nomFestival() {
         return this._nomFestival;
+    }
+
+    set lienAffiche(lienAffiche: string) {
+        this._lienAffiche = lienAffiche;
+        this.updateComponents("lienAffiche");
+    }
+
+    get lienAffiche() {
+        return this._lienAffiche;
     }
 
     set dateDebut(dateDebut: Date) {

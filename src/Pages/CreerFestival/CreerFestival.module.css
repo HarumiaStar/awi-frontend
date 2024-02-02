@@ -1,7 +1,0 @@
-.formContainer {
-	display: flex;
-	flex-direction: column;
-	border: 1px solid #ccccccaf;
-	border-radius: 0.5rem;
-	padding: 1rem;
-}

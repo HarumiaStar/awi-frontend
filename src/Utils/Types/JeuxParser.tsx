@@ -382,6 +382,7 @@ export function separerLigne(ligne: string, separateur: string, ignore: string):
 
 export type DetailZone = {
     nom: string,
+    idZone : number,
     zonesBenevoles: string[],
 }
 
@@ -392,7 +393,7 @@ export const zonesFromJeux = (jeux: Jeu[]) : DetailZone[] => {
     jeux.forEach((jeu) => {
         let index = indexDansDetails(jeu.zonePlan, zones);
         if (index === undefined) {
-            zones.push({nom: jeu.zonePlan, zonesBenevoles: jeu.zoneBenevole ? [jeu.zoneBenevole] : []});
+            zones.push({nom: jeu.zonePlan, idZone:jeu.idZone, zonesBenevoles: jeu.zoneBenevole ? [jeu.zoneBenevole] : []});
             return; // On passe à l'itération suivante
         }
 

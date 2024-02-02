@@ -1,5 +1,5 @@
 import React from "react"
-import { Jeu, parseNbJoueur, TypeJeu } from "../../../../Utils/Types";
+import { Jeu, parseNbJoueur } from "../../../../Utils/Types";
 import { IoPeople } from "react-icons/io5";
 import { IoMdTimer } from "react-icons/io";
 
