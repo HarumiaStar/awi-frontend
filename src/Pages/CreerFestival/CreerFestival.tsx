@@ -143,10 +143,10 @@ export default function CreerFestival() {
 
 		const instanceApi = Api.getInstance();
 
-		// if (!instanceApi.isAdmin){
-		// 	alert("Vous n'êtes pas admin");
-		// 	return;
-		// }
+		if (!instanceApi.isAdmin){
+			alert("Vous n'êtes pas admin");
+			return;
+		}
 
 		const promesse = instanceApi.postApi("/festivals/new", JSON.stringify(data));
 
