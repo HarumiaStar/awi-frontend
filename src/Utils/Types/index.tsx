@@ -5,7 +5,7 @@ import { TwoDMap } from "./ThreeDMap";
 import { TwoDMapEntry } from "./ThreeDMap";
 import { ThreeDMapEntry } from "./ThreeDMap";
 import Tuple from "./Tuple";
-import { Api, login, logout, register, setupHashSeed } from "./Database";
+import { Api, login, logout, register, setupHashSeed, Festival as APIFestival, Jeu as APIJeu } from "./Database";
 import { 
     jeuxParser, 
     jeuxParserFichier,
@@ -64,6 +64,7 @@ export {
     dateToStringFr,
     creneauToString,
     prepareCreneauExport,
+    dateToExport,
 };
 export type {
     TwoDMapEntry,
@@ -73,6 +74,8 @@ export type {
     TypeJeu,
     Creneau,
     DetailZone,
+    APIJeu,
+    APIFestival,
 };
 
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Api } from "../../Utils/Types";
-import { a } from "vitest/dist/suite-ghspeorC.js";
-import { e } from "vitest/dist/reporters-1evA5lom.js";
+import { useNavigate } from "react-router-dom";
 
 type Festival = {
     id: string;
@@ -24,7 +23,7 @@ export default function HomeMobile() {
         load(null);
     }, []);
 
-    const load = (e) => {
+    const load = (e : React.MouseEvent<HTMLButtonElement, MouseEvent> | null) => {
         if (e) e.preventDefault();
         instance.getApi('/festivals/current').then(async (response) => {
             if (!response.body) {
@@ -37,10 +36,16 @@ export default function HomeMobile() {
         setCpt(cpt + 1);
     }
 
+    const navigator = useNavigate();
+
+    const handleFestivalClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        navigator(`/detail-festival/${currentFestival?.id}`);
+    }
+
     return <div className="flex flex-col items-center">
         <h1>Home Mobile</h1>
         {currentFestival ? (
-            <div className="w-96">
+            <div className="w-96" onClick={handleFestivalClick}>
                 <div className="flex flex-col items-center">
                     <h1 className="font-bold text-2xl">Festival en cours</h1>
                     <div className="flex flex-col border-2 p-3 rounded-lg gap-3  w-full">
@@ -54,7 +59,7 @@ export default function HomeMobile() {
                         </div>
                         <p>{currentFestival.description}</p>
                         <p>{currentFestival.address}</p>
-                        <img src={currentFestival.posterPath} alt={currentFestival.title} />
+                        <img src={currentFestival.posterPath} alt={currentFestival.posterPath} />
                     </div>
                 </div>
             </div>

@@ -36,11 +36,13 @@ export default function Register() {
                 const registerMessageError = document.getElementById("registerMessageError") as HTMLDivElement;
                 registerMessageError.classList.remove(style.disabled);
                 registerMessageError.children[0].innerHTML = "Une erreur est survenue";
+                alert("Une erreur est survenue : " + res);
             }
-        }, () => {
+        }, (error) => {
             const registerMessageError = document.getElementById("registerMessageError") as HTMLDivElement;
             registerMessageError.classList.remove(style.disabled);
             registerMessageError.children[0].innerHTML = "Une erreur est survenue";
+            alert("Une erreur est survenue : " + error);
         });
     }
 

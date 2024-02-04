@@ -98,22 +98,6 @@ export default function Settings() {
 
 		const selfVolunteer = await response.json();
 
-		/** selfVolunteer is a JSON object with the following structure :
-		 * {
-			"firstname": "azertyuq",
-			"lastname": "qsdfghj",
-			"email": "azertyu@gmail.com",
-			"address": "azertyuisqdfg",
-			"phone": null,
-			"username": null,
-			"avatar_url": "azetryui",
-			"nb_edition_performed": "1",
-			"tshirt_size": "M",
-			"lodging": "recherche",
-			"food_regime": "vegetarien",
-			"isAdmin": false
-		}
-		 */
 
 		const nouvellesTaillesTshirt = tailles_tshirt.map((taille) => {
 			if (taille.value === selfVolunteer.tshirt_size)
@@ -160,10 +144,12 @@ export default function Settings() {
 
 
 	return (
-		<div className={styles.mainContent}>
-			<h1>Settings</h1>
+		<div className="flex flex-col w-full overflow-y-auto gap-4 items-center">
+			<h1 className="text-2xl font-bold">
+				Paramètres
+			</h1>
 
-			<div className={styles.formContainer}>
+			<div className="flex flex-col gap-4 border-2 p-4 rounded-lg border-gray-30">
 				<Form>
 					{defaultInputs}
 					{boutonSauvegarder}
