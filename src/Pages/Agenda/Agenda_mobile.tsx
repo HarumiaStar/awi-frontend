@@ -1,6 +1,6 @@
 import { Liste_agenda } from "./Classes/Liste_Agenda"
 import { Liste_deroulante, Liste_deroulante_element, Liste_deroulante_element_data } from "../../Utils/Liste_deroulante"
-import { Creneaux } from "../../Utils/Types/Creneaux";
+import { DefaultCreneaux } from "../../Utils/Types";
 import SmallDate from "../../Utils/Types/SmallDate";
 import { TwoDMap } from "../../Utils/Types/ThreeDMap";
 import { v4 } from "uuid";
@@ -9,13 +9,13 @@ import { v4 } from "uuid";
 export default function Agenda_mobile({ agenda }: { agenda: Liste_agenda }) {
     const sections : {nom: string, liste: Liste_deroulante_element[]}[] = []
 
-    agenda.liste.get2DByB().forEach((activite: TwoDMap<string, Creneaux, number>, date: SmallDate) => {
+    agenda.liste.get2DByB().forEach((activite: TwoDMap<string, DefaultCreneaux, number>, date: SmallDate) => {
         const liste_deroulante: Liste_deroulante_element[] = []
         const nom_section = date.frFormat
 
-        activite.getMapWithFirstDimension().forEach((creneau: Map<Creneaux, number>, nom_activite: string) => {
+        activite.getMapWithFirstDimension().forEach((creneau: Map<DefaultCreneaux, number>, nom_activite: string) => {
             const liste_deroulante_element_data: Liste_deroulante_element_data[] = []
-            creneau.forEach((valeur: number, creneau: Creneaux) => {
+            creneau.forEach((valeur: number, creneau: DefaultCreneaux) => {
                 liste_deroulante_element_data.push(new Liste_deroulante_element_data(creneau, valeur))
             })
             liste_deroulante.push(new Liste_deroulante_element(nom_activite, liste_deroulante_element_data))

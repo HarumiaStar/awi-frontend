@@ -1,4 +1,4 @@
-import { Creneaux, CreneauxList } from "../../Utils/Types/Creneaux";
+import { DefaultCreneaux, DefaultCreneauxList } from "../../Utils/Types";
 import { Liste_agenda } from "./Classes/Liste_Agenda"
 import "./Agenda_desktop.css"
 import SmallDate from "../../Utils/Types/SmallDate";
@@ -16,19 +16,19 @@ export default function Agenda_Desktop({ agenda }: { agenda: Liste_agenda }) {
     const [selected_date, setSelected_date] = useState<SmallDate>(dates[0]);
 
 
-    const creneaux_affichage = CreneauxList.map((value: Creneaux, index: number) => <th key={index}>{value}</th>)
+    const creneaux_affichage = DefaultCreneauxList.map((value: DefaultCreneaux, index: number) => <th key={index}>{value}</th>)
     const nombre_colonnes = creneaux_affichage.length;
 
     const toutes_activites: JSX.Element[] = []
 
-    agenda.liste.get2DByA().forEach((date_creneau_rempli: TwoDMap<SmallDate, Creneaux, number>, nom_activite: string) => {
+    agenda.liste.get2DByA().forEach((date_creneau_rempli: TwoDMap<SmallDate, DefaultCreneaux, number>, nom_activite: string) => {
 
         const cellules = [];
 
         cellules.push(<td key={v4()} className="titre">{nom_activite}</td>)
 
 
-        // date_creneau_rempli.getMapWithFirstDimension().forEach((creneau_repli: Map<Creneaux, number>) => {
+        // date_creneau_rempli.getMapWithFirstDimension().forEach((creneau_repli: Map<DefaultCreneaux, number>) => {
         //     creneau_repli.forEach((valeur: number) => {
         //         cellules.push(<td key={v4()}>{valeur}</td>)
         //     })

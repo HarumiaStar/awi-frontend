@@ -1,4 +1,4 @@
-import { Creneaux } from "../../../Utils/Types/Creneaux";
+import { DefaultCreneaux } from "../../../Utils/Types";
 import SmallDate from "../../../Utils/Types/SmallDate";
 import { ThreeDMap, TwoDMap } from "../../../Utils/Types/ThreeDMap";
 import { Activite_Agenda } from "./Activite_Agenda";
@@ -6,7 +6,7 @@ import { Activite_Agenda } from "./Activite_Agenda";
 
 
 export class Liste_agenda {
-    private _liste: ThreeDMap<string, SmallDate, Creneaux, number> = new ThreeDMap();
+    private _liste: ThreeDMap<string, SmallDate, DefaultCreneaux, number> = new ThreeDMap();
 
     constructor() {}
 
@@ -31,34 +31,34 @@ export class Liste_agenda {
     }
 
     public addActivite(activite: Activite_Agenda): void {
-        this._liste.set(activite.nom, activite.date, Creneaux.MATIN, activite.getCreneau(Creneaux.MATIN));
-        this._liste.set(activite.nom, activite.date, Creneaux.MIDI, activite.getCreneau(Creneaux.MIDI));
-        this._liste.set(activite.nom, activite.date, Creneaux.APRES_MIDI, activite.getCreneau(Creneaux.APRES_MIDI));
-        this._liste.set(activite.nom, activite.date, Creneaux.SOIREE, activite.getCreneau(Creneaux.SOIREE));
-        this._liste.set(activite.nom, activite.date, Creneaux.DEPART, activite.getCreneau(Creneaux.DEPART));
+        this._liste.set(activite.nom, activite.date, DefaultCreneaux.MATIN, activite.getCreneau(DefaultCreneaux.MATIN));
+        this._liste.set(activite.nom, activite.date, DefaultCreneaux.MIDI, activite.getCreneau(DefaultCreneaux.MIDI));
+        this._liste.set(activite.nom, activite.date, DefaultCreneaux.APRES_MIDI, activite.getCreneau(DefaultCreneaux.APRES_MIDI));
+        this._liste.set(activite.nom, activite.date, DefaultCreneaux.SOIREE, activite.getCreneau(DefaultCreneaux.SOIREE));
+        this._liste.set(activite.nom, activite.date, DefaultCreneaux.DEPART, activite.getCreneau(DefaultCreneaux.DEPART));
     }
 
-    public addActiviteMap(nom: string, creneaux: Map<Creneaux, number>): void {
-        this._liste.set(nom, new SmallDate(10,10,2010), Creneaux.MATIN, creneaux.get(Creneaux.MATIN) || 0);
-        this._liste.set(nom, new SmallDate(10,10,2010), Creneaux.MIDI, creneaux.get(Creneaux.MIDI) || 0);
-        this._liste.set(nom, new SmallDate(10,10,2010), Creneaux.APRES_MIDI, creneaux.get(Creneaux.APRES_MIDI) || 0);
-        this._liste.set(nom, new SmallDate(10,10,2010), Creneaux.SOIREE, creneaux.get(Creneaux.SOIREE) || 0);
-        this._liste.set(nom, new SmallDate(10,10,2010), Creneaux.DEPART, creneaux.get(Creneaux.DEPART) || 0);
+    public addActiviteMap(nom: string, creneaux: Map<DefaultCreneaux, number>): void {
+        this._liste.set(nom, new SmallDate(10,10,2010), DefaultCreneaux.MATIN, creneaux.get(DefaultCreneaux.MATIN) || 0);
+        this._liste.set(nom, new SmallDate(10,10,2010), DefaultCreneaux.MIDI, creneaux.get(DefaultCreneaux.MIDI) || 0);
+        this._liste.set(nom, new SmallDate(10,10,2010), DefaultCreneaux.APRES_MIDI, creneaux.get(DefaultCreneaux.APRES_MIDI) || 0);
+        this._liste.set(nom, new SmallDate(10,10,2010), DefaultCreneaux.SOIREE, creneaux.get(DefaultCreneaux.SOIREE) || 0);
+        this._liste.set(nom, new SmallDate(10,10,2010), DefaultCreneaux.DEPART, creneaux.get(DefaultCreneaux.DEPART) || 0);
     }
 
     public removeActivite(nom: string): void {
         this._liste.get2DByA().delete(nom);
     }
 
-    public mapDate<U>(date_targeted: SmallDate, callbackfn: (value: [string, Map<Creneaux, number>], index: number, array: [string, Map<Creneaux, number>][]) => U, thisArg?: any): U[] {
-        const liste: [string, Map<Creneaux, number>][] = [];
+    public mapDate<U>(date_targeted: SmallDate, callbackfn: (value: [string, Map<DefaultCreneaux, number>], index: number, array: [string, Map<DefaultCreneaux, number>][]) => U, thisArg?: unknown): U[] {
+        const liste: [string, Map<DefaultCreneaux, number>][] = [];
         this.getByDate(date_targeted)?.getMapWithFirstDimension().forEach((value, key) => {
             liste.push([key, value]);
         });
         return liste.map(callbackfn, thisArg);
     }
 
-    private getByDate(date_targeted: SmallDate): TwoDMap<string, Creneaux, number> | undefined {
+    private getByDate(date_targeted: SmallDate): TwoDMap<string, DefaultCreneaux, number> | undefined {
         const listesByDates = this._liste.get2DByB();
         listesByDates.forEach((value, current_date) => {
             if (current_date.equals(date_targeted)) {
@@ -76,7 +76,7 @@ export class Liste_agenda {
         return liste;
     }
 
-    public get liste(): ThreeDMap<string, SmallDate, Creneaux, number> {
+    public get liste(): ThreeDMap<string, SmallDate, DefaultCreneaux, number> {
         return this._liste;
     }
 

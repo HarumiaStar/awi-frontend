@@ -1,0 +1,36 @@
+.form_control {
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.form_control:focus-within,
+.form_control:hover {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.form_control textarea {
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: none;
+    border: none;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.form_control textarea:focus {
+    outline: none;
+}
+
+.labelContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}

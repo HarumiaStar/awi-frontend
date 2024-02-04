@@ -2,10 +2,11 @@ import { v4 } from 'uuid';
 import { Button, Form, Input } from '../../Utils/Form';
 import style from './LoginDesktop.module.css';
 import { HiEnvelope, HiLockClosed } from "react-icons/hi2";
+import { Link } from 'react-router-dom';
 
-export default function LoginDesktop({loginHandler} : {loginHandler : (email : string, password : string) => void})  {
+export default function LoginDesktop({ loginHandler }: { loginHandler: (email: string, password: string) => void }) {
 
-    const onLogin = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const onLogin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
         event.stopPropagation();
         const emailInput = document.querySelector("#email") as HTMLInputElement;
@@ -23,18 +24,20 @@ export default function LoginDesktop({loginHandler} : {loginHandler : (email : s
         </div>
         <div className={style.loginArea}>
             <div className={style.loginAreaContentTitle}>
-                <h1>Connexion</h1>
+                <h1 className='text-4xl font-bold text-center'>
+                    Connexion
+                </h1>
             </div>
-            <Form className="mynewclass">
+            <Form>
                 <Input type="email" placeholder='Email' icon={<HiEnvelope />} id="email" autocomplete='email' />
                 <Input type="password" placeholder='Mot de passe' icon={<HiLockClosed />} id="password" autocomplete='current-password' />
                 <Button type="submit" text="Se connecter" id={v4()} onClick={onLogin} />
             </Form>
 
             <div className={style.sideActionLinks}>
-                <Button type="button" text="Mot de passe oublié ?" id={v4()} replaceInputClass={style.sideActionButton} />
-                <Button type="button" text="Créer un compte" id={v4()} replaceInputClass={style.sideActionButton} />
+                <Link to="/register">S'inscrire</Link>
+                <Link to="/reset-password">Mot de passe oublié ?</Link>
             </div>
         </div>
-    </div>
+    </div >
 }

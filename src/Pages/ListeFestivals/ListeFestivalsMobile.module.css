@@ -1,0 +1,108 @@
+.container{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: auto;
+	gap: 1rem;
+}
+
+.festival{
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	align-items: left;
+	height: auto;
+	padding: 1rem;
+	border: 1px solid #ffffff36;
+	border-radius: 0.5rem;
+	transition: all 0.3s ease-in-out;
+}
+
+.festival.open{
+	background-color: #ffffff36;
+}
+
+.header{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.title{
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.festivalOpenAction{
+	width: 1.5rem;
+	height: 1.5rem;
+	font-size: 1.5rem;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: transform 0.3s ease-in-out;
+}
+
+.festivalOpenAction.open{
+	transform: rotate(90deg);
+}
+
+.festivalName{
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.festivalDate{
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.festivalContainer{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 0;
+	overflow: hidden;
+	transition: height 0.4s ease-in-out;
+}
+
+.festivalContainer.open{
+	height: auto;
+	padding-top: 1rem;
+}
+
+.festivalAdresseContainer{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 1rem;
+}
+
+.festivalAdresse{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 90%;
+}
+
+.festivalDescriptionContainer{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 1rem;
+}
+
+.festivalDescription{}

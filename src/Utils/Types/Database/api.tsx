@@ -120,6 +120,7 @@ export default class Api {
     public resetToken(): void {
         this.token = null;
         localStorage.removeItem("token");
+        console.log("Token reset");
     }
 
     public encryptWithHashSeed(data: string): string {
