@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { Layout, Agenda, Login, NotFound, Register, Logout, Home, Settings, CreerFestival, ListeFestivals } from './Pages'
+import { Layout, Agenda, Login, NotFound, Register, Logout, Home, Settings, CreerFestival, ListeFestivals, ListJeuFestival } from './Pages'
 import { RequireAuth } from './Utils/AuthRoute'
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="Register" element={<Register />} />
           <Route path="ListeFestivals" element={<ListeFestivals />} />
+          <Route path="listeJeuxFestivals" element={<ListJeuFestival/>} />
 
 
           {/* Routes ayant besoin d'être connecté (pas admin) */}
