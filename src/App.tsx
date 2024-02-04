@@ -23,7 +23,8 @@ function App() {
           <Route path="agenda" element={<RequireAuth><Pages.Agenda /></RequireAuth>} />
           <Route path="settings" element={<RequireAuth><Pages.Settings /></RequireAuth>} />
           <Route path="CreerFestival" element={<RequireAuth><Pages.CreerFestival /></RequireAuth>} />
-          <Route path="inscription" element={<RequireAuth><Pages.Inscription /></RequireAuth>} />
+          <Route path="inscription/creneau" element={<RequireAuth><Pages.InscriptionCreneau /></RequireAuth>} /> 
+          <Route path="inscription/:id" element={<RequireAuth><Pages.Inscription /></RequireAuth>} />
 
           {/* Route admin */}
 

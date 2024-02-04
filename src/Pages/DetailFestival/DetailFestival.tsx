@@ -102,6 +102,9 @@ export default function DetailFestival() {
         navigator(`/detail-jeu/${id}`);
     }
 
+    const inscriptionHandler = () => {
+        navigator(`/inscription/${id}`);
+    }
 
     /* -------------------------------------------------------------------------- */
     /*                                   RENDER                                   */
@@ -203,7 +206,7 @@ export default function DetailFestival() {
     const createInscription = () => {
         return (
             <div className="flex flex-col gap-4">
-                <button className="bg-vert-moyen hover:bg-vert-fonce text-white font-bold py-2 px-4 rounded text-xl">
+                <button className="bg-vert-moyen hover:bg-vert-fonce text-white font-bold py-2 px-4 rounded text-xl" onClick={inscriptionHandler}>
                     Inscription
                 </button>
             </div>

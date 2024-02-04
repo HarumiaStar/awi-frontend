@@ -10,7 +10,7 @@ import DetailFestival from "./DetailFestival";
 import Settings from './Settings';
 import CreerFestival from './CreerFestival';
 import ListeFestivals from './ListeFestivals';
-import Inscription from './Inscription';
+import Inscription, {InscriptionCreneau} from './Inscription';
 
 export {
     Layout, 
@@ -26,4 +26,5 @@ export {
     CreerFestival,
     ListeFestivals,
     Inscription,
+    InscriptionCreneau
 };

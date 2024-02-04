@@ -1,29 +1,11 @@
 import { useEffect, useState } from "react"
-import { Api, APIFestival as Festival, APIJeu as Jeu } from "../../Utils/Types";
+import { Api, APIFestival as Festival, APIJeu as Jeu, fillDateArray } from "../../Utils/Types";
 import { useLocation, useNavigate } from "react-router-dom";
+import { dummyCreneau } from "./dummyData";
+import Postes from "./Postes/Postes";
+import { APIPoste as poste, APIZoneAnimation as zoneAnimation, APICreneau as creneau } from "../../Utils/Types";
+import Animations from "./Animation/Animations";
 
-type poste = {
-    id: string;
-    title: string;
-    description: string;
-    capacity: number;
-    maxCapacity: number;
-    animation: boolean;
-}
-
-type zoneAnimation = {
-    id: string;
-    title: string;
-    description: string;
-    capacity: number;
-    maxCapacity: number;
-}
-
-type creneau = {
-    id: string;
-    start: string;
-    end: string;
-}
 
 
 export default function Inscription() {
@@ -31,16 +13,15 @@ export default function Inscription() {
 
     /* ---------------------------------- DATA ---------------------------------- */
 
-    const [postes, setPostes] = useState<poste[]>([]);
-    const [zonesAnimations, setZonesAnimations] = useState<zoneAnimation[]>([]);
-    const [jeux, setJeux] = useState<Jeu[]>([]);
     const [creneaux, setCreneaux] = useState<creneau[]>([]);
+    const [jours, setJours] = useState<Date[]>([]);
 
 
     /* --------------------------------- STATES --------------------------------- */
 
     const [poste_animations, setPoste_animations] = useState<"poste" | "animations">("poste");
-    const [crenaau_zone, setCrenau_zone] = useState<"creneau" | "zone">("creneau");
+    const [creneau_zone, setCrenau_zone] = useState<"creneau" | "zone">("creneau");
+    const [jourActif, setJourActif] = useState<number>(0);
 
     /* -------------------------------- VARIABLES ------------------------------- */
 
@@ -54,46 +35,41 @@ export default function Inscription() {
     /* -------------------------------------------------------------------------- */
 
     useEffect(() => {
-        const creneauxData = Api.getInstance().getApi(`/creneaux`);
 
-        creneauxData.then(async (response) => {
+        const festivalData = Api.getInstance().getApi(`/festivals/${festivalId}`);
+
+        festivalData.then(async (response) => {
             if (!response.body) {
-                alert('No creneaux found');
+                alert('No festival found');
                 return;
             }
-            const creneaux = (await response.json()) as creneau[];
-            setCreneaux(creneaux);
-        });
+            const festival = (await response.json());
+            // format : 11/02/2022
+            
+            const startData = festival.startDate.split('/'); // [11, 02, 2022] 
+            const startDate = new Date(parseInt(startData[2]), parseInt(startData[1]) - 1, parseInt(startData[0])); // 11/02/2022
 
-        const postesData = Api.getInstance().getApi(`/zones`);
+            const endData = festival.endDate.split('/'); // [11, 02, 2022]
+            const endDate = new Date(parseInt(endData[2]), parseInt(endData[1]) - 1, parseInt(endData[0])); // 11/02/2022
 
-        postesData.then(async (response) => {
-            if (!response.body) {
-                alert('No zones found');
-                return;
-            }
-            const allZones = (await response.json()) as poste[];
-
-            // if animation is true, then it's a zone animation else it's a poste
-
-            const zones = allZones.filter(zone => zone.animation);
-            const postes = allZones.filter(zone => !zone.animation);
-
-            setZonesAnimations(zones);
-            setPostes(postes);
+            const jours = fillDateArray(startDate, endDate);
+            setJours(jours);
         });
 
 
-        const jeuxData = Api.getInstance().getApi(`/jeux`);
 
-        jeuxData.then(async (response) => {
-            if (!response.body) {
-                alert('No jeux found');
-                return;
-            }
-            const jeux = (await response.json()) as Jeu[];
-            setJeux(jeux);
-        });
+        // const creneauxData = Api.getInstance().getApi(`/creneaux`);
+
+        // creneauxData.then(async (response) => {
+        //     if (!response.body) {
+        //         alert('No creneaux found');
+        //         return;
+        //     }
+        //     const creneaux = (await response.json()) as creneau[];
+        //     setCreneaux(creneaux);
+        // }); 
+
+        setCreneaux(dummyCreneau); // TODO : Remove this line and uncomment the previous one
 
     }, []);
 
@@ -108,73 +84,72 @@ export default function Inscription() {
     /*                                   RENDER                                   */
     /* -------------------------------------------------------------------------- */
 
-    const renderPoste = (poste: poste) => {
+
+
+    // const renderAnimation = (zone: zoneAnimation) => {
+    //     return (
+    //         <div className="flex flex-row justify-between">
+    //             <h1>{zone.title}</h1>
+    //             <p>{zone.capacity} / {zone.maxCapacity}</p>
+    //         </div>
+    //     )
+    // }
+
+    // const renderAnimations = () => {
+    //     return (
+    //         <div className="flex flex-col items-center gap-4">
+    //             {zonesAnimations.map(renderAnimation)}
+    //         </div>
+    //     )
+    // }
+
+    const displayJour = (jour: Date, index: number) => {
         return (
-            <div>
-                <h1>{poste.title}</h1>
-                <p>{poste.description}</p>
-                <p>{poste.capacity} / {poste.maxCapacity}</p>
-            </div>
+            <button
+                className={`border-2 p-2 rounded-md text-2xl ${jourActif === index ? "bg-vert-fonce" : "bg-vert-moyen"}`}
+                onClick={() => setJourActif(index)}>
+                {jour.toDateString()}
+            </button>
         )
     }
 
-
-    const renderPostes = () => {
+    const renderJours = () => {
         return (
-            <div className="flex flex-col items-center gap-4">
-                {postes.map(renderPoste)}
+            <div className="flex flex-row gap-4">
+                {jours.map((jour, index) => displayJour(jour, index))}
             </div>
         )
     }
-
-
-    const renderAnimation = (zone: zoneAnimation) => {
-        return (
-            <div>
-                <h1>{zone.title}</h1>
-                <p>{zone.description}</p>
-                <p>{zone.capacity} / {zone.maxCapacity}</p>
-            </div>
-        )
-    }
-
-    const renderAnimations = () => {
-        return (
-            <div className="flex flex-col items-center gap-4">
-                {zonesAnimations.map(renderAnimation)}
-            </div>
-        )
-    }
-
-    /**
-     * General display : 
-     * 
-     * <button>Postes</button> <button>Animations</button>
-     * <button>Creneaux</button> <button>Zones | animation</button> // Depending on post or animation
-     * - creneaux
-     * -- zones | animations
-     * -- zones | animations
-     * -- zones | animations
-     * 
-     * - creneaux
-     * -- zones | animations
-     * -- zones | animations
-     */
-
     return (
-        <div className="flex flex-col items-center gap-4">
-            <div className="flex flex-row justify-between">
-                <button onClick={() => setPoste_animations("poste")}>Postes</button>
-                <button onClick={() => setPoste_animations("animations")}>Animations</button>
+        <div className="flex flex-col items-center gap-4 p-5 w-full">
+
+            {renderJours()}
+
+            <div className="flex flex-row justify-around gap-12 w-full">
+                <button
+                    className={"border-2 p-2 rounded-m text-2xl " + (poste_animations === "poste" ? "bg-vert-fonce" : "bg-vert-moyen")}
+                    onClick={() => setPoste_animations("poste")}
+                >
+                    Postes</button>
+                <button
+                    className={"border-2 p-2 rounded-m text-2xl " + (poste_animations === "animations" ? "bg-vert-fonce" : "bg-vert-moyen")}
+                    onClick={() => setPoste_animations("animations")}
+                >
+                    Animations
+                </button>
             </div>
 
-            <div className="flex flex-row justify-between">
-                <button onClick={() => setCrenau_zone("creneau")}>Creneaux</button>
-                <button onClick={() => setCrenau_zone("zone")}>Zones | animations</button>
-            </div>
-
-            {poste_animations === "poste" ? renderPostes() : renderAnimations()}
+            {
+                poste_animations === "poste" ?
+                    <Postes creneaux={creneaux} />
+                    :
+                    <Animations creneaux={creneaux} />
+            }
 
         </div>
     )
+}
+
+function randomId() {
+    return Math.random().toString(36).substring(7);
 }

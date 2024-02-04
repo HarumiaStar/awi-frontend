@@ -29,3 +29,28 @@ export type Jeu = {
     video: string,
     manual: string
 }
+
+
+
+export type poste = {
+    id: string;
+    title: string;
+    description: string;
+    capacity: number;
+    maxCapacity: number;
+    animation: boolean;
+}
+
+export type zoneAnimation = {
+    id: string;
+    title: string;
+    description: string;
+    capacity: number;
+    maxCapacity: number;
+}
+
+export type creneau = {
+    id: string;
+    start: string;
+    end: string;
+}

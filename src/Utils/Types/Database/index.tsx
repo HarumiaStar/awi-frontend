@@ -1,6 +1,6 @@
 import Api from "./api";
 import { login, logout, register, setupHashSeed } from "./Auth";
-import { Festival, Jeu } from "./typesRetour";
+import { Festival, Jeu, creneau, poste, zoneAnimation } from "./typesRetour";
 
 export {
     Api,
@@ -15,4 +15,7 @@ export {
 export type {
     Festival,
     Jeu,
+    creneau,
+    poste,
+    zoneAnimation
 };

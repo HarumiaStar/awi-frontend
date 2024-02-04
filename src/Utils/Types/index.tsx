@@ -1,13 +1,32 @@
-import { DefaultCreneaux, Creneau, DefaultCreneauxList, creneauxChevauchement, Jour, creneauToString,prepareCreneauExport } from "./Creneaux";
+import { 
+    DefaultCreneaux, 
+    Creneau, 
+    DefaultCreneauxList, 
+    creneauxChevauchement, 
+    Jour, 
+    creneauToString, 
+    prepareCreneauExport 
+} from "./Creneaux";
 import SmallDate from "./SmallDate";
 import { ThreeDMap } from "./ThreeDMap";
 import { TwoDMap } from "./ThreeDMap";
 import { TwoDMapEntry } from "./ThreeDMap";
 import { ThreeDMapEntry } from "./ThreeDMap";
 import Tuple from "./Tuple";
-import { Api, login, logout, register, setupHashSeed, Festival as APIFestival, Jeu as APIJeu } from "./Database";
-import { 
-    jeuxParser, 
+import {
+    Api,
+    login,
+    logout,
+    register,
+    setupHashSeed,
+    Festival as APIFestival,
+    Jeu as APIJeu,
+    creneau as APICreneau,
+    poste as APIPoste,
+    zoneAnimation as APIZoneAnimation,
+} from "./Database";
+import {
+    jeuxParser,
     jeuxParserFichier,
     Jeu,
     Lien,
@@ -16,8 +35,8 @@ import {
     endOfLine,
     headerAttendu,
     parseTypeJeu,
-    separator, 
-    parseNbJoueur, 
+    separator,
+    parseNbJoueur,
     zonesFromJeux,
     DetailZone,
     zoneFromJeuxTriees,
@@ -27,13 +46,21 @@ import { regimes_alimentaires } from "./RegimesAlimentaires";
 import { tailles_tshirt } from "./TaillesThirt";
 import { lodging } from "./Lodging";
 import { TimerReset } from "./TimerReset";
-import { isBefore, isDateInInterval, isSameDay, isToday, dateToStringFr, dateToExport } from "./DateUtils";
+import { 
+    isBefore, 
+    isDateInInterval, 
+    isSameDay, 
+    isToday, 
+    dateToStringFr, 
+    dateToExport,
+    fillDateArray
+ } from "./DateUtils";
 
 export {
     DefaultCreneaux,
     SmallDate,
     ThreeDMap,
-    TwoDMap, 
+    TwoDMap,
     Tuple,
     Api,
     login,
@@ -57,14 +84,15 @@ export {
     DefaultCreneauxList,
     creneauxChevauchement,
     Jour,
-    isBefore, 
-    isDateInInterval, 
-    isSameDay, 
+    isBefore,
+    isDateInInterval,
+    isSameDay,
     isToday,
     dateToStringFr,
     creneauToString,
     prepareCreneauExport,
     dateToExport,
+    fillDateArray
 };
 export type {
     TwoDMapEntry,
@@ -76,6 +104,9 @@ export type {
     DetailZone,
     APIJeu,
     APIFestival,
+    APICreneau,
+    APIPoste,
+    APIZoneAnimation,
 };
 
 
