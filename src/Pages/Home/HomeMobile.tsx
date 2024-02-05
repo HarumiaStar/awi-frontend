@@ -43,7 +43,6 @@ export default function HomeMobile() {
     }
 
     return <div className="flex flex-col items-center">
-        <h1>Home Mobile</h1>
         {currentFestival ? (
             <div className="w-96" onClick={handleFestivalClick}>
                 <div className="flex flex-col items-center">
