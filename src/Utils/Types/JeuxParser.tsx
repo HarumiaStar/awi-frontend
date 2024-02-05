@@ -394,13 +394,12 @@ export const zonesFromJeux = (jeux: Jeu[]) : DetailZone[] => {
         let index = indexDansDetails(jeu.zonePlan, zones);
         if (index === undefined) {
             zones.push({nom: jeu.zonePlan, idZone:jeu.idZone, zonesBenevoles: jeu.zoneBenevole ? [jeu.zoneBenevole] : []});
-            return; // On passe à l'itération suivante
         }
-
-        if (jeu.zoneBenevole && !zoneBenevoleEstDansZone(jeu.zoneBenevole, zones[index])) {
+        else if (jeu.zoneBenevole && !zoneBenevoleEstDansZone(jeu.zoneBenevole, zones[index])){
             zones[index].zonesBenevoles.push(jeu.zoneBenevole);
         }
     });
+    console.log(zones)
     return zones;
 
 }

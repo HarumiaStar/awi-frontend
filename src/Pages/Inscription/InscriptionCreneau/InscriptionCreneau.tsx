@@ -15,28 +15,34 @@ export default function InscriptionCreneau() {
     const [creneau, setCreneau] = useState<any>();
 
     useEffect(() => {
-        // const posteData = Api.getInstance().getApi(`/postes/${posteId}`);
-        // posteData.then(async (response) => {
-        //     if (!response.body) {
-        //         alert('No poste found');
-        //         return;
-        //     }
-        //     const poste = (await response.json()) as poste;
-        //     setPoste(poste);
-        // });
+        const posteData = Api.getInstance().getApi(`/zones/${posteId}`);
+        posteData.then(async (response) => {
+            if (!response.body) {
+                alert('No poste found');
+                return;
+            }
+            const poste = (await response.json());
+            setPoste(poste);
+        });
 
-        // const creneauData = Api.getInstance().getApi(`/creneaux/${creneauId}`);
-        // creneauData.then(async (response) => {
-        //     if (!response.body) {
-        //         alert('No creneau found');
-        //         return;
-        //     }
-        //     const creneau = (await response.json()) as creneau;
-        //     setCreneau(creneau);
-        // });
+        const creneauData = Api.getInstance().getApi(`/slots/${creneauId}`);
+        creneauData.then(async (response) => {
+            if (!response.body) {
+                alert('No creneau found');
+                return;
+            }
+            const creneau = (await response.json());
+            const start = creneau.startTime.split(' ')[1];
+            const end = creneau.endTime.split(' ')[1];
 
-        setPoste({ title: "Poste 1", capacity: 0, maxCapacity: 10 });
-        setCreneau({ start: "10:00", end: "11:00", date: "11/02/2022"});
+            const date = creneau.startTime.split(' ')[0];
+            setCreneau({
+                start: start,
+                end: end,
+                date: date
+            });
+        });
+
     }, [posteId, creneauId]);
 
     const onSlotSelected = () => {
@@ -48,18 +54,18 @@ export default function InscriptionCreneau() {
                 return;
             }
             const user = (await response.json()) as any;
-
+            console.log(user);
             const inscriptionData = Api.getInstance().postApi(`/wishes`, JSON.stringify({
-                volunteer: user.id,
-                poste: posteId,
-                creneau: creneauId,
-                referent: referent
+                volunteer_id: user.id,
+                zone_id: posteId,
+                slot_id: creneauId,
+                is_referent: referent
             }));
 
             inscriptionData.then(async (response) => {
-                if(!(response.status === 201)) {
+                if (!(response.status === 200)) {
                     const bodyData = await response.json();
-                    alert('Une erreur est survenue : ' + response.status + ' \n' + JSON.stringify(bodyData) );
+                    alert('Une erreur est survenue : ' + response.status + ' \n' + JSON.stringify(bodyData));
                     return;
                 }
                 alert('Inscription validée');
@@ -72,10 +78,10 @@ export default function InscriptionCreneau() {
     return (
         <div className="flex flex-col items-center gap-4 w-full border-2 p-2 rounded-md justify-around h-full">
             <h1 className="text-3xl">
-                Inscription au poste
+                Inscription à :
             </h1>
             <h2 className="text-2xl">
-                {poste?.title}
+                Poste ou animation : {poste?.name}
             </h2>
             <p className="text-lg">
                 De {creneau?.start} à {creneau?.end}

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { APIPoste as poste, APICreneau as creneau } from "../../../Utils/Types"
 import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
 
 export default function SelectParPoste({ poste, creneaux }: { poste: poste, creneaux: creneau[] }) {
 
@@ -14,7 +15,7 @@ export default function SelectParPoste({ poste, creneaux }: { poste: poste, cren
     }
 
     return (
-        <div className="flex flex-col items-center gap-4 w-full border-2 p-2 rounded-md">
+        <div className="flex flex-col items-center gap-4 w-full border-2 p-2 rounded-md" key={v4()}>
             <div className="flex flex-row justify-between w-full " onClick={() => setOpen(!open)}>
                 <h1>{poste.title}</h1>
             </div>

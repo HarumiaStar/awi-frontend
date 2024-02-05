@@ -48,6 +48,7 @@ export default function ChoixZones({ donneesFestival }: ChoixZonesProps) {
     const ajouterZone = (nom: string) => {
         const zone = {
             nom: nom,
+            idZone: Math.floor(Math.random() * 1000),
             zonesBenevoles: [],
         }
         donneesFestival.ajouterZone(zone);

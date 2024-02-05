@@ -1,26 +1,42 @@
 import { useEffect, useState } from "react"
 import { Api, APIFestival as Festival, APIJeu as Jeu, fillDateArray } from "../../Utils/Types";
 import { useLocation, useNavigate } from "react-router-dom";
-import { dummyCreneau } from "./dummyData";
 import Postes from "./Postes/Postes";
 import { APIPoste as poste, APIZoneAnimation as zoneAnimation, APICreneau as creneau } from "../../Utils/Types";
 import Animations from "./Animation/Animations";
+import { v4 } from "uuid";
 
+type creneauData = {
+    id: string,
+    startTime: string, // format : 11/02/2022 10:00
+    endTime: string, // format : 11/02/2022 10:00
+}
 
+const isCreneauInFestival = (creneau: creneauData, startDate: Date, endDate: Date) => {
+    const creneauData = creneau.startTime.split(' ')[0];
+    const startData = creneauData.split('/'); // [11, 02, 2022]
+    const creneauDate = new Date(parseInt(startData[2]), parseInt(startData[1]) - 1, parseInt(startData[0])); // 11/02/2022
+    return creneauDate >= startDate && creneauDate <= endDate;
+}
+
+const getIndex = (dates: Date[], date: Date) => {
+    return dates.findIndex(d => {
+        return d.getDay() === date.getDay() && d.getMonth() === date.getMonth() && d.getFullYear() === date.getFullYear();
+    });
+}
 
 export default function Inscription() {
 
 
     /* ---------------------------------- DATA ---------------------------------- */
 
-    const [creneaux, setCreneaux] = useState<creneau[]>([]);
+    const [creneaux, setCreneaux] = useState<creneau[][]>([[]]);
     const [jours, setJours] = useState<Date[]>([]);
 
 
     /* --------------------------------- STATES --------------------------------- */
 
     const [poste_animations, setPoste_animations] = useState<"poste" | "animations">("poste");
-    const [creneau_zone, setCrenau_zone] = useState<"creneau" | "zone">("creneau");
     const [jourActif, setJourActif] = useState<number>(0);
 
     /* -------------------------------- VARIABLES ------------------------------- */
@@ -35,44 +51,72 @@ export default function Inscription() {
     /* -------------------------------------------------------------------------- */
 
     useEffect(() => {
-
-        const festivalData = Api.getInstance().getApi(`/festivals/${festivalId}`);
-
-        festivalData.then(async (response) => {
-            if (!response.body) {
-                alert('No festival found');
-                return;
-            }
-            const festival = (await response.json());
-            // format : 11/02/2022
-            
-            const startData = festival.startDate.split('/'); // [11, 02, 2022] 
-            const startDate = new Date(parseInt(startData[2]), parseInt(startData[1]) - 1, parseInt(startData[0])); // 11/02/2022
-
-            const endData = festival.endDate.split('/'); // [11, 02, 2022]
-            const endDate = new Date(parseInt(endData[2]), parseInt(endData[1]) - 1, parseInt(endData[0])); // 11/02/2022
-
-            const jours = fillDateArray(startDate, endDate);
-            setJours(jours);
-        });
-
-
-
-        // const creneauxData = Api.getInstance().getApi(`/creneaux`);
-
-        // creneauxData.then(async (response) => {
-        //     if (!response.body) {
-        //         alert('No creneaux found');
-        //         return;
-        //     }
-        //     const creneaux = (await response.json()) as creneau[];
-        //     setCreneaux(creneaux);
-        // }); 
-
-        setCreneaux(dummyCreneau); // TODO : Remove this line and uncomment the previous one
-
+        initData();
     }, []);
 
+    const initData = async () => {
+
+        let response = await Api.getInstance().getApi(`/festivals/${festivalId}`);
+
+        if (!response.body) {
+            alert('No festival found');
+            return;
+        }
+        const festival = (await response.json());
+        // format : 11/02/2022
+
+        const startData = festival.startDate.split('/'); // [11, 02, 2022] 
+        const startDate = new Date(parseInt(startData[2]), parseInt(startData[1]) - 1, parseInt(startData[0])); // 11/02/2022
+
+        const endData = festival.endDate.split('/'); // [11, 02, 2022]
+        const endDate = new Date(parseInt(endData[2]), parseInt(endData[1]) - 1, parseInt(endData[0])); // 11/02/2022
+
+        const jours = fillDateArray(startDate, endDate);
+
+
+
+        response = await Api.getInstance().getApi(`/slots`);
+
+        if (!response.body) {
+            alert('No creneaux found');
+            return;
+        }
+        const creneaux = (await response.json()) as creneauData[];
+
+        // Split creneaux by day
+        const creneauxByDay: creneau[][] = [];
+        const creneauxInFestival = creneaux.filter(creneau => isCreneauInFestival(creneau, startDate, endDate));
+        console.log(jours)
+        jours.forEach((jour, index) => {
+            creneauxByDay[index] = [];
+        });
+
+        console.log("creneauxByDay : ", creneauxByDay)
+        creneauxInFestival.forEach(creneau => {
+            const creneauParsed = creneau.startTime.split(' ')[0];
+            const startData = creneauParsed.split('/'); 
+            console.log(startData);
+            const creneauDate = new Date(parseInt(startData[2]), parseInt(startData[1]) - 1, parseInt(startData[0])); 
+            const index = getIndex(jours, creneauDate);
+
+            const start = creneau.startTime.split(' ')[1];
+            const end = creneau.endTime.split(' ')[1];
+            creneauxByDay[index].push({
+                id: creneau.id,
+                start: start,
+                end: end,
+                date: creneauDate
+            });
+        });
+
+        console.log("creneauxByDay : ", creneauxByDay)
+        console.log("jours : ", jours)
+
+
+        setCreneaux(creneauxByDay);
+        setJours(jours);
+
+    }
 
 
     /* -------------------------------------------------------------------------- */
@@ -107,7 +151,7 @@ export default function Inscription() {
         return (
             <button
                 className={`border-2 p-2 rounded-md text-2xl ${jourActif === index ? "bg-vert-fonce" : "bg-vert-moyen"}`}
-                onClick={() => setJourActif(index)}>
+                onClick={() => setJourActif(index)} key={v4()}>
                 {jour.toDateString()}
             </button>
         )
@@ -141,9 +185,9 @@ export default function Inscription() {
 
             {
                 poste_animations === "poste" ?
-                    <Postes creneaux={creneaux} />
+                    <Postes creneaux={creneaux[jourActif]} />
                     :
-                    <Animations creneaux={creneaux} />
+                    <Animations creneaux={creneaux[jourActif]} />
             }
 
         </div>
