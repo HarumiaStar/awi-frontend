@@ -1,27 +1,21 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styles from './LayoutMobile.module.css';
 import { CgMenuLeft } from 'react-icons/cg';
-import { MdMenuOpen } from 'react-icons/md';
 import { IoPersonCircle } from 'react-icons/io5';
-import { useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
+import { setReloadLayout } from '../../Utils/Types/Database/Auth';
 
 export default function LayoutMobile() {
+    const [, forceUpdate] = useReducer(x => {
+        return x + 1;
+    },0);
+
+    setReloadLayout(forceUpdate);
+
     const routeLinkClicked = (e: any) => {
         const subLink = e.target.querySelector(`a`);
         if (subLink) {
             subLink.click();
-        }
-    }
-
-    const navBarOpen = () => {
-        const navBar = document.querySelector(`.${styles.navbar}`);
-        if (navBar) {
-            navBar.classList.add(`${styles.active}`);
-        }
-        // remove scroll of content
-        const content = document.querySelector(`.${styles.content}`);
-        if (content) {
-            content.classList.add(`${styles.disabledScroll}`);
         }
     }
 

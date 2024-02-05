@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { dummyJeux } from "./dommyJeux"
+import { Api } from "../../Utils/Types"
 
 export default function ListeJeuFestivalMobile() {
 
     const [filtresOpen, setFiltreOpen] = useState(false)
-    const jeux = dummyJeux
-
+    const [jeux, setJeux] = useState(dummyJeux)
+    
     const renderJeu = (name: string, id: string) => {
         return (
             <div className="flex flex-row justify-between">
@@ -14,6 +15,7 @@ export default function ListeJeuFestivalMobile() {
             </div>
         )
     }
+
 
     console.log("loading " + filtresOpen)
     return (

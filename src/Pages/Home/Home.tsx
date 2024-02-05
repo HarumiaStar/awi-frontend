@@ -1,4 +1,5 @@
 import { DesktopOnly, MobileOnly } from "../../Utils/IsMobile";
+import HomeDesktop from "./HomeDesktop";
 import HomeMobile from "./HomeMobile";
 
 export default function Home() {
@@ -8,7 +9,7 @@ export default function Home() {
             <HomeMobile />
         </MobileOnly>
         <DesktopOnly>
-            <h1>Home Desktop</h1>
+            <HomeDesktop />
         </DesktopOnly>
         </>
     )

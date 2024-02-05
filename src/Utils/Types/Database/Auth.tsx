@@ -31,6 +31,8 @@ export async function login(email: string, password: string): Promise<boolean> {
 
     instance.isAdmin = Volunteer.isAdmin;
 
+    reloadLayoutPage();
+
     return true;
 }
 
@@ -43,6 +45,8 @@ export async function logout(): Promise<boolean> {
     }
 
     instance.resetToken();
+
+    reloadLayoutPage();
 
     return true;
 }
@@ -115,4 +119,16 @@ export async function setupHashSeed(): Promise<boolean> {
 
     instance.setHashSeed(hash_seed);
     return true;
+}
+
+let reloadLayout: () => void;
+
+export function setReloadLayout(func: () => void) {
+    reloadLayout = func;
+}
+
+export function reloadLayoutPage() {
+    if (reloadLayout) {
+        reloadLayout();
+    }
 }

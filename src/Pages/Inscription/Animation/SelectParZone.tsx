@@ -36,7 +36,7 @@ export default function SelectParZone({ poste, creneaux, jeux }: { poste: poste,
                         </h1>
                     </div>
                     <div className="flex flex-col items-center w-full">
-                        {creneaux.map((creneau) => <div className="flex flex-row justify-between w-full border-l-2 p-3" onClick={() => onSlotSelected(creneau)}>
+                        {creneaux.map((creneau) => <div className="flex flex-row justify-between w-full border-l-2 p-3 cursor-pointer hover:bg-lighter-300" onClick={() => onSlotSelected(creneau)}>
                             <h1>{creneau.start} - {creneau.end}</h1>
                             <p>{poste.capacity} / {poste.maxCapacity}</p>
                         </div>)}

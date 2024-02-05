@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { v4 } from "uuid";
 import { isBefore, isDateInInterval, isSameDay, isToday } from "../../../Types";
+import Jour from "./jour";
 
 export type DisplayJourProps = {
     defaultDateDebut: Date;
@@ -20,7 +21,6 @@ export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, o
     /* --------------------------------- States --------------------------------- */
     const [dateDebut, setDateDebutRaw] = useState<Date | null>(defaultDateDebut);
     const [dateFin, setDateFinRaw] = useState<Date | null>(defaultDateFin);
-    const [dateHover, setDateHover] = useState<Date | null>(null);
 
     /* -------------------------------- Variables ------------------------------- */
     const premierJourDuMois = new Date(annee, mois, 1);
@@ -29,6 +29,7 @@ export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, o
     const dernierJourDuMois = new Date(annee, mois + 1, 0);
     const nbJoursDuMois = dernierJourDuMois.getDate();
     const listeJours: Date[] = []
+
     for (let i = 1; i <= nbJoursDuMois; i++) {
         listeJours.push(new Date(annee, mois, i));
     }
@@ -98,75 +99,7 @@ export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, o
     /* -------------------------------------------------------------------------- */
     /*                                   RENDER                                   */
     /* -------------------------------------------------------------------------- */
-    const createJour = (date: Date) => {
-        let color = "text-gray-900";
-        // texte
-        let classeJour = `text-center `;
-        // stly global
-        classeJour += " p-2 cursor-pointer w-10 h-10 flex items-center justify-center my-1 ";
-
-
-
-
-        // Background 
-        if (dateDebut !== null && isSameDay(date, dateDebut)) {
-            classeJour += " bg-green-400 "
-            if (dateHover !== null && dateFin === null) {
-                if (isSameDay(dateHover, dateDebut)) {
-                    classeJour += " rounded-lg "
-                }
-                else if (isBefore(dateHover, dateDebut)) {
-                    classeJour += " rounded-tr-lg rounded-br-lg "
-                }
-                else {
-                    classeJour += " rounded-tl-lg rounded-bl-lg "
-                }
-            }
-            else {
-                if (isSameDay(dateFin, dateDebut)) classeJour += " rounded-lg "
-                else classeJour += " rounded-tl-lg rounded-bl-lg "
-            }
-        }
-        else if (dateFin !== null && isSameDay(date, dateFin)) {
-            classeJour += " bg-red-400 rounded-tr-lg rounded-br-lg "
-        }
-        else if (dateFin === null && isDateInInterval(date, dateDebut, dateHover)) {
-            classeJour += " bg-gray-300 " + (isSameDay(dateHover, date) ? " rounded-tr-lg rounded-br-lg " : "")
-        }
-        else if (dateFin === null && isDateInInterval(date, dateHover, dateDebut)) {
-            classeJour += " bg-gray-300 " + (isSameDay(dateHover, date) ? " rounded-tl-lg rounded-bl-lg " : "")
-        }
-        else if (isToday(date)) {
-            classeJour += " bg-blue-400 " + (isDateInInterval(date, dateDebut, dateFin) || isDateInInterval(date, dateDebut, dateHover) || isDateInInterval(date, dateHover, dateFin) ? "" : " rounded-lg ")
-        }
-        else if (isDateInInterval(date, dateDebut, dateFin)) {
-            classeJour += " bg-gray-400 "
-        }
-        else {
-            color = (date.getMonth() === mois ? ' text-white ' : ' text-gray-400 ')
-        }
-
-        // Affichage
-        classeJour += color;
-
-        return (
-            <div
-                className={classeJour}
-                key={v4()}
-                onClick={() => handleClick(date)}
-                onMouseEnter={() => setDateHover(date)}
-                onMouseLeave={() => setDateHover(null)}
-            >
-                <div
-                    className="rounded-full hover:bg-gray-200 hover:text-black w-6 h-6 flex flex-row items-center justify-center"
-                    onClick={() => handleClick(date)}
-                >
-                    {date.getDate()}
-                </div>
-            </div>
-        )
-    }
-
+   
 
     // Affiche les jours du mois sous forme d'une grille
     return (
@@ -178,7 +111,7 @@ export const DisplayJour = React.forwardRef(({ mois, annee, onDateDebutChange, o
             <div className="text-center cursor-default">Ven</div>
             <div className="text-center cursor-default">Sam</div>
             <div className="text-center cursor-default">Dim</div>
-            {listeJours.map((jour) => createJour(jour))}
+            {listeJours.map((jour) => <Jour key={v4()} date={jour} dateDebut={dateDebut} dateFin={dateFin} handleClick={handleClick} mois={mois} />)}
         </div>
     )
 

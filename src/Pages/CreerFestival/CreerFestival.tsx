@@ -15,6 +15,7 @@ import Recapitulatif from './Recapitulatif';
 import { ChoixCreneauxRef } from './ChoixCreneaux/ChoixCreneaux';
 import { Api, parseNbJoueur, prepareCreneauExport } from '../../Utils/Types';
 import { dateToExport } from '../../Utils/Types/DateUtils';
+import { validationData } from './ValidationFestival';
 
 
 
@@ -40,6 +41,10 @@ export default function CreerFestival() {
 			address: donneesFestival.lieuFestival,
 			poster_path: donneesFestival.lienAffiche,
 		};
+
+		if(validationData(festival.title, festival.start_date, festival.end_date, festival.address, festival.description, festival.poster_path) === false){
+			return;
+		}
 
 		const gamesRaw = donneesFestival.jeux.map((jeu) => {
 
@@ -155,10 +160,10 @@ export default function CreerFestival() {
 
 		const instanceApi = Api.getInstance();
 
-		// if (!instanceApi.isAdmin){
-		// 	alert("Vous n'êtes pas admin");
-		// 	return;
-		// }
+		if (!instanceApi.isAdmin){
+			alert("Vous n'êtes pas admin");
+			return;
+		}
 
 		const promesse = instanceApi.postApi("/festivals/new", JSON.stringify(data));
 
@@ -175,7 +180,7 @@ export default function CreerFestival() {
 			} else {
 				AlerteRef.current?.open(
 					"Erreur",
-					"Une erreur est survenue : " + res.body,
+					"Une erreur est survenue : " + res.json(),
 					() => { }, // onConfirm
 					() => { }, // onCancel
 					"Ok",

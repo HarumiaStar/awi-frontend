@@ -21,7 +21,7 @@ export default function SelectParCreneau({ creneau, postes }: { creneau: creneau
             </div>
             {open && (
                 <div className="flex flex-col items-center w-full">
-                    {postes.map((poste) => <div className="flex flex-row justify-between w-full border-l-2 p-3" onClick={() => onSlotSelected(poste)}>
+                    {postes.map((poste) => <div className="flex flex-row justify-between w-full border-l-2 p-3 cursor-pointer hover:bg-lighter-300" onClick={() => onSlotSelected(poste)}>
                         <h1>{poste.title}</h1>
                         <p>{poste.capacity} / {poste.maxCapacity}</p>
                     </div>)}
