@@ -37,6 +37,18 @@ export default function LayoutMobile() {
         }
     }
 
+    const navBarToggle = () => {
+        const navBar = document.querySelector(`.${styles.navbar}`);
+        const content = document.querySelector(`.${styles.content}`);
+        if (navBar && navBar.classList.contains(`${styles.active}`)){
+            navBar.classList.remove(`${styles.active}`);
+            content?.classList.remove(`${styles.disabledScroll}`);
+        }else {
+            navBar?.classList.add(`${styles.active}`)
+            content?.classList.add(`${styles.disabledScroll}`);
+        }
+    }
+
     const navigate = useNavigate();
 
     const profileClicked = () => {
@@ -52,15 +64,15 @@ export default function LayoutMobile() {
     });
 
     return (
-        <div className={styles.mainContent}>
-            <div className={styles.header}>
+        <div className='bg-bleu-fonce flex flex-col items-center w-full pt-12 pb-12 h-full'>
+            <div className='flex flex-row items-center justify-between w-10/12 mb-5'>
                 <div className={styles.burgerMenu}>
-                    <CgMenuLeft id="burgerMenuOpen" onClick={navBarOpen} size={"4rem"} />
+                    <CgMenuLeft id="burgerMenuOpen" onClick={navBarToggle} size={"4rem"} />
                     <nav className={styles.navbar}>
                         <div className={styles.burgerContent}>
-                            <div className={styles.burgerHeader}>
-                                <MdMenuOpen id="burgerMenuClose" onClick={navBarClose} size={"4rem"} />
-                            </div>
+                            {/* <div className={styles.burgerHeader}>
+                            <MdMenuOpen id="burgerMenuClose" onClick={navBarClose} size={"4rem"} className='bg-vert-moyen rounded-lg'/>
+                            </div> */}
                             <div className={styles.burgerLinks} >
                                 <div className={styles.routeLinks} onClick={routeLinkClicked}>
                                     <Link to="/">Home</Link>
@@ -88,6 +100,11 @@ export default function LayoutMobile() {
                                 <div className={styles.routeLinks} onClick={routeLinkClicked}>
                                     <Link to="/ListeFestivals">Liste des festivals</Link>
                                 </div>
+
+                                <div className={styles.routeLinks} onClick={routeLinkClicked}>
+                                    <Link to="/ListeJeuxFestivals">Liste des jeux</Link>
+                                </div>
+
                             </div>
                         </div>
                     </nav>

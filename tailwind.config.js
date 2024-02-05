@@ -33,6 +33,20 @@ export default {
           '900': 'rgba(0, 0, 0, 0.9)',
           '1000': 'rgba(0, 0, 0, 1)',
         },
+        vert: {
+          'clair': "#85ff0f",
+          'moyen': "#38c400",
+          'fonce': "#003000"
+        },
+        bleu: {
+          'clair': "#99abff",
+          'moyen': "#303dff",
+          'fonce': '#00008a'
+        },
+        rose: {
+          'clair': "#e54cb2",
+          'fonce': "#fa14ff"
+        }
       },
     },
   },

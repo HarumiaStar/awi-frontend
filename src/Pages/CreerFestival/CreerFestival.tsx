@@ -92,6 +92,19 @@ export default function CreerFestival() {
 			};
 		});
 
+		// Parcourir les jeux et récupérer les zones non présentes dans la liste
+		donneesFestival.jeux.map((jeu) => {
+			if (!zones.some((zone) => zone.idZone === jeu.idZone)) {
+				zones.push({
+					idZone: jeu.idZone,
+					name: jeu.zoneBenevole?? jeu.zonePlan,
+					description: "",
+					animation: true,
+					maxCapacity: 1,
+				});
+			}
+		});
+
 		const slots: {
 			startTime: string,
 			endTime: string,
@@ -105,19 +118,18 @@ export default function CreerFestival() {
 			});
 		});
 
-		// Pour chaque jeu et chaque zone, on crée un gameZone
-		const gameZones = games.flatMap((jeu) => {
-			return zones.map((zone) => {
-				return {
-					idJeu: jeu.idGame,
-					idZone: zone.idZone,
-				};
-			});
+		// Pour chaque ligne de jeux, on crée une gamezone {gameId: 1, zoneId: 1}
+		const gameZones = donneesFestival.jeux.map((game) => {
+			return {
+				idJeu: game.idJeu,
+				idZone: game.idZone,
+			}
 		});
 
 
+
 		// Ajout des activités aux zones
-		const zonesActivites = donneesFestival.activites.map((activite) => {
+		donneesFestival.activites.map((activite) => {
 			let randomId = Math.floor(Math.random() * 1000000);
 			while (zones.some((zone) => zone.idZone === randomId)) {
 				randomId = Math.floor(Math.random() * 1000000);
@@ -143,10 +155,10 @@ export default function CreerFestival() {
 
 		const instanceApi = Api.getInstance();
 
-		if (!instanceApi.isAdmin){
-			alert("Vous n'êtes pas admin");
-			return;
-		}
+		// if (!instanceApi.isAdmin){
+		// 	alert("Vous n'êtes pas admin");
+		// 	return;
+		// }
 
 		const promesse = instanceApi.postApi("/festivals/new", JSON.stringify(data));
 
